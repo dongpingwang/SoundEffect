@@ -17,6 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/comm',
+                    'src/main/res/main',
+                    'src/main/res/config'
+            ]
+        }
+    }
 }
 
 dependencies {
@@ -40,5 +49,8 @@ dependencies {
     // 3-rd libs
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs/gson')
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs/rxjava')
-    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs/leakcanary')
+    // implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs/leakcanary')
+    // leak-canary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
 }

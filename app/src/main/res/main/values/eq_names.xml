@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--预置eq模式名称-->
+    <string-array name="eq_names">
+        <item>平直</item>
+        <item>强劲</item>
+        <item>声乐</item>
+        <item>自然</item>
+        <item>超重</item>
+        <item>自定义1</item>
+        <item>自定义2</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">音效</string>
+    <string name="eq_mode">EQ模式</string>
+    <string name="listen_position">收听位置</string>
+    <string name="setting">设置</string>
+    <string name="adjust">调节</string>
+    <string name="please_check_one_mode">请先选择一个模式</string>
+</resources>

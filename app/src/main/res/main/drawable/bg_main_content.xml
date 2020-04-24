@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<item>
+		<color android:color="@color/content_background"/>
+	</item>
+	<item>
+		<bitmap android:src="@mipmap/pic_bg_fragment"/>
+	</item>
+</layer-list>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:width="@dimen/comm_speaker_size"
+		android:height="@dimen/comm_speaker_size"
+		android:gravity="center">
+		<bitmap android:src="@mipmap/comm_speaker"/>
+	</item>
+</layer-list>

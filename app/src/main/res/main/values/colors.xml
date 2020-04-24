@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <!--tab栏颜色-->
+    <color name="tab_background">#303030</color>
+    <color name="tab_selected_color">@color/theme_color</color>
+    <color name="tab_normal_color">#fff</color>
+    <color name="tab_ripple_color">@color/comm_ripple_color</color>
+    <color name="tab_bar_device_icon">#5B5B5B</color><!--tab栏目左上角圆圈填充颜色 -->
+    <color name="tab_bar_device_icon_circumstance">#636363</color> <!--tab栏目左上角圆圈边 -->
+
+    <!--fragment底色-->
+    <color name="content_background">#181818</color>
+
+    <!--标题栏背景-->
+    <color name="title_background">@color/content_background</color>
+
+    <color name="eq_item_normal">#3A3A3A</color>
+</resources>

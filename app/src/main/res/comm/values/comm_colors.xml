@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--style 进入页面的时候的颜色-->
+    <color name="window_background">#2A2D38</color>
+
+    <!--分割线颜色-->
+    <color name="split_line">#802F2F2F</color>
+    <color name="popup_split_line">#22FFFFFF</color>
+    <color name="playing_queue_line">#1AFFFFFF</color>
+
+    <!--水波纹颜色-->
+    <color name="comm_ripple_color">#55FFFFFF</color>
+
+    <!--主题色-->
+    <color name="theme_color">#40D3B3</color>
+
+    <!--普通文本颜色-->
+    <color name="text_color_normal">#FFFFFF</color>
+    <!--强调文本颜色-->
+    <color name="text_color_highlight">@color/theme_color</color>
+
+    <!--弹框背景-->
+    <color name="popup_bg">#333</color>
+    <color name="dialog_bg">#333333</color>
+
+    <!--添加到歌单中第一个名为新建歌单+默认背景颜色-->
+    <color name="add_to_mix_new">#919191</color>
+
+    <!--返回图标着色-->
+    <color name="ic_back">#FFFFFF</color>
+</resources>

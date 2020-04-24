@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="front_left">前左</string>
+    <string name="front_right">前右</string>
+    <string name="back_left">后左</string>
+    <string name="back_right">后右</string>
+    <string name="mega_bass">重低音</string>
+</resources>

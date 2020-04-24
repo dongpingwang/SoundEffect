@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:end="@dimen/tab_end_add">
+        <color android:color="@color/tab_background" />
+    </item>
+    <item android:end="@dimen/tab_end_add">
+        <bitmap android:src="@mipmap/pic_bg_tab" />
+    </item>
+
+    <item
+        android:width="@dimen/tab_end_add"
+        android:gravity="end">
+        <shape>
+            <gradient
+                android:endColor="#00000000"
+                android:startColor="#33000000"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

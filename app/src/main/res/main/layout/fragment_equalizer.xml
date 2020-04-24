@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/comm_margin"
+            android:text="@string/eq_mode"
+            android:textColor="@color/text_color_normal"
+            android:textSize="@dimen/font_20" />
+
+        <TextView
+            android:id="@+id/tv_adjust"
+            android:layout_width="@dimen/title_tv_width"
+            android:layout_height="@dimen/title_height"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:text="@string/adjust"
+            android:textColor="@color/text_color_highlight"
+            android:textSize="@dimen/font_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/split_line_height"
+            android:background="@color/split_line"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_eq_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/comm_margin"
+        android:layout_marginTop="35.14dp"
+        android:layout_marginRight="@dimen/comm_margin" />
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--车辆图片-->
+    <dimen name="comm_car_img_width">110dp</dimen>
+    <dimen name="comm_car_img_height">250dp</dimen>
+
+    <!--车上灯泡图标-->
+    <dimen name="comm_speaker_size">13.33dp</dimen>
+    <dimen name="car_speaker_min_diffusion_diameter">4dp</dimen>
+    <dimen name="car_speaker_max_diffusion_diameter">22dp</dimen>>
+    <dimen name="car_speaker_max_gradient_diameter">10dp</dimen>
+
+    <!--车上数字选择器-->
+    <dimen name="sound_effect_5_1_selector_space">47.72dp</dimen>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="@dimen/tab_icon_width"
+        android:height="@dimen/tab_icon_height"
+        android:gravity="center">
+
+        <selector>
+            <item android:state_checked="true">
+                <bitmap
+                    android:src="@mipmap/ic_eq"
+                    android:tint="@color/tab_selected_color" />
+            </item>
+            <item android:state_selected="true">
+                <bitmap
+                    android:src="@mipmap/ic_eq"
+                    android:tint="@color/tab_selected_color" />
+            </item>
+            <item android:state_pressed="true">
+                <bitmap
+                    android:src="@mipmap/ic_eq"
+                    android:tint="@color/tab_selected_color" />
+            </item>
+            <item>
+                <bitmap android:src="@mipmap/ic_eq" />
+            </item>
+        </selector>
+    </item>
+</layer-list>

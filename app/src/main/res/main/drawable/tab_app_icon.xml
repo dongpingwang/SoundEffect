@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="@dimen/tab_icon_width"
+        android:height="@dimen/tab_icon_height"
+        android:drawable="@mipmap/ic_icon"
+        android:gravity="center" />
+</layer-list>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <ripple
+            android:color="@color/tab_ripple_color"/>
+    </item>
+    <item>
+        <selector>
+            <item android:state_checked="true" android:drawable="@mipmap/pic_bg_tab_item"/>
+            <item android:state_selected="true" android:drawable="@mipmap/pic_bg_tab_item"/>
+            <item android:state_pressed="true" android:drawable="@mipmap/pic_bg_tab_item"/>
+            <item android:drawable="@android:color/transparent"/>
+        </selector>
+    </item>
+</layer-list>

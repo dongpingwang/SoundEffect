@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tab_width">76dp</dimen>
+    <dimen name="tab_width_add">80dp</dimen>
+    <dimen name="tab_end_add">4dp</dimen> <!--tab右侧增加4dp空白形成分割线 -->
+    <dimen name="tab_item_height">68dp</dimen>
+    <dimen name="tab_icon_width">26dp</dimen>
+    <dimen name="tab_icon_height">@dimen/tab_icon_width</dimen>
+</resources>
