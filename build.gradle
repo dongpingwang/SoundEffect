@@ -1,0 +1,26 @@
+apply from: 'version.gradle'
+
+buildscript {
+    ext.gradle_version = "3.3.2"
+
+    repositories {
+        google()
+        jcenter()
+
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradle_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

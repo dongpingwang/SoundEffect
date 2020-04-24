@@ -1,0 +1,44 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+    defaultConfig {
+        applicationId "com.flyaudio.soundeffect"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // android support
+    implementation "com.android.support:appcompat-v7:$appcompat_v7_version"
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "com.android.support.test:runner:$runner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_core_version"
+
+    // recycler-view
+    implementation "com.android.support:recyclerview-v7:$recyclerview_version"
+
+    // framework(@Deprecated)
+    // compileOnly fileTree(include: ['*.jar'], dir: 'syslibs')
+
+    // flyaudio-libs
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'flyaudio-libs')
+
+    // 3-rd libs
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs/gson')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs/rxjava')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs/leakcanary')
+}
