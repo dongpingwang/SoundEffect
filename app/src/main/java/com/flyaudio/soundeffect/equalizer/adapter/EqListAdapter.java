@@ -23,10 +23,15 @@ import java.util.List;
 public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
         RecyclerViewAdapter.OnItemClickListener, View.OnClickListener {
 
+    private static final int PRESET_SIZE = 5;
+    private static final int EQ_MODE_MAX_COUNT = 30;
+
     private static final int MODE_ITEM = 0;
     private static final int CREATE_MODE = 1;
 
     private OnItemListener listener;
+
+    private int current = -1;
 
     public EqListAdapter(@NonNull Context context, @Nullable List<EqMode> data) {
         super(context, data);
@@ -44,17 +49,18 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
         ImageView ivEdit = holder.getView(R.id.iv_edit);
 
         int position = holder.getItemPosition();
+        tvName.setVisibility(getItemType(position) == CREATE_MODE ? View.GONE : View.VISIBLE);
+        ivEdit.setVisibility(getItemType(position) == CREATE_MODE ? View.GONE : View.VISIBLE);
+        ivAdd.setVisibility(getItemType(position) == CREATE_MODE ? View.VISIBLE : View.GONE);
+        ivEdit.setVisibility(getItemType(position) == MODE_ITEM && position >= PRESET_SIZE ? View.VISIBLE : View.GONE);
 
         holder.getContentView().setBackground(ResUtils.getDrawable(R.drawable.bg_eq_item));
         if (position < getDatas().size()) {
             tvName.setText(getData(position).getName());
-            if (getData(position).isChecked()) {
+            if (current >= 0 && current < getDatas().size() && current == position) {
                 holder.getContentView().setBackground(ResUtils.getDrawable(R.drawable.bg_eq_item_select));
             }
         }
-        tvName.setVisibility(position == getItemViewCount() - 1 ? View.GONE : View.VISIBLE);
-        ivEdit.setVisibility(position == getItemViewCount() - 1 ? View.GONE : View.VISIBLE);
-        ivAdd.setVisibility(position == getItemViewCount() - 1 ? View.VISIBLE : View.GONE);
 
         setOnItemClickListener(this);
         ivEdit.setTag(position);
@@ -90,30 +96,14 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
     }
 
     public void updateChecked(int position) {
-        clearChecked();
-        getData(position).setChecked(true);
-        notifyItemChanged(position);
-    }
-
-    public void clearChecked() {
-        for (int i = 0; i < getDatas().size(); i++) {
-            if (getData(i).isChecked()) {
-                getData(i).setChecked(false);
-                notifyItemChanged(i);
-                break;
-            }
-        }
+        int temp = current;
+        current = position;
+        notifyItemChanged(temp);
+        notifyItemChanged(current);
     }
 
     public EqMode getChecked() {
-        EqMode mode = null;
-        for (int i = 0; i < getDatas().size(); i++) {
-            if (getData(i).isChecked()) {
-                mode = getData(i);
-                break;
-            }
-        }
-        return mode;
+        return getData(current);
     }
 
 
@@ -121,12 +111,28 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
         this.listener = listener;
     }
 
-    public interface OnItemListener {
+    public void clearChecked() {
+        int temp = current;
+        current = -1;
+        notifyItemChanged(temp);
+    }
 
+    public interface OnItemListener {
+        /**
+         * 点击选中条目
+         * @param position
+         */
         void onItemClick(int position);
 
+        /**
+         * 编辑条目
+         * @param position
+         */
         void onItemEdit(int position);
 
+        /**
+         * 新建条目
+         */
         void onCreateMode();
     }
 }

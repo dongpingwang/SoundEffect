@@ -6,6 +6,7 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
 import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.lib.toast.Toaster;
 import com.flyaudio.lib.utils.ResUtils;
@@ -26,6 +27,7 @@ import java.util.List;
 public class EqFragment extends BaseFragment {
 
     private static final int DEFAULT_SPAN_COUNT = 4;
+    private static final int EQ_MODE_MAX_COUNT = 30;
 
     private TextView tvAdjust;
     private RecyclerView rvEqList;
@@ -75,9 +77,16 @@ public class EqFragment extends BaseFragment {
 
             @Override
             public void onCreateMode() {
-                adapter.addItem(adapter.getItemViewCount() - 1, new EqMode(-1, "aaa"));
-                adapter.clearChecked();
-                eqManager.saveEqList(adapter.getDatas());
+                if (adapter.getItemViewCount() < EQ_MODE_MAX_COUNT + 1) {
+                    int customEqCount = eqManager.getCustomEqCount();
+                    int id = eqManager.getMaxEqId() + 1;
+                    String name = ResUtils.getString(R.string.custom_, customEqCount + 1);
+                    // 添加到倒数第二个
+                    adapter.addItem(adapter.getItemViewCount() - 1, new EqMode(id, name));
+                    adapter.clearChecked();
+                    eqManager.saveEqList(adapter.getDatas());
+                    eqManager.saveMaxEqId(id);
+                }
             }
         });
     }

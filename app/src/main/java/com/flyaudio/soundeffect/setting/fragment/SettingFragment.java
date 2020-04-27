@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import com.flyaudio.lib.adapter.RecyclerViewAdapter;
 import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.soundeffect.R;
-import com.flyaudio.soundeffect.setting.SettingUtils;
+import com.flyaudio.soundeffect.setting.util.SettingUtils;
 import com.flyaudio.soundeffect.setting.adapter.SettingListAdapter;
 
 /**

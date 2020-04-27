@@ -9,6 +9,9 @@ import android.widget.FrameLayout;
 
 import com.flyaudio.soundeffect.R;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Dongping Wang
  * date 2020/4/25  21:34
@@ -16,9 +19,7 @@ import com.flyaudio.soundeffect.R;
  */
 public class SpeakersLayout extends FrameLayout {
 
-    private SpeakerImageView speakerFrontLeft;
-    private SpeakerImageView speakerFrontRight;
-    private SpeakerImageView speakerBackRow;
+    private List<SpeakerImageView> speakers;
 
     public SpeakersLayout(@NonNull Context context) {
         this(context, null);
@@ -35,20 +36,18 @@ public class SpeakersLayout extends FrameLayout {
 
     private void init(Context context) {
         View.inflate(context, R.layout.view_speakers_layout, this);
-        speakerFrontLeft = (SpeakerImageView) findViewById(R.id.speaker_front_left);
-        speakerFrontRight = (SpeakerImageView) findViewById(R.id.speaker_front_right);
-        speakerBackRow = (SpeakerImageView) findViewById(R.id.speaker_back_row);
+        speakers = Arrays.asList((SpeakerImageView) findViewById(R.id.speaker_front_left),
+                (SpeakerImageView) findViewById(R.id.speaker_front_right),
+                (SpeakerImageView) findViewById(R.id.speaker_back_row));
     }
 
     public void displayIfBackRowOff(boolean on) {
-        speakerBackRow.setVisibility(on ? VISIBLE : GONE);
+        speakers.get(2).setVisibility(on ? VISIBLE : GONE);
     }
 
     public void setSpeakersEnable(boolean[] speakerStatus) {
-        if (speakerStatus != null && speakerStatus.length == 3) {
-            speakerFrontLeft.setEnabled(speakerStatus[0]);
-            speakerFrontRight.setEnabled(speakerStatus[1]);
-            speakerBackRow.setEnabled(speakerStatus[2]);
+        for (int i = 0; i < speakers.size(); i++) {
+            speakers.get(i).setEnabled(speakerStatus[i]);
         }
     }
 }

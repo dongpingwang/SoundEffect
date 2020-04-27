@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--标题栏-->
+    <declare-styleable name="CommTitleBar">
+        <attr name="title_name" format="reference|string" />
+    </declare-styleable>
+
+    <!--eq条形进度条-->
+    <declare-styleable name="EqSquareProgress">
+        <attr name="max" />
+        <attr name="min" />
+        <attr name="step" />
+        <attr name="default_color" format="color" />
+        <attr name="adjusting_color" format="color" />
+        <attr name="adjusted_color" format="color" />
+    </declare-styleable>
+</resources>

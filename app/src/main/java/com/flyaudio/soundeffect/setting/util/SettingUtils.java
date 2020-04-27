@@ -1,16 +1,15 @@
-package com.flyaudio.soundeffect.setting;
+package com.flyaudio.soundeffect.setting.util;
 
 import android.content.Context;
 import android.content.Intent;
 
-import com.flyaudio.lib.utils.AppUtils;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.backup.activity.ExportEffectActivity;
 import com.flyaudio.soundeffect.backup.activity.ImportEffectActivity;
 import com.flyaudio.soundeffect.balance.AttenuationEquilibriumActivity;
 import com.flyaudio.soundeffect.filter.EqFilterActivity;
-import com.flyaudio.soundeffect.trumpet.TrumpetSettingActivity;
+import com.flyaudio.soundeffect.trumpet.activity.TrumpetSettingActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +19,9 @@ import java.util.List;
  * @date 20-4-27
  * email wangdongping@flyaudio.cn
  */
+
 public final class SettingUtils {
+
 
     private SettingUtils() {
 
@@ -30,15 +31,15 @@ public final class SettingUtils {
         return Arrays.asList(ResUtils.getStringArray(R.array.setting_items));
     }
 
-    public static void startActivity(Context context, int postion) {
+    public static void startActivity(Context context, int position) {
         Class clazz;
-        if (postion == 0) {
+        if (position == 0) {
             clazz = TrumpetSettingActivity.class;
-        } else if (postion == 1) {
+        } else if (position == 1) {
             clazz = AttenuationEquilibriumActivity.class;
-        } else if (postion == 2) {
+        } else if (position == 2) {
             clazz = EqFilterActivity.class;
-        } else if (postion == 3) {
+        } else if (position == 3) {
             clazz = ImportEffectActivity.class;
         } else {
             clazz = ExportEffectActivity.class;

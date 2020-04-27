@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16.75dp"
+        android:padding="12.97dp"
+        android:scaleType="center"
+        android:src="@mipmap/comm_title_bar_back" />
+
+    <TextView
+        android:id="@+id/tv_title_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="68.11dp"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/font_16"
+        tools:text="标题栏" />
+
+
+    <TextView
+        android:id="@+id/tv_reset"
+        android:layout_width="@dimen/title_action_tv_width"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:text="@string/reset"
+        android:textColor="@color/text_color_highlight"
+        android:textSize="@dimen/font_16" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/split_line" />
+</RelativeLayout>
+
+
+

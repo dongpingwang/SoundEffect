@@ -13,6 +13,7 @@
         android:id="@+id/iv_edit"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:src="@mipmap/ic_more"
         android:layout_alignParentEnd="true" />
 
     <TextView

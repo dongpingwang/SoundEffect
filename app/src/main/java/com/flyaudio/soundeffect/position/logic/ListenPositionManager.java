@@ -29,12 +29,16 @@ public final class ListenPositionManager {
         return InstanceHolder.instance;
     }
 
-    // 获取收听位置
+    /**
+     * 获取收听位置
+     */
     public int getListenPosition() {
         return SPCacheHelper.getInstance().getInt(KEY_LISTEN_POSITION, Constants.ListenPositionType.LISTEN_POSITION_ALL);
     }
 
-    // 保存收听位置
+    /**
+     * 保存收听位置
+     */
     public void saveListenPosition(@Constants.ListenPositionType int listenPosition) {
         SPCacheHelper.getInstance().put(KEY_LISTEN_POSITION, listenPosition);
     }

@@ -13,7 +13,6 @@ public class EqMode implements Parcelable {
 
     private int id;
     private String name;
-    private boolean checked;
 
     public EqMode() {
         // default construction
@@ -24,10 +23,10 @@ public class EqMode implements Parcelable {
         this.name = name;
     }
 
+
     private EqMode(Parcel in) {
         id = in.readInt();
         name = in.readString();
-        checked = in.readByte() != 0;
     }
 
     public static final Creator<EqMode> CREATOR = new Creator<EqMode>() {
@@ -58,24 +57,14 @@ public class EqMode implements Parcelable {
         this.name = name;
     }
 
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
-
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeByte((byte) (checked ? 1 : 0));
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
     }
 }

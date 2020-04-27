@@ -14,6 +14,7 @@
     <dimen name="comm_small_square">40dp</dimen>
 
     <!--字体-->
+    <dimen name="font_10">10sp</dimen>
     <dimen name="font_12">12sp</dimen>
     <dimen name="font_14">15sp</dimen>
     <dimen name="font_15">14sp</dimen>

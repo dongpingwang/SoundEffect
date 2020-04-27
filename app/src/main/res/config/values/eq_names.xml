@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!--预置eq模式名称-->
     <string-array name="eq_names">
         <item>平直</item>

@@ -16,6 +16,7 @@
 
     <!--普通文本颜色-->
     <color name="text_color_normal">#FFFFFF</color>
+    <color name="text_color_normal8">#CCFFFFFF</color>
     <!--强调文本颜色-->
     <color name="text_color_highlight">@color/theme_color</color>
 

@@ -43,7 +43,7 @@
 
         <!--喇叭设置-->
         <activity
-            android:name=".trumpet.TrumpetSettingActivity"
+            android:name=".trumpet.activity.TrumpetSettingActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--衰减平衡-->

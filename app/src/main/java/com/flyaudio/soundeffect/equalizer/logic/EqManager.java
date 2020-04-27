@@ -97,6 +97,7 @@ public final class EqManager {
             EqMode mode = new EqMode(i, names[i]);
             list.add(mode);
         }
+        saveMaxEqId(names.length - 1);
         return list;
     }
 
@@ -123,12 +124,17 @@ public final class EqManager {
         return getEqList().size() - EQ_PRESET_COUNT;
     }
 
-
+    /**
+     * 获取最大的id
+     */
     public int getMaxEqId() {
         return SPCacheHelper.getInstance().getInt(KEY_EQ_INDEX_MAX);
     }
 
-    public int saveMaxEqId() {
-        return SPCacheHelper.getInstance().getInt(KEY_EQ_INDEX_MAX);
+    /**
+     * 保存最大的id
+     */
+    public void saveMaxEqId(int id) {
+        SPCacheHelper.getInstance().put(KEY_EQ_INDEX_MAX, id);
     }
 }
