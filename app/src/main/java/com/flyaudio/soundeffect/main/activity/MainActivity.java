@@ -5,10 +5,10 @@ import android.support.v4.app.Fragment;
 import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.ui.flyaudio.FlyTabBar;
 import com.flyaudio.soundeffect.R;
-import com.flyaudio.soundeffect.comm.view.comm.NoScrollViewPager;
+import com.flyaudio.soundeffect.comm.view.NoScrollViewPager;
 import com.flyaudio.soundeffect.equalizer.fragment.EqFragment;
 import com.flyaudio.soundeffect.main.adpater.MainPagerAdapter;
-import com.flyaudio.soundeffect.position.ListenPositionFragment;
+import com.flyaudio.soundeffect.position.fragment.ListenPositionFragment;
 import com.flyaudio.soundeffect.setting.SettingFragment;
 
 import java.util.ArrayList;

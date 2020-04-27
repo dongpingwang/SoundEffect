@@ -6,4 +6,6 @@
     <dimen name="tab_item_height">68dp</dimen>
     <dimen name="tab_icon_width">26dp</dimen>
     <dimen name="tab_icon_height">@dimen/tab_icon_width</dimen>
+
+    <dimen name="setting_item_height">58.38dp</dimen>
 </resources>

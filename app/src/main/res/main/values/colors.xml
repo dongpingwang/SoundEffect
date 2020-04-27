@@ -19,4 +19,9 @@
     <color name="title_background">@color/content_background</color>
 
     <color name="eq_item_normal">#3A3A3A</color>
+
+    <!-- switch控件颜色 -->
+    <color name="switch_color_normal">#b9b9b9</color>
+    <color name="switch_color_disable">#5f5f5f</color>
+    <color name="switch_color_checked">@color/theme_color</color>
 </resources>

@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/tv_adjust"
-            android:layout_width="@dimen/title_tv_width"
+            android:layout_width="@dimen/title_action_tv_width"
             android:layout_height="@dimen/title_height"
             android:layout_alignParentEnd="true"
             android:gravity="center"

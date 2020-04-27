@@ -1,6 +1,7 @@
 package com.flyaudio.soundeffect.setting;
 
 import com.flyaudio.lib.base.BaseFragment;
+import com.flyaudio.soundeffect.R;
 
 /**
  * @author Dongping Wang
@@ -10,7 +11,7 @@ import com.flyaudio.lib.base.BaseFragment;
 public class SettingFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_setting;
     }
 
     @Override

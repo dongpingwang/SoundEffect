@@ -7,8 +7,7 @@
     <dimen name="empty_remind_text_size">20sp</dimen>
 
     <!--间距-->
-    <dimen name="comm_margin">26dp</dimen>
-    <dimen name="comm_margin_small">14dp</dimen>
+    <dimen name="comm_margin">25.95dp</dimen>
 
     <!--方块-->
     <dimen name="comm_middle_square">66dp</dimen>
@@ -25,7 +24,7 @@
 
     <!--标题栏-->
     <dimen name="title_height">50dp</dimen>
-    <dimen name="title_tv_width">82.16dp</dimen>
+    <dimen name="title_action_tv_width">82.16dp</dimen>
     <dimen name="title_icon_width">50dp</dimen>
 
     <!--圆角-->

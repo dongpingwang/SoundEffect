@@ -13,4 +13,12 @@
 
     <!--车上数字选择器-->
     <dimen name="sound_effect_5_1_selector_space">47.72dp</dimen>
+
+    <!--收听位置-->
+    <dimen name="btn_listen_position_width">96.22dp</dimen>
+    <dimen name="btn_listen_position_height">48.65dp</dimen>
+    <dimen name="btn_listen_position_margin_start">109.19dp</dimen><!--宽度+间距-->
+    <dimen name="btn_listen_position_margin_top">19.46dp</dimen><!--间距-->
+    <dimen name="minus_btn_listen_position_height">-48.65dp</dimen>
+    <dimen name="speakers_layout_size">217.3dp</dimen>
 </resources>

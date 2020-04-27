@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="SoundEffect_5_1_NumberSelector">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">0dp</item>
+    <!--收听位置-->
+    <style name="btnListenPosition">
+        <item name="android:layout_width">@dimen/btn_listen_position_width</item>
+        <item name="android:layout_height">@dimen/btn_listen_position_height</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/text_color_normal</item>
+        <item name="android:background">@color/btn_uncheck_bg</item>
     </style>
+
+    <style name="speakersLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleX">0.85</item>
+        <item name="android:scaleY">0.85</item>
+    </style>
+
 </resources>

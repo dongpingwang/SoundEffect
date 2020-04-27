@@ -29,6 +29,30 @@
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
 
+        <!--高低通滤波调节-->
+        <activity
+            android:name=".filter.EqFilterActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape" />
+
+        <!--高低通滤波调节-->
+        <activity
+            android:name=".speaker.SpeakerVolumeActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape" />
+
+        <!--喇叭设置-->
+        <activity
+            android:name=".trumpet.TrumpetSettingActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape" />
+
+        <!--时间校准-->
+        <activity
+            android:name=".delay.TimeCalibrationActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape" />
+
     </application>
 
 </manifest>

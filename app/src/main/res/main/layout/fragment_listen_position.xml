@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/comm_margin"
+            android:text="@string/listen_position"
+            android:textColor="@color/text_color_normal"
+            android:textSize="@dimen/font_20" />
+
+        <TextView
+            android:id="@+id/tv_delay"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8.65dp"
+            android:gravity="center"
+            android:paddingLeft="17.3dp"
+            android:paddingRight="17.3dp"
+            android:singleLine="true"
+            android:text="@string/time_calibration"
+            android:textColor="@color/text_color_highlight"
+            android:textSize="@dimen/font_16" />
+
+        <TextView
+            android:id="@+id/tv_speaker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@id/tv_delay"
+            android:gravity="center"
+            android:paddingLeft="9.19dp"
+            android:paddingRight="9.19dp"
+            android:singleLine="true"
+            android:text="@string/speaker_adjust"
+            android:textColor="@color/text_color_highlight"
+            android:textSize="@dimen/font_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/split_line_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/split_line" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <com.flyaudio.soundeffect.comm.view.ListenPositionButtons
+            android:id="@+id/btn_listen_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <com.flyaudio.soundeffect.comm.view.SpeakersLayout
+            android:id="@+id/speakers_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
 
 </LinearLayout>

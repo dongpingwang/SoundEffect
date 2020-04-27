@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/speakers_layout_size"
+    android:layout_height="@dimen/speakers_layout_size"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.flyaudio.soundeffect.comm.view.SpeakerImageView
+            android:id="@+id/speaker_front_left"
+            style="@style/speakersLayout"
+            android:src="@mipmap/ic_single_seat" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="90dp"
+            android:background="@mipmap/ic_position_control" />
+
+        <com.flyaudio.soundeffect.comm.view.SpeakerImageView
+            android:id="@+id/speaker_front_right"
+            style="@style/speakersLayout"
+            android:src="@mipmap/ic_single_seat" />
+
+    </LinearLayout>
+
+    <com.flyaudio.soundeffect.comm.view.SpeakerImageView
+        android:id="@+id/speaker_back_row"
+        style="@style/speakersLayout"
+        android:src="@mipmap/ic_double_seat" />
+
+</LinearLayout>
+
