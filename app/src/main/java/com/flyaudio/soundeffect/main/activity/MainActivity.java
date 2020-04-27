@@ -9,7 +9,7 @@ import com.flyaudio.soundeffect.comm.view.NoScrollViewPager;
 import com.flyaudio.soundeffect.equalizer.fragment.EqFragment;
 import com.flyaudio.soundeffect.main.adpater.MainPagerAdapter;
 import com.flyaudio.soundeffect.position.fragment.ListenPositionFragment;
-import com.flyaudio.soundeffect.setting.SettingFragment;
+import com.flyaudio.soundeffect.setting.fragment.SettingFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,7 +10,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:layout_marginStart="@dimen/comm_margin"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/comm_margin"
         android:text="@string/setting"
         android:textColor="@color/text_color_normal"
         android:textSize="@dimen/font_20" />
@@ -21,10 +22,8 @@
         android:background="@color/split_line" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/setting_list"
+        android:id="@+id/rv_setting_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/comm_margin"
-        android:layout_marginTop="35.14dp"
-        android:layout_marginRight="@dimen/comm_margin" />
+        android:layout_marginStart="@dimen/comm_margin" />
 </LinearLayout>

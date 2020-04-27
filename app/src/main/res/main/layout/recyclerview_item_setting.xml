@@ -9,37 +9,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/comm_margin"
         android:textColor="@color/text_color_normal"
         android:textSize="@dimen/font_16"
         tools:text="导入音效" />
 
     <ImageView
-        android:id="@+id/iv_forward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/comm_margin"
-        android:src="@mipmap/comm_arrow"
-        android:visibility="gone" />
-
-    <Switch
-        android:id="@+id/sh_open"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/comm_margin"
-        android:thumb="@drawable/switch_thumb"
-        android:thumbTint="@color/switch_color_tint"
-        android:track="@drawable/switch_track"
-        android:trackTint="@color/switch_color_tint"
-        tools:checked="true" />
+        android:src="@mipmap/comm_arrow" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/split_line_height"
-        android:background="@color/split_line" />
+        android:background="@color/split_line"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
 

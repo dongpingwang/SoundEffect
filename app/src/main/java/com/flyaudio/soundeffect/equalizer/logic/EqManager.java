@@ -19,8 +19,23 @@ import java.util.List;
  */
 public final class EqManager {
 
-    // eq列表数据
+    /**
+     * 记录eq列表：将Java bean集合转化为json String进行存储
+     */
     private static final String KEY_EQ_LIST = "eq_list";
+
+
+    /**
+     * 记录eq列表进行删除新建后区分item的标识，模拟数据库删除后索引递增，从0开始
+     */
+    private static final String KEY_EQ_INDEX_MAX = "eq_max_index";
+
+    /**
+     * 记录当前调节的eq模式，在列表中的位置
+     */
+    private static final String KEY_EQ_CURRENT = "eq_current_index";
+
+    private static final int EQ_PRESET_COUNT = 5;
 
     private EqManager() {
 
@@ -47,7 +62,9 @@ public final class EqManager {
     }
 
 
-    // 从sp中获取eq列表数据
+    /**
+     * 从sp中获取eq列表数据
+     */
     private List<EqMode> getEqListFromSp() {
         List<EqMode> list;
         String listStr = SPCacheHelper.getInstance().getString(KEY_EQ_LIST);
@@ -61,14 +78,18 @@ public final class EqManager {
         return list;
     }
 
-    // 保存eq列表数据
+    /**
+     * 保存eq列表数据
+     */
     public void saveEqList(List<EqMode> list) {
         GsonHandler handler = new GsonHandler(new Gson());
         String data = handler.toJson(list);
         SPCacheHelper.getInstance().put(KEY_EQ_LIST, data);
     }
 
-    // 从xml中获取预置的eq列表数据
+    /**
+     * 从xml中获取预置的eq列表数据
+     */
     private List<EqMode> getPresetEqList() {
         List<EqMode> list = new ArrayList<>();
         String[] names = ResUtils.getStringArray(R.array.eq_names);
@@ -79,5 +100,35 @@ public final class EqManager {
         return list;
     }
 
+    /**
+     * 当前调节的eq模式的位置，默认为0(即第一个eq模式)
+     */
+    public int getCurrentEq() {
+        return SPCacheHelper.getInstance().getInt(KEY_EQ_CURRENT);
+    }
 
+
+    /**
+     * 保存当前调节的eq模式的位置
+     */
+    public void saveCurrentEq(int position) {
+        SPCacheHelper.getInstance().put(KEY_EQ_CURRENT, position);
+    }
+
+
+    /**
+     * 添加的自定义eq模式数量
+     */
+    public int getCustomEqCount() {
+        return getEqList().size() - EQ_PRESET_COUNT;
+    }
+
+
+    public int getMaxEqId() {
+        return SPCacheHelper.getInstance().getInt(KEY_EQ_INDEX_MAX);
+    }
+
+    public int saveMaxEqId() {
+        return SPCacheHelper.getInstance().getInt(KEY_EQ_INDEX_MAX);
+    }
 }

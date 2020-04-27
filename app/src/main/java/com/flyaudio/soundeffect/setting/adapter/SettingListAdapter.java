@@ -1,8 +1,9 @@
-package com.flyaudio.soundeffect.setting;
+package com.flyaudio.soundeffect.setting.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import com.flyaudio.lib.adapter.Adapter;
 import com.flyaudio.lib.adapter.RecyclerViewAdapter;
@@ -28,6 +29,6 @@ public class SettingListAdapter extends RecyclerViewAdapter<String> {
 
     @Override
     public void onBindViewHolder(Adapter.ViewHolder<String> holder) {
-
+        ((TextView)holder.getView(R.id.tv_item_name)).setText(getData(holder.getItemPosition()));
     }
 }

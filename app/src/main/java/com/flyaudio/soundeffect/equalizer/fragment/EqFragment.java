@@ -1,14 +1,11 @@
 package com.flyaudio.soundeffect.equalizer.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-
 import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.lib.toast.Toaster;
 import com.flyaudio.lib.utils.ResUtils;
@@ -33,6 +30,7 @@ public class EqFragment extends BaseFragment {
     private TextView tvAdjust;
     private RecyclerView rvEqList;
     private EqListAdapter adapter;
+    private EqManager eqManager = EqManager.getInstance();
 
     @Override
     protected int getLayoutId() {
@@ -52,17 +50,22 @@ public class EqFragment extends BaseFragment {
     }
 
     private void initAdapter() {
-        List<EqMode> eqList = EqManager.getInstance().getEqList();
+
+        List<EqMode> eqList = eqManager.getEqList();
         adapter = new EqListAdapter(context(), eqList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), DEFAULT_SPAN_COUNT);
         gridLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         rvEqList.setLayoutManager(gridLayoutManager);
         rvEqList.setAdapter(adapter);
+        // 更新上次的位置
+        adapter.updateChecked(eqManager.getCurrentEq());
+
 
         adapter.setOnItemListener(new EqListAdapter.OnItemListener() {
             @Override
             public void onItemClick(int position) {
                 adapter.updateChecked(position);
+                eqManager.saveCurrentEq(position);
             }
 
             @Override
@@ -72,9 +75,9 @@ public class EqFragment extends BaseFragment {
 
             @Override
             public void onCreateMode() {
-                // TODO
                 adapter.addItem(adapter.getItemViewCount() - 1, new EqMode(-1, "aaa"));
                 adapter.clearChecked();
+                eqManager.saveEqList(adapter.getDatas());
             }
         });
     }
