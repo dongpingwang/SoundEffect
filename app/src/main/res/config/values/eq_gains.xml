@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--             ====================================13段预置EQ模式默认的增益值============================================                              -->
+    <!--平直 强劲 声乐 自然 超重 自定义1 自定义2-->
+    <integer-array name="EqualizerFlat_13">
+        <item>0</item>                                <!-- 50Hz -->
+        <item>0</item>                                <!-- 80Hz -->
+        <item>0</item>                                <!-- 125Hz -->
+        <item>0</item>                                <!-- 200Hz -->
+        <item>0</item>                                <!-- 315Hz -->
+        <item>0</item>                                <!-- 500Hz -->
+        <item>0</item>                                <!-- 800Hz -->
+        <item>0</item>                                <!-- 1.25KHz -->
+        <item>0</item>                                <!-- 2KHz -->
+        <item>0</item>                                <!-- 3.15KHz -->
+        <item>0</item>                                <!-- 5KHz -->
+        <item>0</item>                                <!-- 8KHz -->
+        <item>0</item>                                <!-- 12.5KHz -->
+    </integer-array>
+
+    <!-- 强劲 -->
+    <integer-array name="EqualizerStrong_13">
+        <item>2</item>                                <!-- 50Hz -->
+        <item>3</item>                                <!-- 80Hz -->
+        <item>1</item>                                <!-- 125Hz -->
+        <item>1</item>                                <!-- 200Hz -->
+        <item>0</item>                                <!-- 315Hz -->
+        <item>-2</item>                                <!-- 500Hz -->
+        <item>-1</item>                                <!-- 800Hz -->
+        <item>1</item>                                <!-- 1.25KHz -->
+        <item>0</item>                                <!-- 2KHz -->
+        <item>1</item>                                <!-- 3.15KHz -->
+        <item>2</item>                                <!-- 5KHz -->
+        <item>3</item>                                <!-- 8KHz -->
+        <item>2</item>                                <!-- 12.5KHz -->
+    </integer-array>
+
+    <!-- 声乐 -->
+    <integer-array name="EqualizerVocalMusic_13">
+        <item>-3</item>                                <!-- 50Hz -->
+        <item>-1</item>                                <!-- 80Hz -->
+        <item>0</item>                                <!-- 125Hz -->
+        <item>3</item>                                <!-- 200Hz -->
+        <item>3</item>                                <!-- 315Hz -->
+        <item>2</item>                                <!-- 500Hz -->
+        <item>0</item>                                <!-- 800Hz -->
+        <item>0</item>                                <!-- 1.25KHz -->
+        <item>0</item>                                <!-- 2KHz -->
+        <item>2</item>                                <!-- 3.15KHz -->
+        <item>3</item>                                <!-- 5KHz -->
+        <item>1</item>                                <!-- 8KHz -->
+        <item>-1</item>                                <!-- 12.5KHz -->
+    </integer-array>
+    <!-- 自然 -->
+    <integer-array name="EqualizerNature_13">
+        <item>-5</item>                                <!-- 50Hz -->
+        <item>4</item>                                <!-- 80Hz -->
+        <item>1</item>                                <!-- 125Hz -->
+        <item>1</item>                                <!-- 200Hz -->
+        <item>-2</item>                                <!-- 315Hz -->
+        <item>-1</item>                                <!-- 500Hz -->
+        <item>0</item>                                <!-- 800Hz -->
+        <item>-1</item>                                <!-- 1.25KHz -->
+        <item>-2</item>                                <!-- 2KHz -->
+        <item>1</item>                                <!-- 3.15KHz -->
+        <item>1</item>                                <!-- 5KHz -->
+        <item>0</item>                                <!-- 8KHz -->
+        <item>0</item>                                <!-- 12.5KHz -->
+    </integer-array>
+
+    <!-- 超重 -->
+    <integer-array name="EqualizerSuperHeavy_13">
+        <item>4</item>                                <!-- 50Hz -->
+        <item>3</item>                                <!-- 80Hz -->
+        <item>3</item>                                <!-- 125Hz -->
+        <item>2</item>                                <!-- 200Hz -->
+        <item>1</item>                                <!-- 315Hz -->
+        <item>0</item>                                <!-- 500Hz -->
+        <item>0</item>                                <!-- 800Hz -->
+        <item>0</item>                                <!-- 1.25KHz -->
+        <item>0</item>                                <!-- 2KHz -->
+        <item>2</item>                                <!-- 3.15KHz -->
+        <item>3</item>                                <!-- 5KHz -->
+        <item>3</item>                                <!-- 8KHz -->
+        <item>2</item>                                <!-- 12.5KHz -->
+    </integer-array>
+
+    <integer-array name="EqualizerCustom_13">
+        <item>0</item>                                <!-- 50Hz -->
+        <item>0</item>                                <!-- 80Hz -->
+        <item>0</item>                                <!-- 125Hz -->
+        <item>0</item>                                <!-- 200Hz -->
+        <item>0</item>                                <!-- 315Hz -->
+        <item>0</item>                                <!-- 500Hz -->
+        <item>0</item>                                <!-- 800Hz -->
+        <item>0</item>                                <!-- 1.25KHz -->
+        <item>0</item>                                <!-- 2KHz -->
+        <item>0</item>                                <!-- 3.15KHz -->
+        <item>0</item>                                <!-- 5KHz -->
+        <item>0</item>                                <!-- 8KHz -->
+        <item>0</item>                                <!-- 12.5KHz -->
+    </integer-array>
+
+</resources>

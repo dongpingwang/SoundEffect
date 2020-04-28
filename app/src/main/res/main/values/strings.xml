@@ -6,6 +6,10 @@
     <string name="adjust">调节</string>
     <string name="please_check_one_mode">请先选择一个模式</string>
     <string name="custom_">自定义%d</string>
+    <string name="equalizer_max_value" translatable="false">+14db</string>
+    <string name="equalizer_medium_value" translatable="false">0db</string>
+    <string name="equalizer_min_value" translatable="false">-14db</string>
+
 
     <string name="speaker_adjust">扬声器调节</string>
     <string name="time_calibration">时间校准</string>

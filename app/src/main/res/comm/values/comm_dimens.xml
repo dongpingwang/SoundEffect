@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!--分割线高度-->
     <dimen name="split_line_height">1dp</dimen>
-
-    <!--recyclerView空提示文字大小-->
-    <dimen name="empty_remind_text_size">20sp</dimen>
 
     <!--间距-->
     <dimen name="comm_margin">25.95dp</dimen>
 
-    <!--方块-->
-    <dimen name="comm_middle_square">66dp</dimen>
-    <dimen name="comm_small_square">40dp</dimen>
-
     <!--字体-->
     <dimen name="font_10">10sp</dimen>
     <dimen name="font_12">12sp</dimen>
+    <dimen name="font_13">13.3sp</dimen>
     <dimen name="font_14">15sp</dimen>
     <dimen name="font_15">14sp</dimen>
     <dimen name="font_16">16sp</dimen>
@@ -31,12 +26,4 @@
     <!--圆角-->
     <dimen name="comm_radius">5dp</dimen>
 
-    <!--弹框-->
-    <dimen name="popup_width">172dp</dimen>
-    <dimen name="popup_height_song_list">202dp</dimen>
-    <dimen name="popup_height_mix">252dp</dimen>
-    <dimen name="popup_height_mix_preset">151dp</dimen>
-
-    <!--列表条目高度-->
-    <dimen name="comm_item_height">50dp</dimen>
 </resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items>
+	<frequent value="50">
+		<item slope="6" q="2.30"/>
+		<item slope="12" q="0.75"/>
+		<item slope="18" q="0.27"/>
+	</frequent>
+	<frequent value="63">
+		<item slope="6" q="2.30"/>
+		<item slope="12" q="0.75"/>
+		<item slope="18" q="0.27"/>
+	</frequent>
+	<frequent value="80">
+		<item slope="6" q="2.30"/>
+		<item slope="12" q="0.75"/>
+		<item slope="18" q="0.27"/>
+	</frequent>
+	<frequent value="100">
+		<item slope="6" q="2.30"/>
+		<item slope="12" q="0.75"/>
+		<item slope="18" q="0.27"/>
+	</frequent>
+	<frequent value="125">
+		<item slope="6" q="2.30"/>
+		<item slope="12" q="0.75"/>
+		<item slope="18" q="0.27"/>
+	</frequent>
+	<frequent value="160">
+		<item slope="6" q="2.30"/>
+		<item slope="12" q="0.75"/>
+		<item slope="18" q="0.27"/>
+	</frequent>
+	<frequent value="200">
+		<item slope="6" q="2.30"/>
+		<item slope="12" q="0.75"/>
+		<item slope="18" q="0.27"/>
+	</frequent>
+</items>

@@ -102,7 +102,7 @@ public final class EqManager {
     }
 
     /**
-     * 当前调节的eq模式的位置，默认为0(即第一个eq模式)
+     * 当前调节的eq模式的id，默认为0(即第一个eq模式)
      */
     public int getCurrentEq() {
         return SPCacheHelper.getInstance().getInt(KEY_EQ_CURRENT);
@@ -110,10 +110,10 @@ public final class EqManager {
 
 
     /**
-     * 保存当前调节的eq模式的位置
+     * 保存当前调节的eq模式的id
      */
-    public void saveCurrentEq(int position) {
-        SPCacheHelper.getInstance().put(KEY_EQ_CURRENT, position);
+    public void saveCurrentEq(int id) {
+        SPCacheHelper.getInstance().put(KEY_EQ_CURRENT, id);
     }
 
 

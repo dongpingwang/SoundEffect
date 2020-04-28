@@ -1,9 +1,17 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
+
+    <style name="eq_gain_left_title_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_color_normal</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:layout_gravity">end</item>
     </style>
 
 </resources>

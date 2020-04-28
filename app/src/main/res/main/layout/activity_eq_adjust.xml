@@ -8,4 +8,32 @@
     android:orientation="vertical">
 
     <include layout="@layout/layout_comm_title_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.flyaudio.soundeffect.comm.view.CommVerticalAdjustButton
+            android:id="@+id/btn_group_eq"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/comm_margin"
+            android:layout_marginTop="43.24dp"
+            android:layout_marginBottom="104.32dp" />
+
+        <include
+            android:id="@+id/title_gain"
+            layout="@layout/layout_eq_gain_left_title" />
+
+        <com.flyaudio.soundeffect.comm.view.eq.EqSquareBars
+            android:id="@+id/eq_bars"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="22.16dp"
+            android:layout_marginBottom="84.32dp"
+            android:layout_toEndOf="@+id/title_gain" />
+
+        <include layout="@layout/layout_eq_adjust_button" />
+    </RelativeLayout>
 </LinearLayout>

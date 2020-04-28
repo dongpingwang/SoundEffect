@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<group>
+	<!--主驾驶位置：前左：1.2ms 前右：0.1ms 后左：2.2ms 后右：0.8ms 重低音：0ms-->
+	<listen_position position="1">										<!-- 收听位置：左前 -->
+		<speaker type="1" adjustAble="true" defaultValue="40.8"/>		<!-- 调整左前通道延时，默认延时单位：cm -->
+		<speaker type="2" adjustAble="true" defaultValue="3.4"/>		<!-- 调整右前通道延时，默认延时单位：cm -->
+		<speaker type="4" adjustAble="true" defaultValue="74.8"/>		<!-- 调整左后通道延时，默认延时单位：cm -->
+		<speaker type="8" adjustAble="true" defaultValue="27.2"/>		<!-- 调整右后通道延时，默认延时单位：cm -->
+		<speaker type="16" defaultValue="0.0"/>						<!-- 重低音，默认延时单位：cm -->
+	</listen_position>
+
+	<!--副驾驶位置：前左：0.1ms 前右：1.2ms后左：0.8ms 后右：2.2ms 重低音：0ms-->
+	<listen_position position="2">										<!-- 收听位置：右前 -->
+		<speaker type="1" adjustAble="true" defaultValue="3.4"/>		<!-- 调整左前通道延时，默认延时单位：cm -->
+		<speaker type="2" adjustAble="true" defaultValue="40.8"/>		<!-- 调整右前通道延时，默认延时单位：cm -->
+		<speaker type="4" adjustAble="true" defaultValue="27.2"/>		<!-- 调整左后通道延时，默认延时单位：cm -->
+		<speaker type="8" adjustAble="true" defaultValue="74.8"/>		<!-- 调整右后通道延时，默认延时单位：cm -->
+		<speaker type="16" defaultValue="0.0"/>						<!-- 重低音，默认延时单位：cm -->
+	</listen_position>
+
+	<!--前排位置：前左：0.8ms 前右：0.8ms后左：0.7ms 后右：0.7ms重低音：0ms-->
+	<listen_position position="3">										<!-- 收听位置：前排 -->
+		<speaker type="1" adjustAble="true" defaultValue="27.2">		<!-- 调整左前通道延时，默认延时单位：cm -->
+			<item speaker="2"/>											<!-- 左后联动 -->
+		</speaker>
+		<speaker type="2" adjustAble="true" defaultValue="27.2">		<!-- 调整右前通道延时，默认延时单位：cm -->
+			<item speaker="1"/>											<!-- 左前联动 -->
+		</speaker>
+		<speaker type="4" adjustAble="true" defaultValue="23.8">		<!-- 调整左后通道延时，默认延时单位：cm -->
+			<item speaker="8"/>											<!-- 右后联动 -->
+		</speaker>
+		<speaker type="8" adjustAble="true" defaultValue="23.8">		<!-- 调整右后通道延时，默认延时单位：cm -->
+			<item speaker="4"/>											<!-- 左后联动 -->
+		</speaker>
+		<speaker type="16" defaultValue="0.0"/>						<!-- 重低音，默认延时单位：cm -->
+	</listen_position>
+
+	<!--后排：左前4.03ms 右前3.15ms 左后4.03ms 右后4.03ms 重低音4.70ms-->
+	<listen_position position="12">										<!-- 收听位置：后排 -->
+		<speaker type="1" adjustAble="true" defaultValue="137.02">		<!-- 调整左前通道延时，默认延时单位：cm -->
+			<item speaker="2"/>											<!-- 右前联动 -->
+		</speaker>
+		<speaker type="2" adjustAble="true" defaultValue="107.10">		<!-- 调整右前通道延时，默认延时单位：cm -->
+			<item speaker="1"/>											<!-- 左前联动 -->
+		</speaker>
+		<speaker type="4" adjustAble="true" defaultValue="137.02">		<!-- 调整左后通道延时，默认延时单位：cm -->
+			<item speaker="8"/>											<!-- 右后联动 -->
+		</speaker>
+		<speaker type="8" adjustAble="true" defaultValue="137.02">		<!-- 调整右后通道延时，默认延时单位：cm -->
+			<item speaker="4"/>											<!-- 左后联动 -->
+		</speaker>
+		<speaker type="16" defaultValue="159.80"/>						<!-- 重低音，默认延时单位：cm -->
+	</listen_position>
+
+	<!--全部：前左：0.7ms 前右：0.7ms后左：4.0ms 后右：4.0ms 重低音：0ms-->
+	<listen_position position="15">										<!-- 收听位置：全部 -->
+		<speaker type="1" adjustAble="false" defaultValue="23.8"/>		<!-- 调整左前通道延时，默认延时单位：cm -->
+		<speaker type="2" adjustAble="false" defaultValue="23.8"/>		<!-- 调整右前通道延时，默认延时单位：cm -->
+		<speaker type="4" adjustAble="false" defaultValue="136.0"/>		<!-- 调整左后通道延时，默认延时单位：cm -->
+		<speaker type="8" adjustAble="false" defaultValue="136.0"/>		<!-- 调整右后通道延时，默认延时单位：cm -->
+		<speaker type="16" adjustAble="false" defaultValue="0.0"/>	<!-- 重低音，默认延时单位：cm -->
+	</listen_position>
+	<!--关闭：左前0ms 右前0ms 左后0ms 右后0ms 重低音0ms-->
+	<listen_position position="0">										<!-- 收听位置：关闭 -->
+		<speaker type="1" adjustAble="false" defaultValue="0.00"/>		<!-- 调整左前通道延时，默认延时单位：cm -->
+		<speaker type="2" adjustAble="false" defaultValue="0.00"/>		<!-- 调整右前通道延时，默认延时单位：cm -->
+		<speaker type="4" adjustAble="false" defaultValue="0.00"/>		<!-- 调整左后通道延时，默认延时单位：cm -->
+		<speaker type="8" adjustAble="false" defaultValue="0.00"/>		<!-- 调整右后通道延时，默认延时单位：cm -->
+		<speaker type="16" adjustAble="false" defaultValue="0.00"/>		<!-- 重低音，默认延时单位：cm -->
+	</listen_position>
+</group>

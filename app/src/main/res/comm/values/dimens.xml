@@ -34,4 +34,7 @@
     <dimen name="eq_progress_bottom_margin">9.73dp</dimen>
 
 
+    <!--eq调节和高低通滤波调节按钮-->
+    <dimen name="eq_iv_arrow_width">64.86dp</dimen>
+    <dimen name="eq_iv_arrow_height">42.16dp</dimen>
 </resources>

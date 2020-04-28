@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<group>
+	<listen_position position="1">				<!-- 收听位置：左前 -->
+		<speaker type="1" defaultVolume="0"/>	<!-- 调整左前扬声器音量 -->
+		<speaker type="2" defaultVolume="-3"/>	<!-- 调整右前扬声器音量 -->
+		<speaker type="4" defaultVolume="-4"/>	<!-- 调整左后扬声器音量 -->
+		<speaker type="8" defaultVolume="-5"/>	<!-- 调整右后扬声器音量 -->
+		<speaker type="16" defaultVolume="0"/>	<!-- 调整重低音扬声器音量 -->
+	</listen_position>
+
+	<listen_position position="2">				<!-- 收听位置：右前 -->
+		<speaker type="1" defaultVolume="-3"/>	<!-- 调整左前扬声器音量 -->
+		<speaker type="2" defaultVolume="0"/>	<!-- 调整右前扬声器音量 -->
+		<speaker type="4" defaultVolume="-5"/>	<!-- 调整左后扬声器音量 -->
+		<speaker type="8" defaultVolume="-4"/>	<!-- 调整右后扬声器音量 -->
+		<speaker type="16" defaultVolume="0"/>	<!-- 调整重低音扬声器音量 -->
+	</listen_position>
+
+	<!--左前/右前  左后/右后 联动-->
+	<listen_position position="3">				<!-- 收听位置：前排 -->
+		<speaker type="1" defaultVolume="0">	<!-- 调整左前扬声器音量 -->
+			<item speaker = "2"/>
+		</speaker>
+		<speaker type="2" defaultVolume="0">	<!-- 调整右前扬声器音量 -->
+			<item speaker = "1"/>
+	    </speaker>
+		<speaker type="4" defaultVolume="-6">   <!-- 调整左后扬声器音量 -->
+			<item speaker = "8"/>
+		</speaker>
+		<speaker type="8" defaultVolume="-6">  <!-- 调整右后扬声器音量 -->
+			<item speaker="4"/>
+		</speaker>
+		<speaker type="16" defaultVolume="0"/>	<!-- 调整重低音扬声器音量 -->
+	</listen_position>
+
+	<!--左前/右前  左后/右后 联动-->
+	<listen_position position="12">				<!-- 收听位置：后排 -->
+		<speaker type="1" defaultVolume="-6">	<!-- 调整左前扬声器音量 -->
+			<item speaker="2"/>
+		</speaker>
+		<speaker type="2" defaultVolume="-6">	<!-- 调整右前扬声器音量 -->
+			<item speaker="1"/>
+		</speaker>
+		<speaker type="4" defaultVolume="0">	<!-- 调整左后扬声器音量 -->
+			<item speaker="8"/>
+		</speaker>
+		<speaker type="8" defaultVolume="0">	<!-- 调整右后扬声器音量 -->
+			<item speaker="4"/>
+		</speaker>
+		<speaker type="16" defaultVolume="0"/>	<!-- 调整重低音扬声器音量 -->
+	</listen_position>
+
+	<listen_position position="15">				<!-- 收听位置：全部 -->
+		<speaker type="1" defaultVolume="-1"/>	<!-- 调整左前扬声器音量 -->
+		<speaker type="2" defaultVolume="-1"/>	<!-- 调整右前扬声器音量 -->
+		<speaker type="4" defaultVolume="-4"/>	<!-- 调整左后扬声器音量 -->
+		<speaker type="8" defaultVolume="-4"/>	<!-- 调整右后扬声器音量 -->
+		<speaker type="16" defaultVolume="-4"/>	<!-- 调整重低音扬声器音量 -->
+	</listen_position>
+
+	<listen_position position="0">				<!-- 收听位置：关闭 -->
+		<speaker type="1" defaultVolume="0"/>	<!-- 调整左前扬声器音量 -->
+		<speaker type="2" defaultVolume="0"/>	<!-- 调整右前扬声器音量 -->
+		<speaker type="4" defaultVolume="0"/>	<!-- 调整左后扬声器音量 -->
+		<speaker type="8" defaultVolume="0"/>	<!-- 调整右后扬声器音量 -->
+		<speaker type="16" defaultVolume="0"/>	<!-- 调整重低音扬声器音量 -->
+	</listen_position>
+</group>

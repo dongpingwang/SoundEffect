@@ -60,14 +60,13 @@ public class EqFragment extends BaseFragment {
         rvEqList.setLayoutManager(gridLayoutManager);
         rvEqList.setAdapter(adapter);
         // 更新上次的位置
-        adapter.updateChecked(eqManager.getCurrentEq());
-
+        adapter.updateCheckedById(eqManager.getCurrentEq());
 
         adapter.setOnItemListener(new EqListAdapter.OnItemListener() {
             @Override
             public void onItemClick(int position) {
                 adapter.updateChecked(position);
-                eqManager.saveCurrentEq(position);
+                eqManager.saveCurrentEq(adapter.getChecked().getId());
             }
 
             @Override

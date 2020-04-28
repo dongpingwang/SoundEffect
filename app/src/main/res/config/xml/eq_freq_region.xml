@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<map>
+    <!--31段eq分成13个区间-->
+    <region name="0">
+        <freq value="20" />
+        <freq value="25" />
+        <freq value="32" />
+        <freq value="40" />
+        <freq value="50" />
+        <freq value="63" />
+    </region>
+
+    <region name="1">
+        <freq value="50" />
+        <freq value="63" />
+        <freq value="80" />
+        <freq value="100" />
+    </region>
+
+    <region name="2">
+        <freq value="80" />
+        <freq value="100" />
+        <freq value="125" />
+        <freq value="160" />
+    </region>
+
+    <region name="3">
+        <freq value="125" />
+        <freq value="160" />
+        <freq value="200" />
+        <freq value="250" />
+    </region>
+
+    <region name="4">
+        <freq value="200" />
+        <freq value="250" />
+        <freq value="315" />
+        <freq value="400" />
+    </region>
+
+    <region name="5">
+        <freq value="315" />
+        <freq value="400" />
+        <freq value="500" />
+        <freq value="630" />
+    </region>
+
+    <region name="6">
+        <freq value="500" />
+        <freq value="630" />
+        <freq value="800" />
+        <freq value="1000" />
+    </region>
+    <region name="7">
+        <freq value="800" />
+        <freq value="1000" />
+        <freq value="1250" />
+        <freq value="1600" />
+    </region>
+    <region name="8">
+        <freq value="1250" />
+        <freq value="1600" />
+        <freq value="2000" />
+        <freq value="2500" />
+    </region>
+    <region name="9">
+        <freq value="2000" />
+        <freq value="2500" />
+        <freq value="3200" />
+        <freq value="4000" />
+    </region>
+    <region name="10">
+        <freq value="3200" />
+        <freq value="4000" />
+        <freq value="5000" />
+        <freq value="6300" />
+    </region>
+    <region name="11">
+        <freq value="5000" />
+        <freq value="6300" />
+        <freq value="8000" />
+        <freq value="10000" />
+    </region>
+    <region name="12">
+        <freq value="8000" />
+        <freq value="10000" />
+        <freq value="12500" />
+        <freq value="16000" />
+        <freq value="20000" />
+    </region>
+</map>

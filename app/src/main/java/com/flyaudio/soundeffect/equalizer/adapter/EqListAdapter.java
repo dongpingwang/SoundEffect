@@ -102,6 +102,18 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
         notifyItemChanged(current);
     }
 
+    public void updateCheckedById(int id) {
+        int position = 0;
+        for (int i = 0; i < getDatas().size(); i++) {
+            if (id == getData(i).getId()) {
+                position = i;
+                break;
+            }
+        }
+        updateChecked(position);
+    }
+
+
     public EqMode getChecked() {
         return getData(current);
     }
@@ -120,12 +132,14 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
     public interface OnItemListener {
         /**
          * 点击选中条目
+         *
          * @param position
          */
         void onItemClick(int position);
 
         /**
          * 编辑条目
+         *
          * @param position
          */
         void onItemEdit(int position);
