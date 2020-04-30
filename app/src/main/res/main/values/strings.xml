@@ -9,6 +9,11 @@
     <string name="equalizer_max_value" translatable="false">+14db</string>
     <string name="equalizer_medium_value" translatable="false">0db</string>
     <string name="equalizer_min_value" translatable="false">-14db</string>
+    <string name="frequency">频率</string>
+    <string name="q_value_adjust">Q值调整</string>
+    <string name="wide">宽</string>
+    <string name="middle">中</string>
+    <string name="narrow">窄</string>
 
 
     <string name="speaker_adjust">扬声器调节</string>

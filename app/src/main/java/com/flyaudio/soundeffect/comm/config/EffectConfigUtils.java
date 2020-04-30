@@ -8,9 +8,17 @@ import com.flyaudio.soundeffect.R;
  * @date 20-4-28
  * email wangdongping@flyaudio.cn
  */
-public final class ConfigUtils {
+public final class EffectConfigUtils {
+    /**
+     * 预置的eq模式数量
+     */
+    public static final int EQ_PRESET_COUNT = 5;
+    /**
+     * eq Q值数组 对应宽，中，窄
+     */
+    public static final double[] Q_VALUES = {0.9D, 2.1D, 4.5D};
 
-    private ConfigUtils() {
+    private EffectConfigUtils() {
 
     }
 
@@ -35,7 +43,18 @@ public final class ConfigUtils {
             ResUtils.getIntArray(R.array.EqualizerCustom_13),
     };
 
+    /**
+     * 获取默认EQ模式
+     */
+    public static String[] getEqNames() {
+        return ResUtils.getStringArray(R.array.eq_names);
+    }
+
+    /**
+     * 13EQ均衡器各通道的默认增益值
+     */
     public static int[][] getEqGains() {
         return EQ_GAINS_13;
     }
+
 }

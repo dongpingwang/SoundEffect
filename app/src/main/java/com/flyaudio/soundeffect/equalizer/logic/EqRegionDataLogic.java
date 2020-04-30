@@ -6,6 +6,7 @@ import android.util.SparseArray;
 
 import com.flyaudio.lib.utils.AppUtils;
 import com.flyaudio.soundeffect.R;
+import com.flyaudio.soundeffect.comm.config.EffectConfigUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,10 @@ public final class EqRegionDataLogic {
     private static final int GAIN_MAX = 14;
     private static final int GAIN_MIN = -14;
     private static final int GAIN_STEP = 1;
-    private static final double[] Q_VALUES = EqRegionLogic.Q_VALUES;
+    private static final double[] Q_VALUES = EffectConfigUtils.Q_VALUES;
 
     /**
-     * 标志是否可以循环调节:增益不循环调节
+     * 标志是否可以循环调节:增益不循环调节,频率和Q值可以循环调节
      */
     private static final boolean LOOP = true;
     private static final boolean LOOP_GAIN = false;
@@ -51,14 +52,6 @@ public final class EqRegionDataLogic {
         return maps;
     }
 
-    /**
-     * 获取下一个频率
-     *
-     * @param region  当前区间
-     * @param current 当前频率
-     * @param prev    前一个区间的频率
-     * @param next    下一个区间的频率
-     */
     public static int getFreqUp(int region, int current, int prev, int next) {
         int will = current;
         List<Integer> ins = getIns(region, prev, next);
@@ -93,18 +86,9 @@ public final class EqRegionDataLogic {
         return will;
     }
 
-    /**
-     * 获取下一个增益值
-     */
-    public static int getGain(int current, boolean up) {
-        return up ? getGainUp(current) : getGainDown(current);
-    }
-
-    /**
-     * 获取Q值宽中窄对应的数组中索引
-     */
-    public static int getEqValueIndex(int current, boolean up) {
-        int will;
+    public static double getEqValue(double value, boolean up) {
+        int will, current;
+        current = getEqValueIndex(value);
         if (up) {
             will = current + 1;
             if (will > Q_VALUES.length - 1) {
@@ -116,10 +100,21 @@ public final class EqRegionDataLogic {
                 will = LOOP ? Q_VALUES.length - 1 : current;
             }
         }
-        return will;
+        return Q_VALUES[will];
     }
 
-    private static int getGainUp(int current) {
+    public static int getEqValueIndex(double value) {
+        int index = 0;
+        for (int i = 0; i < Q_VALUES.length; i++) {
+            if (Math.abs(value - Q_VALUES[i]) == 0) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public static int getGainUp(int current) {
         int will = current + GAIN_STEP;
         if (will > GAIN_MAX) {
             will = LOOP_GAIN ? GAIN_MIN : current;
@@ -127,7 +122,7 @@ public final class EqRegionDataLogic {
         return will;
     }
 
-    private static int getGainDown(int current) {
+    public static int getGainDown(int current) {
         int will = current - GAIN_STEP;
         if (will < GAIN_MIN) {
             will = LOOP_GAIN ? GAIN_MAX : current;
@@ -159,7 +154,7 @@ public final class EqRegionDataLogic {
      * @param region eq区间，值为0-12
      */
     private static List<Integer> getFrequenciesByRegion(int region) {
-        return maps.get(region).frequencies;
+        return getEqRegions().get(region).frequencies;
     }
 
     private static SparseArray<EqRegion> parseXml() {
@@ -183,13 +178,11 @@ public final class EqRegionDataLogic {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         return maps;
     }
 
-    static public class EqRegion {
-        public int region;
-        public List<Integer> frequencies;
+    private static class EqRegion {
+        private int region;
+        private List<Integer> frequencies;
     }
 }

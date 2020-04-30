@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/btn_down"
+        android:id="@+id/btn_up"
         android:layout_width="@dimen/eq_iv_arrow_width"
         android:layout_height="@dimen/eq_iv_arrow_height"
         android:src="@mipmap/ic_arrow_up" />
@@ -27,7 +27,7 @@
         tools:text="6dB" />
 
     <ImageView
-        android:id="@+id/btn_up"
+        android:id="@+id/btn_down"
         android:layout_width="@dimen/eq_iv_arrow_width"
         android:layout_height="@dimen/eq_iv_arrow_height"
         android:src="@mipmap/ic_arrow_down" />

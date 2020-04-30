@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.flyaudio.lib.adapter.RecyclerViewAdapter;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
-import com.flyaudio.soundeffect.comm.config.ConfigUtils;
+import com.flyaudio.soundeffect.comm.config.EffectConfigUtils;
 import com.flyaudio.soundeffect.comm.util.EqUtils;
 import com.flyaudio.soundeffect.comm.view.NoScrollLinearLayoutManager;
 
@@ -26,9 +26,15 @@ import java.util.List;
  */
 public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.OnItemClickListener {
 
+
+    private static final int FREQUENCY_MIN = 0;
+    private static final int FREQUENCY_MAX = 10000 * 100;
+
     private ProgressAdapter adapter;
     private List<DataBean> dataBeans;
-    // 31段EQ分成了13个区间
+    /**
+     * 31段EQ分成了13个区间，当前调节的区间
+     */
     private int region;
     private ProgressBarListener listener;
     private Paint paintText;
@@ -69,7 +75,7 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
         paintLine.setColor(ResUtils.getColor(R.color.eq_progress_adjusting_color));
         paintLine.setStrokeWidth(ResUtils.getDimension(R.dimen.eq_progress_top_line));
 
-        int[] frequencies = ConfigUtils.getFrequencies();
+        int[] frequencies = EffectConfigUtils.getFrequencies();
         String[] titles = getResources().getStringArray(R.array.eq_titles_13);
         for (int i = 0; i < titles.length; i++) {
             DataBean dataBean = new DataBean();
@@ -77,7 +83,6 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
             dataBean.freq = frequencies[i];
             this.dataBeans.add(dataBean);
         }
-
     }
 
     private void initView() {
@@ -169,7 +174,6 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
         adapter.updateItem(region, adapter.getData(region));
     }
 
-
     public void updateProgesses(int[] gains) {
         for (int i = 0; i < adapter.getDatas().size(); i++) {
             adapter.getData(i).value = gains[i];
@@ -178,11 +182,15 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
     }
 
     public int[] getProgesses() {
-        int[] gains = new int[getSize()];
-        for (int i = 0; i < getSize(); i++) {
+        int[] gains = new int[dataBeans.size()];
+        for (int i = 0; i < dataBeans.size(); i++) {
             gains[i] = adapter.getData(i).value;
         }
         return gains;
+    }
+
+    public int getProgress() {
+        return adapter.getData(region).value;
     }
 
     public void updateTitle(int frequency) {
@@ -195,30 +203,8 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
         invalidate();
     }
 
-    public void updateTitles(int[] frequencies) {
-        for (int i = 0; i < adapter.getDatas().size(); i++) {
-            adapter.getData(i).title = EqUtils.getFreq2Str(frequencies[i]);
-            adapter.getData(i).freq = frequencies[i];
-        }
-        adapter.refreshAdapter();
-    }
-
-    public int getNextTitle() {
-        return adapter.getData(this.region + 1).freq;
-    }
-
-    public int getPrevTitle() {
-        return adapter.getData(this.region - 1).freq;
-    }
-
-    private void updateTitleByRegion(int region, int frequency) {
-        adapter.getData(region).freq = frequency;
-        adapter.getData(region).title = EqUtils.getFreq2Str(frequency);
-        adapter.updateItem(region, adapter.getData(region));
-    }
-
-    public int getSize() {
-        return adapter.getDatas().size();
+    public int getRegion() {
+        return region;
     }
 
     public int[] getTitles() {
@@ -229,20 +215,55 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
         return frequencies;
     }
 
+    public int getCurrentTitle() {
+        return adapter.getData(this.region).freq;
+    }
+
+    public void updateTitles(int[] frequencies) {
+        for (int i = 0; i < adapter.getDatas().size(); i++) {
+            adapter.getData(i).title = EqUtils.getFreq2Str(frequencies[i]);
+            adapter.getData(i).freq = frequencies[i];
+        }
+        adapter.refreshAdapter();
+    }
+
+    public int getNextTitle() {
+        int freq = FREQUENCY_MAX;
+        if (region < dataBeans.size() - 1) {
+            freq = adapter.getData(region + 1).freq;
+        }
+        return freq;
+    }
+
+    public int getPrevTitle() {
+        int freq = FREQUENCY_MIN;
+        if (region > 0) {
+            freq = adapter.getData(region - 1).freq;
+        }
+        return freq;
+    }
+
+    private void updateTitleByRegion(int region, int frequency) {
+        adapter.getData(region).freq = frequency;
+        adapter.getData(region).title = EqUtils.getFreq2Str(frequency);
+        adapter.updateItem(region, adapter.getData(region));
+    }
+
     public void setListener(@Nullable ProgressBarListener listener) {
         this.listener = listener;
     }
 
     private class DataBean {
         int value;
-        String title;
         int freq;
+        String title;
     }
 
     public interface ProgressBarListener {
         /**
          * 点击条目时eq区间发生变化
          *
+         * @param region 当前区间
          */
         void onRegionChange(int region);
     }
