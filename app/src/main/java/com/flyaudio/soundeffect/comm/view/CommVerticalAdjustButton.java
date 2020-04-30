@@ -49,9 +49,9 @@ public class CommVerticalAdjustButton extends FrameLayout implements View.OnClic
     public void onClick(View v) {
         if (listener != null) {
             if (v.getId() == R.id.btn_up) {
-                listener.onUp();
+                listener.onAdjust(true);
             } else if (v.getId() == R.id.btn_down) {
-                listener.onDown();
+                listener.onAdjust(false);
             }
         }
     }
@@ -63,12 +63,10 @@ public class CommVerticalAdjustButton extends FrameLayout implements View.OnClic
     public interface AdjustListener {
         /**
          * 调大
+         *
+         * @param up true表示调大
          */
-        void onUp();
+        void onAdjust(boolean up);
 
-        /**
-         * 调小
-         */
-        void onDown();
     }
 }

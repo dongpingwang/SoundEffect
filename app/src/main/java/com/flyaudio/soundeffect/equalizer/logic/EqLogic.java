@@ -28,7 +28,9 @@ public class EqLogic {
      */
     private static final String KEY_EQ_LAST_ADJUST = "eq_last_adjust_%d";
 
-
+    /**
+     * 保存一个eq模式的所有频率、增益、q值
+     */
     public void saveEqModeData(int id, EqDataBean data) {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_MODE, id);
         GsonHandler handler = new GsonHandler(new Gson());
@@ -36,7 +38,9 @@ public class EqLogic {
         SPCacheHelper.getInstance().put(spKey, value);
     }
 
-
+    /**
+     * 获取一个eq模式的所有频率、增益、q值
+     */
     public EqDataBean getEqModeData(int id) {
         EqDataBean data;
         String spKey = String.format(Locale.getDefault(), KEY_EQ_MODE, id);
@@ -49,17 +53,25 @@ public class EqLogic {
             data = new EqDataBean();
             data.frequencies = EffectConfigUtils.getFrequencies();
             data.gains = getDefaultGains(id);
-            data.qValues = getDefaultEqValues(id);
+            data.qValues = getDefaultEqValues();
         }
         return data;
     }
 
 
+    /**
+     * 获取默认的增益
+     *
+     */
     public int[] getDefaultGains(int id) {
         return EffectConfigUtils.getEqGains()[id < EQ_PRESET_COUNT ? id : EffectConfigUtils.getEqGains().length - 1];
     }
 
-    public double[] getDefaultEqValues(int id) {
+    /**
+     * 获取默认的q值
+     *
+     */
+    public double[] getDefaultEqValues() {
         double[] values = new double[EffectConfigUtils.getFrequencies().length];
         for (double value : values) {
             value = EffectConfigUtils.Q_VALUES[0];
@@ -67,12 +79,19 @@ public class EqLogic {
         return values;
     }
 
-
+    /**
+     *获取最后调节的一段频率索引
+     *
+     */
     public int getLastAdjustIndex(int id) {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_LAST_ADJUST, id);
         return SPCacheHelper.getInstance().getInt(spKey);
     }
 
+    /**
+     *保存最后调节的一段频率索引
+     *
+     */
     public void saveLastAdjustIndex(int id, int index) {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_LAST_ADJUST, id);
         SPCacheHelper.getInstance().put(spKey, index);

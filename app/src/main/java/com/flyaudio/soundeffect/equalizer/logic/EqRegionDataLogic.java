@@ -52,7 +52,31 @@ public final class EqRegionDataLogic {
         return maps;
     }
 
-    public static int getFreqUp(int region, int current, int prev, int next) {
+    public static int getGain(int current, boolean up) {
+        return up ? getGainUp(current) : getGainDown(current);
+    }
+
+    private static int getGainUp(int current) {
+        int will = current + GAIN_STEP;
+        if (will > GAIN_MAX) {
+            will = LOOP_GAIN ? GAIN_MIN : current;
+        }
+        return will;
+    }
+
+    private static int getGainDown(int current) {
+        int will = current - GAIN_STEP;
+        if (will < GAIN_MIN) {
+            will = LOOP_GAIN ? GAIN_MAX : current;
+        }
+        return will;
+    }
+
+    public static int getFreq(int region, int current, int prev, int next, boolean up) {
+        return up ? getFreqUp(region, current, prev, next) : getFreqDown(region, current, prev, next);
+    }
+
+    private static int getFreqUp(int region, int current, int prev, int next) {
         int will = current;
         List<Integer> ins = getIns(region, prev, next);
         for (int i = 0; i < ins.size(); i++) {
@@ -69,7 +93,7 @@ public final class EqRegionDataLogic {
         return will;
     }
 
-    public static int getFreqDown(int region, int current, int prev, int next) {
+    private static int getFreqDown(int region, int current, int prev, int next) {
         int will = current;
         List<Integer> ins = getIns(region, prev, next);
         for (int i = ins.size() - 1; i >= 0; i--) {
@@ -85,6 +109,7 @@ public final class EqRegionDataLogic {
         }
         return will;
     }
+
 
     public static double getEqValue(double value, boolean up) {
         int will, current;
@@ -114,21 +139,6 @@ public final class EqRegionDataLogic {
         return index;
     }
 
-    public static int getGainUp(int current) {
-        int will = current + GAIN_STEP;
-        if (will > GAIN_MAX) {
-            will = LOOP_GAIN ? GAIN_MIN : current;
-        }
-        return will;
-    }
-
-    public static int getGainDown(int current) {
-        int will = current - GAIN_STEP;
-        if (will < GAIN_MIN) {
-            will = LOOP_GAIN ? GAIN_MAX : current;
-        }
-        return will;
-    }
 
     /**
      * 获取当前区间中在前后频率范围内可选择的所有频率集合

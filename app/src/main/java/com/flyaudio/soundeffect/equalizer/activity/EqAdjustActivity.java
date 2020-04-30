@@ -32,7 +32,6 @@ public class EqAdjustActivity extends BaseActivity {
     private EqManager eqManager;
     private EqDataBean eqDataBean;
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_eq_adjust;
@@ -68,13 +67,18 @@ public class EqAdjustActivity extends BaseActivity {
             @Override
             public void onRegionChange(int region) {
                 eqManager.saveLastAdjustIndex(eqMode.getId(), region);
+                btnFreq.setValue(EqUtils.getFreq2Str(eqSquareBars.getCurrentTitle()));
+                btnGain.setValue(eqDataBean.gains[eqSquareBars.getRegion()] + ResUtils.getString(R.string.gain_unit));
+                btnEqValue.setValue(EQ_VALUE_DESCRIPTION[EqRegionDataLogic.getEqValueIndex(eqDataBean.qValues[eqSquareBars.getRegion()])]);
             }
         });
-        // 恢复上次调节
+
+        // 恢复所有频率、增益
         eqSquareBars.updateProgesses(eqDataBean.gains);
         eqSquareBars.updateTitles(eqDataBean.frequencies);
-        int lastAdjustIndex = eqManager.getLastAdjustIndex(eqMode.getId());
-        eqSquareBars.updateRegion(lastAdjustIndex);
+        // 恢复当前调节的区间
+        eqSquareBars.updateRegion(eqManager.getLastAdjustIndex(eqMode.getId()));
+
     }
 
     private void initAdjustBtn() {
@@ -83,62 +87,59 @@ public class EqAdjustActivity extends BaseActivity {
         btnEqValue = getView(R.id.btn_group2);
         btnFreq.setTitle(ResUtils.getString(R.string.frequency));
         btnEqValue.setTitle(ResUtils.getString(R.string.q_value_adjust));
+
+        // 恢复最后调节的一段频率
+        int lastAdjustIndex = eqManager.getLastAdjustIndex(eqMode.getId());
+        btnGain.setValue(eqDataBean.gains[lastAdjustIndex] + ResUtils.getString(R.string.gain_unit));
+        btnFreq.setValue(EqUtils.getFreq2Str(eqDataBean.frequencies[lastAdjustIndex]));
+        btnEqValue.setValue(EQ_VALUE_DESCRIPTION[EqRegionDataLogic.getEqValueIndex(eqDataBean.qValues[lastAdjustIndex])]);
+
         // 调节增益
         btnGain.setListener(new CommVerticalAdjustButton.AdjustListener() {
             @Override
-            public void onUp() {
-                int progress = EqRegionDataLogic.getGainUp(eqSquareBars.getProgress());
-                eqSquareBars.updateProgress(progress);
-                btnGain.setValue(progress + ResUtils.getString(R.string.gain_unit));
-                eqDataBean.gains[eqSquareBars.getRegion()] = progress;
-            }
-
-            @Override
-            public void onDown() {
-                int progress = EqRegionDataLogic.getGainDown(eqSquareBars.getProgress());
-                eqSquareBars.updateProgress(progress);
-                btnGain.setValue(progress + ResUtils.getString(R.string.gain_unit));
-                eqDataBean.gains[eqSquareBars.getRegion()] = progress;
+            public void onAdjust(boolean up) {
+                int gain = EqRegionDataLogic.getGain(eqSquareBars.getProgress(), up);
+                eqSquareBars.updateProgress(gain);
+                btnGain.setValue(gain + ResUtils.getString(R.string.gain_unit));
+                eqDataBean.gains[eqSquareBars.getRegion()] = gain;
+                eqManager.saveEqModeData(eqMode.getId(), eqDataBean);
+                eqManager.saveGain(eqMode.getId(), eqSquareBars.getRegion(), eqSquareBars.getCurrentTitle(), gain);
             }
         });
+
 
         // 调节频率
         btnFreq.setListener(new CommAdjustButton.AdjustListener() {
             @Override
-            public void onUp() {
-                int freq = EqRegionDataLogic.getFreqUp(eqSquareBars.getRegion(), eqSquareBars.getCurrentTitle(), eqSquareBars.getPrevTitle(), eqSquareBars.getNextTitle());
-                eqSquareBars.updateTitle(freq);
-                btnFreq.setValue(EqUtils.getFreq2Str(freq));
-                eqDataBean.frequencies[eqSquareBars.getRegion()] = freq;
-            }
+            public void onAdjust(boolean up) {
+                int freq = EqRegionDataLogic.getFreq(eqSquareBars.getRegion(),
+                        eqSquareBars.getCurrentTitle(), eqSquareBars.getPrevTitle(), eqSquareBars.getNextTitle(), up);
+                // 这段频率对应的增益与q值
+                int gain = eqManager.getGain(eqMode.getId(), eqSquareBars.getRegion(), freq);
+                double eqValue = eqManager.getEqValue(eqMode.getId(), eqSquareBars.getRegion(), freq);
 
-            @Override
-            public void onDown() {
-                int freq = EqRegionDataLogic.getFreqDown(eqSquareBars.getRegion(), eqSquareBars.getCurrentTitle(), eqSquareBars.getPrevTitle(), eqSquareBars.getNextTitle());
                 eqSquareBars.updateTitle(freq);
+                eqSquareBars.updateProgress(gain);
                 btnFreq.setValue(EqUtils.getFreq2Str(freq));
+                btnGain.setValue(gain + ResUtils.getString(R.string.gain_unit));
+                btnEqValue.setValue(EQ_VALUE_DESCRIPTION[EqRegionDataLogic.getEqValueIndex(eqValue)]);
                 eqDataBean.frequencies[eqSquareBars.getRegion()] = freq;
+                eqManager.saveEqModeData(eqMode.getId(), eqDataBean);
             }
         });
 
         // 调节q值
         btnEqValue.setListener(new CommAdjustButton.AdjustListener() {
             @Override
-            public void onUp() {
-                double eqValue = EqRegionDataLogic.getEqValue(eqDataBean.qValues[eqSquareBars.getRegion()], true);
+            public void onAdjust(boolean up) {
+                double eqValue = EqRegionDataLogic.getEqValue(eqDataBean.qValues[eqSquareBars.getRegion()], up);
                 eqDataBean.qValues[eqSquareBars.getRegion()] = eqValue;
                 btnEqValue.setValue(EQ_VALUE_DESCRIPTION[EqRegionDataLogic.getEqValueIndex(eqValue)]);
-            }
-
-            @Override
-            public void onDown() {
-                double eqValue = EqRegionDataLogic.getEqValue(eqDataBean.qValues[eqSquareBars.getRegion()], false);
-                eqDataBean.qValues[eqSquareBars.getRegion()] = eqValue;
-                btnEqValue.setValue(EQ_VALUE_DESCRIPTION[EqRegionDataLogic.getEqValueIndex(eqValue)]);
+                eqManager.saveEqModeData(eqMode.getId(), eqDataBean);
+                eqManager.saveEqValue(eqMode.getId(), eqSquareBars.getRegion(), eqSquareBars.getCurrentTitle(), eqValue);
             }
         });
     }
-
 
     private void initData() {
         eqMode = getIntent().getParcelableExtra(INTENT_MODE_NAME);

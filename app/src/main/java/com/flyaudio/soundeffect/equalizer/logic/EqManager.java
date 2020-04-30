@@ -17,7 +17,7 @@ import java.util.List;
  * @date 20-4-24
  * email wangdongping@flyaudio.cn
  */
-public final class EqManager extends EqLogic {
+public final class EqManager extends EqRegionLogic {
 
     /**
      * 记录eq列表：将Java bean集合转化为json String进行存储
