@@ -39,7 +39,7 @@ public class ListenPositionButtons extends FrameLayout implements RadioGroup.OnC
     }
 
     private void init(Context context) {
-        View.inflate(context, R.layout.view_listen_position, this);
+        View.inflate(context, R.layout.view_btn_listen_position, this);
         buttons = Arrays.asList(
                 (RadioButton) findViewById(R.id.btn_front_left),
                 (RadioButton) findViewById(R.id.btn_front_right),

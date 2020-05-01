@@ -9,7 +9,7 @@
     <RadioButton
         android:id="@+id/btn_front_left"
         style="@style/btnListenPosition"
-        android:text="@string/position_driver"/>
+        android:text="@string/position_driver" />
 
     <RadioButton
         android:id="@+id/btn_front_right"
@@ -22,25 +22,26 @@
         android:id="@+id/btn_front_row"
         style="@style/btnListenPosition"
         android:layout_marginTop="@dimen/btn_listen_position_margin_top"
-        android:text="@string/position_front_row"/>
+        android:text="@string/position_front_row" />
 
     <RadioButton
         android:id="@+id/btn_back_row"
         style="@style/btnListenPosition"
         android:layout_marginStart="@dimen/btn_listen_position_margin_start"
         android:layout_marginTop="@dimen/minus_btn_listen_position_height"
-        android:text="@string/position_back_row"/>
+        android:text="@string/position_back_row" />
 
     <RadioButton
         android:id="@+id/btn_all"
         style="@style/btnListenPosition"
         android:layout_marginTop="@dimen/btn_listen_position_margin_top"
-         android:text="@string/position_all"/>
+        android:checked="true"
+        android:text="@string/position_all" />
 
     <RadioButton
         android:id="@+id/btn_off"
         style="@style/btnListenPosition"
         android:layout_marginStart="@dimen/btn_listen_position_margin_start"
         android:layout_marginTop="@dimen/minus_btn_listen_position_height"
-        android:text="@string/position_close"/>
+        android:text="@string/position_close" />
 </RadioGroup>

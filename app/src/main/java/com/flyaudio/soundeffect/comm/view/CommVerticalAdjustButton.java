@@ -35,7 +35,7 @@ public class CommVerticalAdjustButton extends FrameLayout implements View.OnClic
     }
 
     private void init(Context context) {
-        View.inflate(context, R.layout.view_vertical_adjust_button, this);
+        View.inflate(context, R.layout.view_vertical_adjust_btn, this);
         tvValue = (TextView) findViewById(R.id.tv_value);
         findViewById(R.id.btn_up).setOnClickListener(this);
         findViewById(R.id.btn_down).setOnClickListener(this);

@@ -3,12 +3,13 @@
     package="com.flyaudio.soundeffect">
 
     <application
-        android:name=".main.activity.App"
+        android:name=".main.activity.SoundEffectApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="true">
 
         <!--主界面-->
         <activity
@@ -28,7 +29,6 @@
             android:name=".equalizer.activity.EqAdjustActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
-
 
         <!--扬声器调节-->
         <activity
