@@ -20,6 +20,7 @@ public class CommTitleBar extends FrameLayout implements View.OnClickListener {
 
     private TitleBarActionListener listener;
     private TextView tvName;
+    private TextView tvReset;
 
     public CommTitleBar(@NonNull Context context) {
         this(context, null);
@@ -37,14 +38,14 @@ public class CommTitleBar extends FrameLayout implements View.OnClickListener {
     private void init(Context context, AttributeSet attrs) {
         View.inflate(context, R.layout.view_comm_title_bar, this);
         tvName = (TextView) findViewById(R.id.tv_title_name);
-
+        tvReset = (TextView) findViewById(R.id.tv_reset);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CommTitleBar);
         String title = typedArray.getString(R.styleable.CommTitleBar_title_name);
         (tvName).setText(title);
         typedArray.recycle();
 
         findViewById(R.id.iv_back).setOnClickListener(this);
-        findViewById(R.id.tv_reset).setOnClickListener(this);
+        tvReset.setOnClickListener(this);
     }
 
     @Override
@@ -61,6 +62,10 @@ public class CommTitleBar extends FrameLayout implements View.OnClickListener {
 
     public void setTitleName(String titleName) {
         tvName.setText(titleName);
+    }
+
+    public void updateResetVisibility(boolean visible) {
+        tvReset.setVisibility(visible ? VISIBLE : GONE);
     }
 
     public void setListener(TitleBarActionListener listener) {

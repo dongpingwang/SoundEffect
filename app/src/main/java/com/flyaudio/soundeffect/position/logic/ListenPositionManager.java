@@ -47,12 +47,24 @@ public final class ListenPositionManager {
         return Constants.indexOfListenPosition(listenPosition);
     }
 
+    public int speakerType2Index(@Constants.ListenPositionSpeakerType int speaker) {
+        return Constants.indexOfListenPositionSpeakerType(speaker);
+    }
+
     public int index2ListenPosition(int index) {
         int position = Constants.ListenPositionType.LISTEN_POSITION_ALL;
         if (index >= 0 && index < Constants.LISTEN_POSITIONS.length) {
             position = Constants.LISTEN_POSITIONS[index];
         }
         return position;
+    }
+
+    public int index2SpeakerType(int index) {
+        int seaker = Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_FRONT_LEFT;
+        if (index >= 0 && index < Constants.SPEAKER_TYPES.length) {
+            seaker = Constants.SPEAKER_TYPES[index];
+        }
+        return seaker;
     }
 
     public boolean[] listenPosition2SpeakerStatus(@Constants.ListenPositionType int listenPosition) {

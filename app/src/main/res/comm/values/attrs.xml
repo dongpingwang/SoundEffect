@@ -6,6 +6,12 @@
         <attr name="title_name" format="reference|string" />
     </declare-styleable>
 
+    <!--Switch-->
+    <declare-styleable name="CommSwitch">
+        <attr name="switch_name" format="reference|string" />
+    </declare-styleable>
+
+
     <!--eq条形进度条-->
     <declare-styleable name="EqSquareProgress">
         <attr name="max" />
@@ -15,4 +21,33 @@
         <attr name="adjusting_color" format="color" />
         <attr name="adjusted_color" format="color" />
     </declare-styleable>
+
+    <!--开关-->
+    <declare-styleable name="CheckButton">
+        <attr name="on_remind_icon" format="reference" />
+        <attr name="off_remind_icon" format="reference" />
+        <attr name="on_remind_text" format="string" />
+        <attr name="off_remind_text" format="string" />
+        <attr name="on_text" format="string" />
+        <attr name="off_text" format="string" />
+        <attr name="checked" format="boolean" />
+        <attr name="checkable" format="boolean" />
+    </declare-styleable>
+
+    <!--数字调节器-->
+    <declare-styleable name="NumberSelector">
+        <attr name="max" />
+        <attr name="min" />
+        <attr name="value" format="integer" />
+        <attr name="text" format="string" />
+        <attr name="step" />
+        <attr name="is_loop" format="boolean" />
+        <attr name="visibility_title">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="selector_enable" format="boolean" />
+    </declare-styleable>
+
 </resources>

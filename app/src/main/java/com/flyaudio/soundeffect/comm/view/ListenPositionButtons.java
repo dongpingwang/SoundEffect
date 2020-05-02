@@ -66,6 +66,18 @@ public class ListenPositionButtons extends FrameLayout implements RadioGroup.OnC
         }
     }
 
+    public String getPositionName() {
+        String name = buttons.get(0).getText().toString();
+        for (RadioButton button : buttons) {
+            if (button.isChecked()) {
+                name = button.getText().toString();
+                break;
+            }
+        }
+        return name;
+    }
+
+
     public void displayIfBackRowOff(boolean on) {
         int visibility = on ? VISIBLE : GONE;
         buttons.get(2).setVisibility(visibility);
@@ -73,6 +85,11 @@ public class ListenPositionButtons extends FrameLayout implements RadioGroup.OnC
     }
 
     public interface ListenPositionCheckedListener {
+        /**
+         * 收听位置发生改变
+         *
+         * @param position 收听位置，值为0-5
+         */
         void onCheckedChanged(int position);
     }
 

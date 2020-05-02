@@ -32,12 +32,12 @@
 
         <!--扬声器调节-->
         <activity
-            android:name=".speaker.SpeakerVolumeActivity"
+            android:name=".speaker.activity.SpeakerVolumeActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--时间校准-->
         <activity
-            android:name=".delay.TimeCalibrationActivity"
+            android:name=".delay.activity.TimeCalibrationActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="front_left">前左</string>
-    <string name="front_right">前右</string>
-    <string name="back_left">后左</string>
-    <string name="back_right">后右</string>
-    <string name="mega_bass">重低音</string>
+    <string name="trumpet_front_left">左前方</string>
+    <string name="trumpet_front_right">右前方</string>
+    <string name="trumpet_back_left">左后方</string>
+    <string name="trumpet_back_right">右后方</string>
+    <string name="trumpet_mega_bass">重低音</string>
 
     <string name="position_driver">驾驶位</string>
     <string name="position_copilot">副驾驶</string>

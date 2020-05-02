@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/setting_item_height"
+    android:background="@drawable/comm_ripple">
+
+    <TextView
+        android:id="@+id/tv_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/comm_margin"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/font_16"
+        tools:text="开关" />
+
+    <Switch
+        android:id="@+id/sw_open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/comm_margin"
+        android:background="@drawable/comm_ripple_borderless"
+        android:thumb="@drawable/switch_thumb"
+        android:thumbTint="@color/switch_color_tint"
+        android:track="@drawable/switch_track"
+        android:trackTint="@color/switch_color_tint" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/split_line" />
+</RelativeLayout>

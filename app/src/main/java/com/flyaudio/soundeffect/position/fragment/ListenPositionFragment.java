@@ -7,9 +7,9 @@ import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.view.ListenPositionButtons;
 import com.flyaudio.soundeffect.comm.view.SpeakersLayout;
-import com.flyaudio.soundeffect.delay.TimeCalibrationActivity;
+import com.flyaudio.soundeffect.delay.activity.TimeCalibrationActivity;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
-import com.flyaudio.soundeffect.speaker.SpeakerVolumeActivity;
+import com.flyaudio.soundeffect.speaker.activity.SpeakerVolumeActivity;
 
 /**
  * @author Dongping Wang
@@ -18,6 +18,8 @@ import com.flyaudio.soundeffect.speaker.SpeakerVolumeActivity;
  */
 public class ListenPositionFragment extends BaseFragment implements View.OnClickListener,
         ListenPositionButtons.ListenPositionCheckedListener {
+
+    public static final String INTENT_POSITION_NAME = "position_name";
 
     private ListenPositionButtons buttons;
     private SpeakersLayout speakers;
@@ -58,11 +60,14 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onClick(View view) {
+        Intent intent;
         if (view.getId() == R.id.tv_speaker) {
-            startActivity(new Intent(context(), SpeakerVolumeActivity.class));
-        } else if (view.getId() == R.id.tv_delay) {
-            startActivity(new Intent(context(), TimeCalibrationActivity.class));
+            intent = new Intent(context(), SpeakerVolumeActivity.class);
+        } else {
+            intent = new Intent(context(), TimeCalibrationActivity.class);
         }
+        intent.putExtra(INTENT_POSITION_NAME, buttons.getPositionName());
+        startActivity(intent);
     }
 
 
