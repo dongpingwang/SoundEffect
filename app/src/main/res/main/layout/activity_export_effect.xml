@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_comm_title_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/ll_file_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_item_height"
+            android:layout_marginStart="68dp">
+
+            <TextView
+                android:id="@+id/tv_file_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/file_name"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/font_15" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/tv_file_name"
+                android:background="@null"
+                android:focusable="false"
+                android:hint="@string/input_valid_file_name"
+                android:textColor="@color/text_color_normal"
+                android:textColorHint="@color/text_color_normal8"
+                android:textSize="@dimen/font_15"
+                tools:text="带感的音效" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/split_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_item_height"
+            android:layout_below="@id/ll_file_name"
+            android:layout_marginStart="68dp">
+
+            <TextView
+                android:id="@+id/tv_file_path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/file_path"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/font_15" />
+
+            <TextView
+                android:id="@+id/tv_path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/tv_file_path"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/font_15"
+                tools:text="本地主目录" />
+
+            <TextView
+                android:id="@+id/tv_select_path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="65dp"
+                android:background="@drawable/comm_ripple_borderless"
+                android:text="@string/select_path"
+                android:textColor="@color/text_color_highlight"
+                android:textSize="@dimen/font_15" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/split_line" />
+        </RelativeLayout>
+
+        <include layout="@layout/layout_backup_button" />
+    </RelativeLayout>
+
+
+</LinearLayout>

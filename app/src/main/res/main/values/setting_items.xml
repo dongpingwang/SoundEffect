@@ -6,8 +6,8 @@
         <item>@string/trumpet_setting</item>
         <item>衰减平衡设置</item>
         <item>高低通滤波</item>
-        <item>导入音效</item>
-        <item>导出音效</item>
+        <item>@string/import_effect</item>
+        <item>@string/export_effect</item>
     </string-array>
 
 </resources>

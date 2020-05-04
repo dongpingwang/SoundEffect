@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btn_export_effect"
+    android:layout_width="204dp"
+    android:layout_height="38dp"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/bg_import_btn"
+    android:text="@string/export_effect_file"
+    android:textAllCaps="false"
+    android:textColor="@color/text_color_highlight"
+    android:textSize="@dimen/font_16" />

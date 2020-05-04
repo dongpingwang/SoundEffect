@@ -23,5 +23,13 @@
     <string name="close_subwoofer">关闭重低音</string>
     <string name="close_back_row">关闭后排输出</string>
 
+    <string name="import_effect">导入音效</string>
+    <string name="export_effect">导出音效</string>
+    <string name="file_name">文件名:</string>
+    <string name="input_valid_file_name">请输入有效的文件名</string>
+    <string name="file_path">路径:</string>
+    <string name="select_path">选择路径</string>
+    <string name="import_effect_file">导入文件</string>
+    <string name="export_effect_file">导出音效文件</string>
 
 </resources>
