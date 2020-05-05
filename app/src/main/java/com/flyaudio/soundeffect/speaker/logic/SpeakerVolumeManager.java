@@ -37,7 +37,7 @@ public final class SpeakerVolumeManager {
     /**
      * 记录扬声器音量：收听位置_喇叭位置_扬声器音量
      */
-    private static final String KEY_SPEAKER_VOLUME = "key_speaker_volume_%d_%d";
+    private static final String KEY_SPEAKER_VOLUME = "speaker_volume_%d_%d";
 
     public void init() {
         int listenPosition = ListenPositionManager.getInstance().getListenPosition();
@@ -45,7 +45,6 @@ public final class SpeakerVolumeManager {
             int volume = getSpeakerVolume(listenPosition, speaker);
         }
     }
-
 
     public SparseArray<SparseArray<SpeakerVolumeDataLogic.ChannelVolumeSpeakerBean>> getSpeakerVolumeMap() {
         if (speakerVolumeMap == null) {

@@ -5,11 +5,11 @@
     <application
         android:name=".main.activity.SoundEffectApplication"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:fullBackupContent="true">
+        android:theme="@style/AppTheme">
 
         <!--主界面-->
         <activity
@@ -66,6 +66,13 @@
             android:name=".backup.activity.ExportEffectActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
+
+        <!--提供framework在媒体记忆前拉起音效服务，进行初始化-->
+        <service android:name=".dsp.service.InitEffectService">
+            <intent-filter>
+                <action android:name="flyaudio.init.dsp.effect" />
+            </intent-filter>
+        </service>
 
     </application>
 

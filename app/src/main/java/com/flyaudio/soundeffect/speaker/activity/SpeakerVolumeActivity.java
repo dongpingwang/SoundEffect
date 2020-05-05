@@ -32,6 +32,7 @@ public class SpeakerVolumeActivity extends BaseActivity {
     private CommTitleBar titleBar;
     private SoundEffectView soundEffectView;
     private SpeakerVolumeManager speakerVolumeManager;
+    private ListenPositionManager listenPositionManager;
     private static int listenPosition;
 
     @Override
@@ -48,7 +49,8 @@ public class SpeakerVolumeActivity extends BaseActivity {
 
     private void initData() {
         speakerVolumeManager = SpeakerVolumeManager.getInstance();
-        listenPosition = ListenPositionManager.getInstance().getListenPosition();
+        listenPositionManager = ListenPositionManager.getInstance();
+        listenPosition = listenPositionManager.getListenPosition();
     }
 
     private void initTitleBar() {
@@ -64,8 +66,8 @@ public class SpeakerVolumeActivity extends BaseActivity {
             public void onReset() {
                 int[] defaultSpeakerVolumes = speakerVolumeManager.getDefaultSpeakerVolumes(listenPosition);
                 for (int i = 0; i < defaultSpeakerVolumes.length; i++) {
-                    setVolume(listenPosition, ListenPositionManager.getInstance().index2SpeakerType(i), defaultSpeakerVolumes[i]);
-                    soundEffectView.setSelectorValue(ListenPositionManager.getInstance().index2SpeakerType(i), defaultSpeakerVolumes[i]);
+                    setVolume(listenPosition, listenPositionManager.index2SpeakerType(i), defaultSpeakerVolumes[i]);
+                    soundEffectView.setSelectorValue(listenPositionManager.index2SpeakerType(i), defaultSpeakerVolumes[i]);
                 }
             }
         });

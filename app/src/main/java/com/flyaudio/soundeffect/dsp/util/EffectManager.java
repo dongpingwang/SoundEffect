@@ -1,4 +1,4 @@
-package com.flyaudio.soundeffect.dsp;
+package com.flyaudio.soundeffect.dsp.util;
 
 /**
  * @author Dongping Wang
@@ -6,6 +6,10 @@ package com.flyaudio.soundeffect.dsp;
  * email wangdongping@flyaudio.cn
  */
 public final class EffectManager {
+
+    private EffectManager() {
+
+    }
 
     public static void init() {
 

@@ -2,12 +2,14 @@ package com.flyaudio.soundeffect.position.fragment;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.view.ListenPositionButtons;
 import com.flyaudio.soundeffect.comm.view.SpeakersLayout;
 import com.flyaudio.soundeffect.delay.activity.TimeCalibrationActivity;
+import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 import com.flyaudio.soundeffect.speaker.activity.SpeakerVolumeActivity;
 
@@ -21,6 +23,8 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
 
     public static final String INTENT_POSITION_NAME = "position_name";
 
+    private TextView tvSpeakerAdjust;
+    private TextView tvDelayAdjust;
     private ListenPositionButtons buttons;
     private SpeakersLayout speakers;
     private ListenPositionManager listenPositionManager;
@@ -39,9 +43,12 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
     private void initView() {
         buttons = getView(R.id.btn_listen_position);
         speakers = getView(R.id.speakers_layout);
+        tvSpeakerAdjust = getView(R.id.tv_speaker);
+        tvDelayAdjust = getView(R.id.tv_delay);
+
         buttons.setListenPositionCheckedListener(this);
-        getView(R.id.tv_speaker).setOnClickListener(this);
-        getView(R.id.tv_delay).setOnClickListener(this);
+        tvSpeakerAdjust.setOnClickListener(this);
+        tvDelayAdjust.setOnClickListener(this);
     }
 
     private void initData() {
@@ -51,11 +58,14 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
         speakers.setSpeakersEnable(listenPositionManager.listenPosition2SpeakerStatus(listenPosition));
     }
 
-
     @Override
     public void onCheckedChanged(int index) {
-        listenPositionManager.saveListenPosition(listenPositionManager.index2ListenPosition(index));
-        speakers.setSpeakersEnable(listenPositionManager.listenPosition2SpeakerStatus(listenPositionManager.index2ListenPosition(index)));
+        int listenPosition = listenPositionManager.index2ListenPosition(index);
+        listenPositionManager.saveListenPosition(listenPosition);
+        speakers.setSpeakersEnable(listenPositionManager.listenPosition2SpeakerStatus(listenPosition));
+        // 关闭时不能调节喇叭音量和通道延时
+        tvSpeakerAdjust.setEnabled(listenPosition != Constants.ListenPositionType.LISTEN_POSITION_CLOSE);
+        tvDelayAdjust.setEnabled(listenPosition != Constants.ListenPositionType.LISTEN_POSITION_CLOSE);
     }
 
     @Override
@@ -69,6 +79,5 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
         intent.putExtra(INTENT_POSITION_NAME, buttons.getPositionName());
         startActivity(intent);
     }
-
 
 }

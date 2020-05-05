@@ -1,18 +1,19 @@
 package com.flyaudio.soundeffect.equalizer.logic;
 
-import android.content.SharedPreferences;
-
 import com.flyaudio.lib.sp.SPCacheHelper;
-import com.flyaudio.lib.utils.AppUtils;
 import com.flyaudio.soundeffect.comm.config.EffectConfigUtils;
 
 import java.util.Locale;
 
 /**
+ * 注意010平台一个区间中所有的频率对应的增益、Q值是一样的
+ * (原先区分的逻辑废弃 wdp 2020.05.05)
+ *
  * @author Dongping Wang
  * @date 20-4-30
  * email wangdongping@flyaudio.cn
  */
+@Deprecated
 public class EqRegionLogic extends EqLogic {
 
     /**
@@ -45,6 +46,5 @@ public class EqRegionLogic extends EqLogic {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_MODE_Q_VALUE, id, region, freq);
         SPCacheHelper.getInstance().put(spKey, (float) value);
     }
-
 
 }

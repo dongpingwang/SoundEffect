@@ -18,6 +18,7 @@
     <string name="speaker_adjust">扬声器调节</string>
     <string name="time_calibration">时间校准</string>
     <string name="speaker_volume_selector_format" translatable="false">%d db</string>
+    <string name="delay_selector_format" translatable="false">%.1f ms</string>
 
     <string name="trumpet_setting">喇叭设置</string>
     <string name="close_subwoofer">关闭重低音</string>
