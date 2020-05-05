@@ -39,4 +39,12 @@
     <!--eq调节和高低通滤波调节按钮-->
     <dimen name="eq_iv_arrow_width">64.86dp</dimen>
     <dimen name="eq_iv_arrow_height">42.16dp</dimen>
+
+    <!--高低通滤波-->
+    <dimen name="filter_guide_line_space">22dp</dimen>
+    <dimen name="filter_adjust_line_point">1.5dp</dimen>
+    <dimen name="filter_adjust_line_touch">4dp</dimen>
+    <dimen name="filter_space_min_more">6dp</dimen>
+    <dimen name="filter_space_large">18dp</dimen>
+
 </resources>

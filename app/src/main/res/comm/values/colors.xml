@@ -17,4 +17,12 @@
     <!--调节箭头着色-->
     <color name="adjust_arrow">#FFFFFF</color>
 
+    <!--高低通滤波自定义调节控件的颜色-->
+    <color name="view_frequency_adjust_bg">#252525</color>
+    <color name="view_frequency_adjust_line">#545454</color>
+    <color name="view_frequency_adjust_line_dot">#585858</color>
+    <color name="view_frequency_adjust_text">@color/text_color_gray</color>
+    <color name="view_frequency_adjust_focus">@color/text_color_normal</color>
+    <color name="view_frequency_adjust_selected">@color/theme_color</color>
+    <color name="view_frequency_adjust_unselected">#808080</color>
 </resources>

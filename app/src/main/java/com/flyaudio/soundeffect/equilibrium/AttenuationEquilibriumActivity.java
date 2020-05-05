@@ -1,4 +1,4 @@
-package com.flyaudio.soundeffect.balance;
+package com.flyaudio.soundeffect.equilibrium;
 
 import com.flyaudio.lib.base.BaseActivity;
 

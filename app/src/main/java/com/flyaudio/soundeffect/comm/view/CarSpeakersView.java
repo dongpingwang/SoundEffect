@@ -9,14 +9,14 @@ import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+
+import com.flyaudio.soundeffect.R;
+
 /**
  * @author Dongping Wang
  * date 2019.12.25
  * email wangdongping@flyaudio.cn
  */
-import com.flyaudio.soundeffect.R;
-
-
 public class CarSpeakersView extends ImageView implements ValueAnimator.AnimatorUpdateListener {
 
     private static final long ANIMATOR_TIME = 2000;

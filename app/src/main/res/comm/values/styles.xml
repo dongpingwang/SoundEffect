@@ -27,4 +27,8 @@
         <item name="android:layout_weight">1</item>
     </style>
 
+    <style name="btnBalanceAdjust">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+    </style>
 </resources>
