@@ -52,7 +52,7 @@
     </RelativeLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -60,14 +60,19 @@
         <com.flyaudio.soundeffect.comm.view.ListenPositionButtons
             android:id="@+id/btn_listen_position"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50.81dp"
+            android:layout_marginTop="57.84dp" />
 
 
         <com.flyaudio.soundeffect.comm.view.SpeakersLayout
             android:id="@+id/speakers_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="42.16dp"
+            android:layout_marginEnd="64.86dp" />
+    </RelativeLayout>
 
 
 </LinearLayout>
