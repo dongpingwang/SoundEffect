@@ -7,7 +7,7 @@ import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.backup.activity.ExportEffectActivity;
 import com.flyaudio.soundeffect.backup.activity.ImportEffectActivity;
-import com.flyaudio.soundeffect.equilibrium.AttenuationEquilibriumActivity;
+import com.flyaudio.soundeffect.attenuator.AttenuatorActivity;
 import com.flyaudio.soundeffect.filter.EqFilterActivity;
 import com.flyaudio.soundeffect.trumpet.activity.TrumpetSettingActivity;
 
@@ -36,7 +36,7 @@ public final class SettingUtils {
         if (position == 0) {
             clazz = TrumpetSettingActivity.class;
         } else if (position == 1) {
-            clazz = AttenuationEquilibriumActivity.class;
+            clazz = AttenuatorActivity.class;
         } else if (position == 2) {
             clazz = EqFilterActivity.class;
         } else if (position == 3) {

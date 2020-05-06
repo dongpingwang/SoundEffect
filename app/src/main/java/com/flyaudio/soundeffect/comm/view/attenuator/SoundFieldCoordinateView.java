@@ -1,4 +1,4 @@
-package com.flyaudio.soundeffect.comm.view.equilibrium;
+package com.flyaudio.soundeffect.comm.view.attenuator;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -21,13 +21,12 @@ import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 
 /**
- * @author Dongping Wang
- * date 2019.12.25
- * email wangdongping@flyaudio.cn
+ * created by Liu Zicong 19-06-05
  */
+@SuppressWarnings("all")
 public class SoundFieldCoordinateView extends View {
-    // 坐标分多少份
-    private final static int EQUAL = 10 + 2;
+
+    private final static int EQUAL = 10 + 2;    //坐标分多少份
     private Paint mViewPaint;
     private Paint mTextPaint;
     private float mTouchPointX;
@@ -182,6 +181,7 @@ public class SoundFieldCoordinateView extends View {
 
     public interface IAttenutorListener {
         void setBalance();
+
         void isToEdge(int btn, boolean edge);
     }
 
@@ -195,8 +195,8 @@ public class SoundFieldCoordinateView extends View {
         divisorX = isRight ? divisorX + 1 : divisorX - 1;
         divisorX = divisorX > 11 ? 11 : divisorX < 1 ? 1 : divisorX;
         if (mAttenutorListener != null) {
-            mAttenutorListener.isToEdge(isRight ? AttenuatorAdjuster.BTN_RIGHT : AttenuatorAdjuster.BTN_LEFT, isRight ? divisorX < 11 : divisorX > 1);
-            mAttenutorListener.isToEdge(isRight ? AttenuatorAdjuster.BTN_LEFT : AttenuatorAdjuster.BTN_RIGHT,true);
+            mAttenutorListener.isToEdge(isRight ? AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT : AttenuatorAdjuster.AttenuatorBtn.BTN_LEFT, isRight ? divisorX < 11 : divisorX > 1);
+            mAttenutorListener.isToEdge(isRight ? AttenuatorAdjuster.AttenuatorBtn.BTN_LEFT : AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT, true);
         }
         mTouchPointX = (mViewWidth / EQUAL) * divisorX;
         invalidate();
@@ -208,8 +208,8 @@ public class SoundFieldCoordinateView extends View {
         divisorY = isDown ? divisorY + 1 : divisorY - 1;
         divisorY = divisorY > 11 ? 11 : divisorY < 1 ? 1 : divisorY;
         if (mAttenutorListener != null) {
-            mAttenutorListener.isToEdge(isDown ? AttenuatorAdjuster.BTN_DOWN : AttenuatorAdjuster.BTN_UP , isDown ? divisorY < 11 : divisorY > 1);
-            mAttenutorListener.isToEdge(isDown ? AttenuatorAdjuster.BTN_UP : AttenuatorAdjuster.BTN_DOWN,true);
+            mAttenutorListener.isToEdge(isDown ? AttenuatorAdjuster.AttenuatorBtn.BTN_DOWN : AttenuatorAdjuster.AttenuatorBtn.BTN_UP, isDown ? divisorY < 11 : divisorY > 1);
+            mAttenutorListener.isToEdge(isDown ? AttenuatorAdjuster.AttenuatorBtn.BTN_UP : AttenuatorAdjuster.AttenuatorBtn.BTN_DOWN, true);
         }
         mTouchPointY = (mViewHeight / EQUAL) * divisorY;
 
@@ -222,8 +222,8 @@ public class SoundFieldCoordinateView extends View {
         mTouchPointY = (mViewHeight / EQUAL) * 6;
         invalidate();
         if (mAttenutorListener != null) {
-            for (int i = AttenuatorAdjuster.BTN_UP; i <= AttenuatorAdjuster.BTN_RIGHT; i++) {
-                mAttenutorListener.isToEdge(i,true);
+            for (int i = AttenuatorAdjuster.AttenuatorBtn.BTN_UP; i <= AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT; i++) {
+                mAttenutorListener.isToEdge(i, true);
             }
         }
     }
@@ -252,7 +252,7 @@ public class SoundFieldCoordinateView extends View {
     private float[] limitValue(float x, float y) {
         x = x > mViewWidth / EQUAL * 11 ? mViewWidth / EQUAL * 11 : x < mViewWidth / EQUAL ? mViewWidth / EQUAL : x;
         y = y > mViewHeight / EQUAL * 11 ? mViewHeight / EQUAL * 11 : y < mViewHeight / EQUAL ? mViewHeight / EQUAL : y;
-        return new float[]{x,y};
+        return new float[]{x, y};
     }
 
 }

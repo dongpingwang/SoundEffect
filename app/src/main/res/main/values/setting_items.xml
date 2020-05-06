@@ -4,7 +4,7 @@
     <!--设置项目名称-->
     <string-array name="setting_items">
         <item>@string/trumpet_setting</item>
-        <item>衰减平衡设置</item>
+        <item>@string/attenuator_setting</item>
         <item>高低通滤波</item>
         <item>@string/import_effect</item>
         <item>@string/export_effect</item>

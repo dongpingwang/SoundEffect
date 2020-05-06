@@ -50,4 +50,12 @@
         <attr name="selector_enable" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="BtnSelectLayout">
+        <attr name="item_padding" format="dimension"/>
+        <attr name="item_margin" format="dimension"/>
+        <attr name="item_selected_background" format="reference"/>
+        <attr name="item_unselected_background" format="reference"/>
+        <attr name="item_text_size" format="dimension"/>
+    </declare-styleable>
+
 </resources>

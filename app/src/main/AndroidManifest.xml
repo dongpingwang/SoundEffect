@@ -48,7 +48,7 @@
             android:screenOrientation="landscape" />
         <!--衰减平衡-->
         <activity
-            android:name=".equilibrium.AttenuationEquilibriumActivity"
+            android:name=".attenuator.AttenuatorActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--高低通滤波调节-->

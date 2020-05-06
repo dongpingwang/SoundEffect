@@ -24,6 +24,10 @@
     <string name="close_subwoofer">关闭重低音</string>
     <string name="close_back_row">关闭后排输出</string>
 
+    <string name="attenuator_setting">衰减平衡设置</string>
+    <string name="attenuator_adjust">衰减平衡调节</string>
+
+
     <string name="import_effect">导入音效</string>
     <string name="export_effect">导出音效</string>
     <string name="file_name">文件名:</string>

@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <ImageButton
-        android:id="@+id/position_up_btn"
+        android:id="@+id/attenuator_adjuster_up"
         android:layout_width="60dp"
         android:layout_height="60dp"
 
@@ -18,19 +18,18 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
-
         <ImageButton
-            android:id="@+id/position_left_btn"
+            android:id="@+id/attenuator_adjuster_left"
             style="@style/btnBalanceAdjust"
             android:layout_marginEnd="11.3dp"
             android:src="@drawable/ic_left" />
 
         <ImageButton
-            android:id="@+id/position_middle_btn"
+            android:id="@+id/attenuator_adjuster_center"
             style="@style/btnBalanceAdjust" />
 
         <ImageButton
-            android:id="@+id/position_right_btn"
+            android:id="@+id/attenuator_adjuster_right"
             style="@style/btnBalanceAdjust"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_right" />
@@ -38,7 +37,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/position_down_btn"
+        android:id="@+id/attenuator_adjuster_down"
         style="@style/btnBalanceAdjust"
         android:layout_marginTop="10dp"
         android:src="@drawable/ic_down" />

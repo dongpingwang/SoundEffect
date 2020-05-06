@@ -47,4 +47,17 @@
     <dimen name="filter_space_min_more">6dp</dimen>
     <dimen name="filter_space_large">18dp</dimen>
 
+    <!--衰减平衡-->
+    <dimen name="touch_img_view_size">260.44dp</dimen>
+    <dimen name="touch_img_width">223.33dp</dimen>
+    <dimen name="touch_img_scale_space">27.78dp</dimen>
+    <dimen name="touch_img_edge_space">13.89dp</dimen>
+    <dimen name="touch_img_cursor_width">10dp</dimen>
+    <dimen name="touch_img_cursor_height">13.33dp</dimen>
+    <dimen name="touch_img_space_middle">10dp</dimen>
+
+    <!--BtnSelectLayout-->
+    <dimen name="btn_select_layout_margin">4dp</dimen>
+    <dimen name="btn_select_layout_padding">8dp</dimen>
+
 </resources>
