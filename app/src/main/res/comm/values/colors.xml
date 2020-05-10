@@ -3,6 +3,8 @@
 
     <!--button等未选中颜色-->
     <color name="btn_uncheck_bg">#3A3A3A</color>>
+    <!--声场中座位LinearLayout底部颜色 -->
+    <color name="bg_listen_position_car">#3A3A3A</color>
 
     <!--eq条形进度条-->
     <color name="eq_progress_default_color">#404858</color>

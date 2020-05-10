@@ -12,7 +12,8 @@
         android:layout_marginStart="16.75dp"
         android:padding="12.97dp"
         android:scaleType="center"
-        android:src="@mipmap/comm_title_bar_back" />
+        android:src="@mipmap/comm_title_bar_back"
+        android:background="@drawable/comm_ripple_borderless"/>
 
     <TextView
         android:id="@+id/tv_title_name"
@@ -33,7 +34,8 @@
         android:gravity="center"
         android:text="@string/reset"
         android:textColor="@color/text_color_highlight"
-        android:textSize="@dimen/font_16" />
+        android:textSize="@dimen/font_16"
+        android:background="@drawable/comm_ripple_rectangle"/>
 
     <View
         android:layout_width="match_parent"

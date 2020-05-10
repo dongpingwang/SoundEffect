@@ -1,13 +1,19 @@
 package com.flyaudio.soundeffect.setting.fragment;
 
+import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.flyaudio.lib.adapter.RecyclerViewAdapter;
 import com.flyaudio.lib.base.BaseFragment;
+import com.flyaudio.lib.constant.TimeUnit;
+import com.flyaudio.lib.toast.DebugToast;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.setting.util.SettingUtils;
 import com.flyaudio.soundeffect.setting.adapter.SettingListAdapter;
+import com.flyaudio.soundeffect.test.activity.TestActivity;
 
 /**
  * @author Dongping Wang
@@ -16,6 +22,7 @@ import com.flyaudio.soundeffect.setting.adapter.SettingListAdapter;
  */
 public class SettingFragment extends BaseFragment implements RecyclerViewAdapter.OnItemClickListener {
 
+    private long[] mHints = new long[5];
     private RecyclerView rvSettingList;
 
     @Override
@@ -31,6 +38,19 @@ public class SettingFragment extends BaseFragment implements RecyclerViewAdapter
         rvSettingList.setLayoutManager(layoutManager);
         rvSettingList.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
+
+        // 点击5次打开test模块
+        getView(R.id.tv_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.arraycopy(mHints, 1, mHints, 0, mHints.length - 1);
+                mHints[mHints.length - 1] = SystemClock.uptimeMillis();
+                if (SystemClock.uptimeMillis() - mHints[0] <= TimeUnit.SEC) {
+                    startActivity(new Intent(context(), TestActivity.class));
+                }
+            }
+        });
+
     }
 
     @Override

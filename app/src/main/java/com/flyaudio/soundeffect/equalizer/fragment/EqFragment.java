@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.equalizer.activity.EqAdjustActivity;
 import com.flyaudio.soundeffect.equalizer.adapter.EqListAdapter;
 import com.flyaudio.soundeffect.equalizer.bean.EqMode;
+import com.flyaudio.soundeffect.equalizer.dialog.EqDeleteDialog;
+import com.flyaudio.soundeffect.equalizer.dialog.EqReNameDialog;
 import com.flyaudio.soundeffect.equalizer.logic.EqManager;
 
 import java.util.List;
@@ -32,6 +35,8 @@ public class EqFragment extends BaseFragment {
     private TextView tvAdjust;
     private RecyclerView rvEqList;
     private EqListAdapter adapter;
+    private EqReNameDialog eqEditDialog;
+    private EqDeleteDialog eqDeleteDialog;
     private EqManager eqManager = EqManager.getInstance();
 
     @Override
@@ -53,7 +58,7 @@ public class EqFragment extends BaseFragment {
 
     private void initAdapter() {
 
-        List<EqMode> eqList = eqManager.getEqList();
+        final List<EqMode> eqList = eqManager.getEqList();
         adapter = new EqListAdapter(context(), eqList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), DEFAULT_SPAN_COUNT);
         gridLayoutManager.setOrientation(OrientationHelper.VERTICAL);
@@ -66,12 +71,63 @@ public class EqFragment extends BaseFragment {
             @Override
             public void onItemClick(int position) {
                 adapter.updateChecked(position);
-                eqManager.saveCurrentEq(adapter.getChecked().getId());
+                eqManager.saveCurrentEq(adapter.getCheckedPos());
             }
 
             @Override
-            public void onItemEdit(int position) {
+            public void onItemEdit(final int position) {
+                if (eqEditDialog == null) {
+                    eqEditDialog = new EqReNameDialog(context());
+                }
+                eqEditDialog.show();
+                final EqMode data = adapter.getData(position);
+                final String oldName = data.getName();
+                eqEditDialog.updateEqName(oldName);
+                eqEditDialog.setListener(new EqReNameDialog.EqModeEditListener() {
+                    @Override
+                    public void onRename(String name) {
+                        if (TextUtils.isEmpty(name)) {
+                            Toaster.show(ResUtils.getString(R.string.eq_name_not_empty));
+                        } else if (TextUtils.equals(name, oldName)) {
+                            Toaster.show(ResUtils.getString(R.string.eq_name_be_new));
+                        } else {
+                            data.setName(name);
+                            adapter.updateItem(position, data);
+                            onCancel();
+                        }
+                    }
 
+                    @Override
+                    public void onDelete() {
+                        if (eqDeleteDialog == null) {
+                            eqDeleteDialog = new EqDeleteDialog(context());
+                        }
+                        eqDeleteDialog.show();
+                        eqEditDialog.hide();
+                        eqDeleteDialog.setListener(new EqDeleteDialog.EqDeleteListener() {
+                            @Override
+                            public void onDelete() {
+                                adapter.deleteEqMode(position);
+                                eqManager.saveEqList(adapter.getDatas());
+                                eqManager.saveCurrentEq(adapter.getCheckedPos());
+                                eqManager.clearEqDataWhenDelete(adapter.getCheckedPos());
+                                eqDeleteDialog.cancel();
+                                eqEditDialog.cancel();
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                eqDeleteDialog.cancel();
+                                eqEditDialog.show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        eqEditDialog.cancel();
+                    }
+                });
             }
 
             @Override
@@ -80,9 +136,8 @@ public class EqFragment extends BaseFragment {
                     int customEqCount = eqManager.getCustomEqCount();
                     int id = eqManager.getMaxEqId() + 1;
                     String name = ResUtils.getString(R.string.custom_, customEqCount + 1);
-                    // 添加到倒数第二个
-                    adapter.addItem(adapter.getItemViewCount() - 1, new EqMode(id, name));
-                    adapter.clearChecked();
+                    adapter.addEqMode(new EqMode(id, name));
+                    eqManager.saveCurrentEq(adapter.getCheckedPos());
                     eqManager.saveEqList(adapter.getDatas());
                     eqManager.saveMaxEqId(id);
                 }

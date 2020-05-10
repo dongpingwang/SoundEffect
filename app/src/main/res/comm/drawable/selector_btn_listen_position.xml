@@ -6,14 +6,5 @@
             <corners android:radius="@dimen/comm_radius" />
         </shape>
     </item>
-    <item>
-        <ripple android:color="@color/comm_ripple_color">
-            <item>
-                <shape android:shape="rectangle">
-                    <solid android:color="@color/btn_uncheck_bg" />
-                    <corners android:radius="@dimen/comm_radius" />
-                </shape>
-            </item>
-        </ripple>
-    </item>
+    <item android:drawable="@drawable/comm_adjust_button_bg" />
 </selector>

@@ -48,7 +48,7 @@
             android:screenOrientation="landscape" />
         <!--衰减平衡-->
         <activity
-            android:name=".attenuator.AttenuatorActivity"
+            android:name=".attenuator.activity.AttenuatorActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--高低通滤波调节-->
@@ -64,6 +64,11 @@
         <!--导出音效-->
         <activity
             android:name=".backup.activity.ExportEffectActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape" />
+        <!--测试模块-->
+        <activity
+            android:name=".test.activity.TestActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
 

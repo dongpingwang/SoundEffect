@@ -10,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/comm_margin"
         android:textColor="@color/text_color_normal"
         android:textSize="@dimen/font_16"
         tools:text="开关" />
@@ -21,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/comm_margin"
         android:background="@drawable/comm_ripple_borderless"
         android:thumb="@drawable/switch_thumb"
         android:thumbTint="@color/switch_color_tint"

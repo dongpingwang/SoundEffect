@@ -3,6 +3,7 @@ package com.flyaudio.soundeffect.equalizer.activity;
 import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
+import com.flyaudio.soundeffect.comm.dialog.ResetDialog;
 import com.flyaudio.soundeffect.comm.util.EqUtils;
 import com.flyaudio.soundeffect.comm.view.CommAdjustButton;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
@@ -28,6 +29,8 @@ public class EqAdjustActivity extends BaseActivity {
     private EqSquareBars eqSquareBars;
     private CommVerticalAdjustButton btnGain;
     private CommAdjustButton btnFreq, btnEqValue;
+    private ResetDialog resetDialog;
+
     private EqMode eqMode;
     private EqManager eqManager;
     private EqDataBean eqDataBean;
@@ -56,7 +59,21 @@ public class EqAdjustActivity extends BaseActivity {
 
             @Override
             public void onReset() {
+                if (resetDialog == null) {
+                    resetDialog = new ResetDialog(context());
+                }
+                resetDialog.show();
+                resetDialog.setListener(new ResetDialog.ResetListener() {
+                    @Override
+                    public void onReset() {
+                        onCancel();
+                    }
 
+                    @Override
+                    public void onCancel() {
+                        resetDialog.cancel();
+                    }
+                });
             }
         });
     }

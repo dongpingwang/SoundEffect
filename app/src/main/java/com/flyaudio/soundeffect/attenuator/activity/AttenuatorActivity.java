@@ -1,6 +1,5 @@
-package com.flyaudio.soundeffect.attenuator;
+package com.flyaudio.soundeffect.attenuator.activity;
 
-import android.annotation.SuppressLint;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -25,7 +24,7 @@ public class AttenuatorActivity extends BaseActivity {
     private CommTitleBar titleBar;
     private AttenuatorAdjuster adjuster;
     private SpeakersLayout speakers;
-    private SoundFieldCoordinateView touchImageView;
+    private TouchImageView touchImageView;
 
     private AttenuatorLogic attenuatorLogic;
 
@@ -107,7 +106,6 @@ public class AttenuatorActivity extends BaseActivity {
             @Override
             public boolean onPreDraw() {
                 touchImageView.getViewTreeObserver().removeOnPreDrawListener(this);
-                touchImageView.goToCenter();
 //                float[] position = attenuatorLogic.getTouchIvValue();
 //                int x = (int) (touchImageView.getViewWidth() * position[0] / (position[0] + position[2]) + 0.5f);
 //                int y = (int) (touchImageView.getViewHeight() * position[1] / (position[1] + position[3]) + 0.5);

@@ -1,4 +1,4 @@
-package com.flyaudio.soundeffect.dsp.interfaces;
+package com.flyaudio.soundeffect.dsp.dsp;
 
 /**
  * @author Dongping Wang

@@ -7,6 +7,7 @@ import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
+import com.flyaudio.soundeffect.comm.dialog.ResetDialog;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.NumberSelector;
 import com.flyaudio.soundeffect.comm.view.SoundEffectView;
@@ -39,6 +40,7 @@ public class TimeCalibrationActivity extends BaseActivity {
     private static final int B = 10;
     private CommTitleBar titleBar;
     private SoundEffectView soundEffectView;
+    private ResetDialog resetDialog;
     private DelayManager delayManager;
     private ListenPositionManager listenPositionManager;
     private static int listenPosition;
@@ -73,7 +75,22 @@ public class TimeCalibrationActivity extends BaseActivity {
 
             @Override
             public void onReset() {
+                if (resetDialog == null) {
+                    resetDialog = new ResetDialog(context());
+                }
+                resetDialog.show();
+                resetDialog.setMsg(ResUtils.getString(R.string.will_you_reset_time_calibration));
+                resetDialog.setListener(new ResetDialog.ResetListener() {
+                    @Override
+                    public void onReset() {
+                        onCancel();
+                    }
 
+                    @Override
+                    public void onCancel() {
+                        resetDialog.cancel();
+                    }
+                });
             }
         });
     }

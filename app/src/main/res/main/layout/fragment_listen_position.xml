@@ -29,6 +29,7 @@
             android:singleLine="true"
             android:text="@string/time_calibration"
             android:textColor="@color/selector_listen_position_title"
+            android:background="@drawable/comm_ripple_rectangle"
             android:textSize="@dimen/font_16" />
 
         <TextView
@@ -42,6 +43,7 @@
             android:singleLine="true"
             android:text="@string/speaker_adjust"
             android:textColor="@color/selector_listen_position_title"
+            android:background="@drawable/comm_ripple_rectangle"
             android:textSize="@dimen/font_16" />
 
         <View

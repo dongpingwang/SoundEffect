@@ -136,4 +136,12 @@ public final class EqManager extends EqRegionLogic {
     public void saveMaxEqId(int id) {
         SPCacheHelper.getInstance().put(KEY_EQ_INDEX_MAX, id);
     }
+
+    /**
+     * 删除一个eq模式时，从sp中移除相关数据
+     */
+    public void clearEqDataWhenDelete(int id) {
+
+    }
+
 }

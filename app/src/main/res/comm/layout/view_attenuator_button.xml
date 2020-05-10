@@ -7,9 +7,7 @@
 
     <ImageButton
         android:id="@+id/attenuator_adjuster_up"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-
+        style="@style/btnBalanceAdjust"
         android:src="@drawable/ic_up" />
 
     <LinearLayout
@@ -26,7 +24,8 @@
 
         <ImageButton
             android:id="@+id/attenuator_adjuster_center"
-            style="@style/btnBalanceAdjust" />
+            style="@style/btnBalanceAdjust"
+            android:src="@drawable/ic_center" />
 
         <ImageButton
             android:id="@+id/attenuator_adjuster_right"

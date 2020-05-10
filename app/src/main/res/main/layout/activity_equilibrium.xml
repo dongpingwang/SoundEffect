@@ -28,7 +28,7 @@
             android:layout_marginEnd="101.62dp"
             android:background="#0f0" />
 
-        <com.flyaudio.soundeffect.comm.view.attenuator.SoundFieldCoordinateView
+        <com.flyaudio.soundeffect.comm.view.attenuator.TouchImageView
             android:id="@+id/attenuator_touch_iv"
             android:layout_width="264dp"
             android:layout_height="264dp"

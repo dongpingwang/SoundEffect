@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
+import com.flyaudio.soundeffect.comm.dialog.ResetDialog;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.NumberSelector;
 import com.flyaudio.soundeffect.comm.view.SoundEffectView;
@@ -31,6 +32,7 @@ public class SpeakerVolumeActivity extends BaseActivity {
 
     private CommTitleBar titleBar;
     private SoundEffectView soundEffectView;
+    private ResetDialog resetDialog;
     private SpeakerVolumeManager speakerVolumeManager;
     private ListenPositionManager listenPositionManager;
     private static int listenPosition;
@@ -64,11 +66,27 @@ public class SpeakerVolumeActivity extends BaseActivity {
 
             @Override
             public void onReset() {
-                int[] defaultSpeakerVolumes = speakerVolumeManager.getDefaultSpeakerVolumes(listenPosition);
-                for (int i = 0; i < defaultSpeakerVolumes.length; i++) {
-                    setVolume(listenPosition, listenPositionManager.index2SpeakerType(i), defaultSpeakerVolumes[i]);
-                    soundEffectView.setSelectorValue(listenPositionManager.index2SpeakerType(i), defaultSpeakerVolumes[i]);
+                if (resetDialog == null) {
+                    resetDialog = new ResetDialog(context());
                 }
+                resetDialog.show();
+                resetDialog.setMsg(ResUtils.getString(R.string.will_you_reset_speaker_volume));
+                resetDialog.setListener(new ResetDialog.ResetListener() {
+                    @Override
+                    public void onReset() {
+                        int[] defaultSpeakerVolumes = speakerVolumeManager.getDefaultSpeakerVolumes(listenPosition);
+                        for (int i = 0; i < defaultSpeakerVolumes.length; i++) {
+                            setVolume(listenPosition, listenPositionManager.index2SpeakerType(i), defaultSpeakerVolumes[i]);
+                            soundEffectView.setSelectorValue(listenPositionManager.index2SpeakerType(i), defaultSpeakerVolumes[i]);
+                        }
+                        onCancel();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        resetDialog.cancel();
+                    }
+                });
             }
         });
     }

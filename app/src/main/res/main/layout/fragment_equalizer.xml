@@ -28,7 +28,8 @@
             android:gravity="center"
             android:text="@string/adjust"
             android:textColor="@color/text_color_highlight"
-            android:textSize="@dimen/font_16" />
+            android:textSize="@dimen/font_16"
+            android:background="@drawable/comm_ripple_rectangle"/>
 
         <View
             android:layout_width="match_parent"

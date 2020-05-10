@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.flyaudio.lib.log.Logger;
-import com.flyaudio.soundeffect.dsp.util.EffectManager;
+import com.flyaudio.soundeffect.dsp.logic.EffectManager;
 
 /**
  * init dsp effect by framework

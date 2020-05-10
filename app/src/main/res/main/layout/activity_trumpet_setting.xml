@@ -12,11 +12,15 @@
         android:id="@+id/switch_subwoofer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="68.11dp"
+        android:paddingEnd="61.62dp"
         app:switch_name="@string/close_subwoofer" />
 
     <com.flyaudio.soundeffect.comm.view.CommSwitch
         android:id="@+id/switch_back_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="68.11dp"
+        android:paddingEnd="61.62dp"
         app:switch_name="@string/close_back_row" />
 </LinearLayout>

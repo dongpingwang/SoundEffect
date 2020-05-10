@@ -6,6 +6,15 @@
     <string name="adjust">调节</string>
     <string name="please_check_one_mode">请先选择一个模式</string>
     <string name="custom_">自定义%d</string>
+    <string name="name">名称</string>
+    <string name="delete">删除</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="save">保存</string>
+    <string name="eq_name_not_empty">自定义eq模式名字不能为空</string>
+    <string name="eq_name_be_new">输入一个新的eq模式名称</string>
+    <string name="will_you_delete_the_mode">确定删除该模式？</string>
+    <string name="will_you_rest_the_eq_mode">确定重置当前EQ设置？</string>
     <string name="equalizer_max_value" translatable="false">+14db</string>
     <string name="equalizer_medium_value" translatable="false">0db</string>
     <string name="equalizer_min_value" translatable="false">-14db</string>
@@ -19,6 +28,11 @@
     <string name="time_calibration">时间校准</string>
     <string name="speaker_volume_selector_format" translatable="false">%d db</string>
     <string name="delay_selector_format" translatable="false">%.1f ms</string>
+    <string name="will_you_reset_speaker_volume">确定重置扬声器音量?</string>
+    <string name="will_you_reset_time_calibration">确定重置时间校准?</string>
+
+    <string name="dialog_filter_reset">确定重置高低通滤波?</string>
+
 
     <string name="trumpet_setting">喇叭设置</string>
     <string name="close_subwoofer">关闭重低音</string>

@@ -12,13 +12,13 @@
         android:id="@+id/btn_up"
         android:layout_width="@dimen/eq_iv_arrow_width"
         android:layout_height="@dimen/eq_iv_arrow_height"
-        android:src="@mipmap/ic_arrow_up" />
+        android:background="@drawable/comm_adjust_button_bg"
+        android:src="@drawable/ic_eq_arrow_up" />
 
     <TextView
         android:id="@+id/tv_value"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-
         android:layout_weight="1"
         android:gravity="center"
         android:singleLine="true"
@@ -30,6 +30,7 @@
         android:id="@+id/btn_down"
         android:layout_width="@dimen/eq_iv_arrow_width"
         android:layout_height="@dimen/eq_iv_arrow_height"
-        android:src="@mipmap/ic_arrow_down" />
+        android:background="@drawable/comm_adjust_button_bg"
+        android:src="@drawable/ic_eq_arrow_down" />
 
 </LinearLayout>

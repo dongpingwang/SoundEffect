@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="411.89dp"
+    android:layout_height="97.3dp"
+    android:background="@color/dialog_bg">
+
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16.22dp"
+        android:layout_marginTop="19.46dp"
+        android:text="@string/will_you_rest_the_eq_mode"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/font_16" />
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        style="@style/dialog_action_tv"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="31.08dp"
+        android:text="@string/confirm" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        style="@style/dialog_action_tv"
+        android:layout_marginEnd="55.95dp"
+        android:layout_toStartOf="@id/tv_confirm"
+        android:text="@string/cancel" />
+</RelativeLayout>

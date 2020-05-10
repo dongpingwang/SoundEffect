@@ -30,5 +30,6 @@
     <style name="btnBalanceAdjust">
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">60dp</item>
+        <item name="android:background">@drawable/comm_adjust_button_bg</item>
     </style>
 </resources>
