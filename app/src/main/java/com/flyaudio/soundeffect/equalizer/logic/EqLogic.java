@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.flyaudio.lib.json.handler.GsonHandler;
 import com.flyaudio.lib.sp.SPCacheHelper;
-import com.flyaudio.soundeffect.comm.config.EffectConfigUtils;
+import com.flyaudio.soundeffect.config.EffectCommUtils;
 import com.flyaudio.soundeffect.equalizer.bean.EqDataBean;
 import com.google.gson.Gson;
 
@@ -17,7 +17,7 @@ import java.util.Locale;
  */
 public class EqLogic {
 
-    protected static final int EQ_PRESET_COUNT = EffectConfigUtils.EQ_PRESET_COUNT;
+    protected static final int EQ_PRESET_COUNT = EffectCommUtils.EQ_PRESET_COUNT;
 
     /**
      * 一个eq模式的所有频率、增益、q值
@@ -51,7 +51,7 @@ public class EqLogic {
             data = handler.fromJson(value, EqDataBean.class);
         } else {
             data = new EqDataBean();
-            data.frequencies = EffectConfigUtils.getFrequencies();
+            data.frequencies = EffectCommUtils.getFrequencies();
             data.gains = getDefaultGains(id);
             data.qValues = getDefaultEqValues();
         }
@@ -64,7 +64,7 @@ public class EqLogic {
      *
      */
     public int[] getDefaultGains(int id) {
-        return EffectConfigUtils.getEqGains()[id < EQ_PRESET_COUNT ? id : EffectConfigUtils.getEqGains().length - 1];
+        return EffectCommUtils.getEqGains()[id < EQ_PRESET_COUNT ? id : EffectCommUtils.getEqGains().length - 1];
     }
 
     /**
@@ -72,9 +72,9 @@ public class EqLogic {
      *
      */
     public double[] getDefaultEqValues() {
-        double[] values = new double[EffectConfigUtils.getFrequencies().length];
+        double[] values = new double[EffectCommUtils.getFrequencies().length];
         for (double value : values) {
-            value = EffectConfigUtils.Q_VALUES[0];
+            value = EffectCommUtils.Q_VALUES[0];
         }
         return values;
     }

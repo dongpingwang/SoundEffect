@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.flyaudio.lib.adapter.RecyclerViewAdapter;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
-import com.flyaudio.soundeffect.comm.config.EffectConfigUtils;
+import com.flyaudio.soundeffect.config.EffectCommUtils;
 import com.flyaudio.soundeffect.comm.util.EqUtils;
 import com.flyaudio.soundeffect.comm.view.NoScrollLinearLayoutManager;
 
@@ -75,7 +75,7 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
         paintLine.setColor(ResUtils.getColor(R.color.eq_progress_adjusting_color));
         paintLine.setStrokeWidth(ResUtils.getDimension(R.dimen.eq_progress_top_line));
 
-        int[] frequencies = EffectConfigUtils.getFrequencies();
+        int[] frequencies = EffectCommUtils.getFrequencies();
         String[] titles = getResources().getStringArray(R.array.eq_titles_13);
         for (int i = 0; i < titles.length; i++) {
             DataBean dataBean = new DataBean();

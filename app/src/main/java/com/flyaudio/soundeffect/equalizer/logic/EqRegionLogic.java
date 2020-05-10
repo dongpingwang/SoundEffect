@@ -1,7 +1,7 @@
 package com.flyaudio.soundeffect.equalizer.logic;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
-import com.flyaudio.soundeffect.comm.config.EffectConfigUtils;
+import com.flyaudio.soundeffect.config.EffectCommUtils;
 
 import java.util.Locale;
 
@@ -37,7 +37,7 @@ public class EqRegionLogic extends EqLogic {
 
     public double getEqValue(int id, int region, int freq) {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_MODE_Q_VALUE, id, region, freq);
-        return SPCacheHelper.getInstance().getFloat(spKey, (float) EffectConfigUtils.Q_VALUES[0]);
+        return SPCacheHelper.getInstance().getFloat(spKey, (float) EffectCommUtils.Q_VALUES[0]);
     }
 
     public void saveEqValue(int id, int region, int freq, double value) {

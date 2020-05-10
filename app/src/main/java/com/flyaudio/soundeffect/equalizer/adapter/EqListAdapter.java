@@ -11,7 +11,7 @@ import com.flyaudio.lib.adapter.Adapter;
 import com.flyaudio.lib.adapter.RecyclerViewAdapter;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
-import com.flyaudio.soundeffect.comm.config.EffectConfigUtils;
+import com.flyaudio.soundeffect.config.EffectCommUtils;
 import com.flyaudio.soundeffect.equalizer.bean.EqMode;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
 public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
         RecyclerViewAdapter.OnItemClickListener, View.OnClickListener {
 
-    private static final int PRESET_SIZE = EffectConfigUtils.EQ_PRESET_COUNT;
+    private static final int PRESET_SIZE = EffectCommUtils.EQ_PRESET_COUNT;
     private static final int EQ_MODE_MAX_COUNT = 30;
 
     private static final int MODE_ITEM = 0;

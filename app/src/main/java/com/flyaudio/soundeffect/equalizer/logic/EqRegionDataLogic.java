@@ -6,7 +6,7 @@ import android.util.SparseArray;
 
 import com.flyaudio.lib.utils.AppUtils;
 import com.flyaudio.soundeffect.R;
-import com.flyaudio.soundeffect.comm.config.EffectConfigUtils;
+import com.flyaudio.soundeffect.config.EffectCommUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public final class EqRegionDataLogic {
     private static final int GAIN_MAX = 14;
     private static final int GAIN_MIN = -14;
     private static final int GAIN_STEP = 1;
-    private static final double[] Q_VALUES = EffectConfigUtils.Q_VALUES;
+    private static final double[] Q_VALUES = EffectCommUtils.Q_VALUES;
 
     /**
      * 标志是否可以循环调节:增益不循环调节,频率和Q值可以循环调节

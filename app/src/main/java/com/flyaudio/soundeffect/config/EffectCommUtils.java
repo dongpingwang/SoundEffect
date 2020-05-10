@@ -1,4 +1,4 @@
-package com.flyaudio.soundeffect.comm.config;
+package com.flyaudio.soundeffect.config;
 
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
@@ -8,7 +8,7 @@ import com.flyaudio.soundeffect.R;
  * @date 20-4-28
  * email wangdongping@flyaudio.cn
  */
-public final class EffectConfigUtils {
+public final class EffectCommUtils {
     /**
      * 预置的eq模式数量
      */
@@ -18,7 +18,7 @@ public final class EffectConfigUtils {
      */
     public static final double[] Q_VALUES = {0.9D, 2.1D, 4.5D};
 
-    private EffectConfigUtils() {
+    private EffectCommUtils() {
 
     }
 

@@ -3,6 +3,7 @@ package com.flyaudio.soundeffect.comm.util;
 import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.manager.LeakCanaryManager;
 import com.flyaudio.lib.utils.AppUtils;
+import com.flyaudio.soundeffect.config.AppPreferences;
 
 /**
  * @author Dongping Wang
@@ -11,9 +12,6 @@ import com.flyaudio.lib.utils.AppUtils;
  */
 public final class DebugUtils {
 
-    private static final String TAG = "SoundEffect";
-    private static final boolean LOGGABLE = true;
-    private static final boolean LOGGABLE_LEAK = true;
 
     private DebugUtils() {
 
@@ -28,15 +26,15 @@ public final class DebugUtils {
         Logger.setLogFilter(new Logger.LogFilter() {
             @Override
             public boolean isLoggable(int i, int i1, int i2, Object o, Object o1, Object... objects) {
-                return LOGGABLE;
+                return AppPreferences.LOGGABLE;
             }
         });
-        Logger.setTag(TAG);
+        Logger.setTag(AppPreferences.TAG);
     }
 
 
     private static void setupLeakCanary() {
-        if (LOGGABLE_LEAK) {
+        if (AppPreferences.LOGGABLE_LEAK) {
             LeakCanaryManager leakCanaryManager = LeakCanaryManager.getInstance();
             if (!leakCanaryManager.isInAnalyzerProcess(AppUtils.getContext())) {
                 leakCanaryManager.install();

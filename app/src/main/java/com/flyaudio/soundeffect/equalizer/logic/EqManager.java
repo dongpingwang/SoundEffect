@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.flyaudio.lib.json.handler.GsonHandler;
 import com.flyaudio.lib.sp.SPCacheHelper;
-import com.flyaudio.soundeffect.comm.config.EffectConfigUtils;
+import com.flyaudio.soundeffect.config.EffectCommUtils;
 import com.flyaudio.soundeffect.equalizer.bean.EqMode;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -91,7 +91,7 @@ public final class EqManager extends EqRegionLogic {
      */
     private List<EqMode> getPresetEqList() {
         List<EqMode> list = new ArrayList<>();
-        String[] names = EffectConfigUtils.getEqNames();
+        String[] names = EffectCommUtils.getEqNames();
         for (int i = 0; i < names.length; i++) {
             EqMode mode = new EqMode(i, names[i]);
             list.add(mode);
