@@ -13,6 +13,7 @@ public class EmptyDsp implements IDsp {
     private static final int FAIL_CODE = DspConstants.ResultCode.FAIL.getValue();
     private static final boolean DEBUG = AppPreferences.LOGGABLE_DSP;
 
+
     @Override
     public int setEq(int channel, int region, double freq, double q, double gain) {
         if (DEBUG) {

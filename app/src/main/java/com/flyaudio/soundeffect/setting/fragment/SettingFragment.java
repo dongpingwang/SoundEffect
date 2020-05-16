@@ -9,7 +9,6 @@ import android.view.View;
 import com.flyaudio.lib.adapter.RecyclerViewAdapter;
 import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.lib.constant.TimeUnit;
-import com.flyaudio.lib.toast.DebugToast;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.setting.util.SettingUtils;
 import com.flyaudio.soundeffect.setting.adapter.SettingListAdapter;

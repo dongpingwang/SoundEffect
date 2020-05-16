@@ -1,5 +1,6 @@
 package com.flyaudio.soundeffect.equalizer.logic;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.flyaudio.lib.json.handler.GsonHandler;
@@ -33,14 +34,15 @@ public class EqLogic {
      */
     public void saveEqModeData(int id, EqDataBean data) {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_MODE, id);
-        GsonHandler handler = new GsonHandler(new Gson());
-        String value = handler.toJson(data);
-        SPCacheHelper.getInstance().put(spKey, value);
+        // GsonHandler handler = new GsonHandler(new Gson());
+        // String value = handler.toJson(data);
+        SPCacheHelper.getInstance().put(spKey, data.toString());
     }
 
     /**
      * 获取一个eq模式的所有频率、增益、q值
      */
+    @NonNull
     public EqDataBean getEqModeData(int id) {
         EqDataBean data;
         String spKey = String.format(Locale.getDefault(), KEY_EQ_MODE, id);
@@ -61,7 +63,6 @@ public class EqLogic {
 
     /**
      * 获取默认的增益
-     *
      */
     public int[] getDefaultGains(int id) {
         return EffectCommUtils.getEqGains()[id < EQ_PRESET_COUNT ? id : EffectCommUtils.getEqGains().length - 1];
@@ -69,19 +70,17 @@ public class EqLogic {
 
     /**
      * 获取默认的q值
-     *
      */
     public double[] getDefaultEqValues() {
         double[] values = new double[EffectCommUtils.getFrequencies().length];
-        for (double value : values) {
-            value = EffectCommUtils.Q_VALUES[0];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = EffectCommUtils.Q_VALUES[0];
         }
         return values;
     }
 
     /**
-     *获取最后调节的一段频率索引
-     *
+     * 获取最后调节的一段频率索引
      */
     public int getLastAdjustIndex(int id) {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_LAST_ADJUST, id);
@@ -89,8 +88,7 @@ public class EqLogic {
     }
 
     /**
-     *保存最后调节的一段频率索引
-     *
+     * 保存最后调节的一段频率索引
      */
     public void saveLastAdjustIndex(int id, int index) {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_LAST_ADJUST, id);

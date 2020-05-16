@@ -48,7 +48,9 @@ public final class EqManager extends EqRegionLogic {
         return InstanceHolder.instance;
     }
 
-
+    /**
+     * 获取eq列表数据
+     */
     public List<EqMode> getEqList() {
         List<EqMode> result;
         if (SPCacheHelper.getInstance().contains(KEY_EQ_LIST)) {

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="550dp"
+    android:layout_height="97.3dp"
+    android:background="@color/dialog_bg"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_eq_frequencies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/font_16"
+        tools:text="频率数据" />
+
+    <TextView
+        android:id="@+id/tv_eq_gains"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/font_16"
+        tools:text="增益数据" />
+
+    <TextView
+        android:id="@+id/tv_eq_q_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color_normal"
+        android:textSize="@dimen/font_16"
+        tools:text="Q值数据" />
+</LinearLayout>

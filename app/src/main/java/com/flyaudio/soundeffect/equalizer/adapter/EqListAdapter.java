@@ -127,8 +127,7 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
     public void addEqMode(EqMode mode) {
         // 添加到倒数第二个
         addItem(getItemViewCount() - 1, mode);
-        // 注意一定要添加这一行代码，如果当添加最后一个时，需要手动刷新最后一个条目，否则会报Inconsistency detected
-        // https://www.jianshu.com/p/2eca433869e9
+        // 如果当添加最后一个时，需要手动刷新最后一个条目，保证RecyclerView内外部数据一致
         if (getDatas().size() == EQ_MODE_MAX_COUNT) {
             notifyItemRangeChanged(getItemCount() - 1, getItemCount());
         }
@@ -164,14 +163,14 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
         /**
          * 点击选中条目
          *
-         * @param position
+         * @param position 条目位置
          */
         void onItemClick(int position);
 
         /**
          * 编辑条目
          *
-         * @param position
+         * @param position 条目位置
          */
         void onItemEdit(int position);
 

@@ -1,6 +1,12 @@
 package com.flyaudio.soundeffect.equalizer.activity;
 
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
+import android.view.View;
+
 import com.flyaudio.lib.base.BaseActivity;
+import com.flyaudio.lib.constant.TimeUnit;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.dialog.ResetDialog;
@@ -11,6 +17,7 @@ import com.flyaudio.soundeffect.comm.view.CommVerticalAdjustButton;
 import com.flyaudio.soundeffect.comm.view.eq.EqSquareBars;
 import com.flyaudio.soundeffect.equalizer.bean.EqDataBean;
 import com.flyaudio.soundeffect.equalizer.bean.EqMode;
+import com.flyaudio.soundeffect.equalizer.dialog.EqDataDetailDialog;
 import com.flyaudio.soundeffect.equalizer.logic.EqManager;
 import com.flyaudio.soundeffect.equalizer.logic.EqRegionDataLogic;
 
@@ -30,10 +37,17 @@ public class EqAdjustActivity extends BaseActivity {
     private CommVerticalAdjustButton btnGain;
     private CommAdjustButton btnFreq, btnEqValue;
     private ResetDialog resetDialog;
+    private EqDataDetailDialog eqDataDetailDialog;
 
     private EqMode eqMode;
     private EqManager eqManager;
     private EqDataBean eqDataBean;
+
+    private static final int MSG_EQ = 0;
+    private static final int MSG_EQ_ALL = 1;
+    private EqHandler eqHandler = new EqHandler();
+
+    private long[] mHints = new long[5];
 
     @Override
     protected int getLayoutId() {
@@ -74,6 +88,21 @@ public class EqAdjustActivity extends BaseActivity {
                         resetDialog.cancel();
                     }
                 });
+            }
+        });
+        // 点击5次打开eq数据详情
+        titleBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.arraycopy(mHints, 1, mHints, 0, mHints.length - 1);
+                mHints[mHints.length - 1] = SystemClock.uptimeMillis();
+                if (SystemClock.uptimeMillis() - mHints[0] <= TimeUnit.SEC) {
+                    if (eqDataDetailDialog == null) {
+                        eqDataDetailDialog = new EqDataDetailDialog(context());
+                    }
+                    eqDataDetailDialog.show();
+                    eqDataDetailDialog.updateMsg(eqDataBean);
+                }
             }
         });
     }
@@ -167,5 +196,15 @@ public class EqAdjustActivity extends BaseActivity {
         eqDataBean = eqManager.getEqModeData(eqMode.getId());
     }
 
+    private class EqHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            // 有些平台调节Eq底层比较耗时，可能造成UI卡顿。一般调节一段eq，设置一段eq音效，不要一次性设置所有段数
+            // 如果是SeekBar时，只在松手后设置一段Eq即可，不要在滑动过程中设置
+            if (msg.what == MSG_EQ) {
 
+            }
+        }
+    }
 }

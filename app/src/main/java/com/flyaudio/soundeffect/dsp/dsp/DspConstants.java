@@ -40,19 +40,11 @@ public class DspConstants {
          */
         SWR;
 
-        Channel() {
-
-        }
-
-        private int value;
 
         public int getValue() {
-            return value;
+            return ordinal();
         }
 
-        public void setValue(int value) {
-            this.value = value;
-        }
     }
 
     /**
@@ -109,15 +101,10 @@ public class DspConstants {
 
         }
 
-        private int value;
-
         public int getValue() {
-            return value;
+            return ordinal();
         }
 
-        public void setValue(int value) {
-            this.value = value;
-        }
     }
 
     /**
