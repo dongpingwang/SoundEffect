@@ -75,12 +75,12 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
         paintLine.setColor(ResUtils.getColor(R.color.eq_progress_adjusting_color));
         paintLine.setStrokeWidth(ResUtils.getDimension(R.dimen.eq_progress_top_line));
 
-        int[] frequencies = EffectCommUtils.getFrequencies();
+        int[] eqFrequencies = EffectCommUtils.getFrequencies();
         String[] titles = getResources().getStringArray(R.array.eq_titles_13);
         for (int i = 0; i < titles.length; i++) {
             DataBean dataBean = new DataBean();
             dataBean.title = titles[i];
-            dataBean.freq = frequencies[i];
+            dataBean.freq = eqFrequencies[i];
             this.dataBeans.add(dataBean);
         }
     }

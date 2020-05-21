@@ -165,8 +165,9 @@ public class CheckButton extends FrameLayout {
 
     public void setOnText(String onText) {
         this.onText = onText;
-        if (isChecked())
+        if (isChecked()) {
             showTv.setText(this.onText);
+        }
     }
 
     public void setOffText(@StringRes int offTextRes) {

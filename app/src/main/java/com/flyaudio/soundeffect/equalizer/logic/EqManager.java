@@ -3,6 +3,7 @@ package com.flyaudio.soundeffect.equalizer.logic;
 import android.text.TextUtils;
 
 import com.flyaudio.lib.json.handler.GsonHandler;
+import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.soundeffect.config.EffectCommUtils;
 import com.flyaudio.soundeffect.equalizer.bean.EqMode;
@@ -11,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Dongping Wang
@@ -31,7 +33,7 @@ public final class EqManager extends EqRegionLogic {
     private static final String KEY_EQ_INDEX_MAX = "eq_max_index";
 
     /**
-     * 记录当前调节的eq模式，在列表中的位置
+     * 记录当前调节的eq模式，保存的是id
      */
     private static final String KEY_EQ_CURRENT = "eq_current_index";
 
@@ -46,6 +48,11 @@ public final class EqManager extends EqRegionLogic {
 
     public static EqManager getInstance() {
         return InstanceHolder.instance;
+    }
+
+
+    public void init() {
+        init(getCurrentEq());
     }
 
     /**
@@ -143,7 +150,10 @@ public final class EqManager extends EqRegionLogic {
      * 删除一个eq模式时，从sp中移除相关数据
      */
     public void clearEqDataWhenDelete(int id) {
-
+        String spKey = String.format(Locale.getDefault(), KEY_EQ_MODE, id);
+        if (SPCacheHelper.getInstance().contains(spKey)) {
+            SPCacheHelper.getInstance().remove(spKey);
+        }
     }
 
 }

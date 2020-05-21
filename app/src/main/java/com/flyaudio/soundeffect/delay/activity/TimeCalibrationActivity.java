@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.widget.TextView;
 
 import com.flyaudio.lib.base.BaseActivity;
-import com.flyaudio.lib.log.Logger;
+import com.flyaudio.lib.thread.TaskQueue;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.dialog.ResetDialog;
@@ -29,13 +29,13 @@ import java.util.List;
 public class TimeCalibrationActivity extends BaseActivity {
 
     /**
-     * 单位为0.1ms , 范围为0-200 (0.1ms)，步进1(0.1ms)
+     * 单位为0.1ms , 范围为0-200 (单位0.1ms)，步进1(单位0.1ms)
      */
     private static final int DELAY_MAX = 200;
     private static final int DELAY_MIN = 0;
     private static final int SELECTOR_STEP = 1;
     /**
-     * 0.0-20.0ms 对比上面的范围，Selector显示上扩大了10倍
+     * Selector显示0.0-20.0ms 对比上面的范围，Selector显示上扩大了10倍
      */
     private static final int B = 10;
     private CommTitleBar titleBar;
@@ -44,6 +44,7 @@ public class TimeCalibrationActivity extends BaseActivity {
     private DelayManager delayManager;
     private ListenPositionManager listenPositionManager;
     private static int listenPosition;
+    private TaskQueue taskQueue = new TaskQueue();
 
 
     @Override
@@ -83,6 +84,11 @@ public class TimeCalibrationActivity extends BaseActivity {
                 resetDialog.setListener(new ResetDialog.ResetListener() {
                     @Override
                     public void onReset() {
+                        int[] defaultSpeakerVolumes = delayManager.getDefaultSpeakerDelay(listenPosition);
+                        for (int i = 0; i < defaultSpeakerVolumes.length; i++) {
+                            setDelay(listenPosition, listenPositionManager.index2SpeakerType(i), defaultSpeakerVolumes[i]);
+                            soundEffectView.setSelectorValue(listenPositionManager.index2SpeakerType(i), defaultSpeakerVolumes[i]);
+                        }
                         onCancel();
                     }
 
@@ -98,7 +104,7 @@ public class TimeCalibrationActivity extends BaseActivity {
     private void initCarSpeakers() {
         soundEffectView = getView(R.id.sound_effect_view);
         // 设置数字显示样式
-        soundEffectView.setSelectorValueFormater(new NumberSelector.ValueFormatter() {
+        soundEffectView.setSelectorValueFormatter(new NumberSelector.ValueFormatter() {
             @Override
             public void valueFormat(@NonNull TextView textView, int value) {
                 textView.setText(ResUtils.getString(R.string.delay_selector_format, value * 1.0F / B));
@@ -137,10 +143,15 @@ public class TimeCalibrationActivity extends BaseActivity {
         });
     }
 
-    private void setDelay(@Constants.ListenPositionType int position, @Constants.ListenPositionSpeakerType int speaker, int delay) {
-        Logger.d("setDelay: delayValue = " +  delay);
-        delayManager.saveDelay(position, speaker, delay);
-        delayManager.setDelay(speaker, delay);
+    private void setDelay(@Constants.ListenPositionType final int position, @Constants.ListenPositionSpeakerType final int speaker, final int delay) {
+        taskQueue.post(new Runnable() {
+            @Override
+            public void run() {
+                delayManager.saveDelay(position, speaker, delay);
+                delayManager.setDelay(speaker, delay);
+                removeCallbacks(this);
+            }
+        });
     }
 
 }

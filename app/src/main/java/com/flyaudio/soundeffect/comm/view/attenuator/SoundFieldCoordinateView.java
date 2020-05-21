@@ -23,7 +23,6 @@ import com.flyaudio.soundeffect.R;
 /**
  * created by Liu Zicong 19-06-05
  */
-@SuppressWarnings("all")
 public class SoundFieldCoordinateView extends View {
 
     private final static int EQUAL = 10 + 2;    //坐标分多少份
@@ -36,7 +35,7 @@ public class SoundFieldCoordinateView extends View {
     private Bitmap mCoordinateArrow;
     private Bitmap mCoordinateArrow90;
     private BlurMaskFilter mPointBlurMaskFilter;
-    private IAttenutorListener mAttenutorListener;
+    private IAttenuatorListener mAttenuatorListener;
 
     public SoundFieldCoordinateView(Context context) {
         this(context, null, 0);
@@ -174,19 +173,19 @@ public class SoundFieldCoordinateView extends View {
         });
         valueAnimatorY.setDuration(300);
         valueAnimatorY.start();
-        if (mAttenutorListener != null)
-            mAttenutorListener.setBalance();
+        if (mAttenuatorListener != null)
+            mAttenuatorListener.setBalance();
     }
 
 
-    public interface IAttenutorListener {
+    public interface IAttenuatorListener {
         void setBalance();
 
         void isToEdge(int btn, boolean edge);
     }
 
-    public void setAttenutorListener(IAttenutorListener listener) {
-        mAttenutorListener = listener;
+    public void setAttenutorListener(IAttenuatorListener listener) {
+        mAttenuatorListener = listener;
     }
 
     public void changeXLeftRight(boolean isRight) {
@@ -194,9 +193,9 @@ public class SoundFieldCoordinateView extends View {
         int divisorX = (int) mTouchPointX / (mViewWidth / EQUAL);
         divisorX = isRight ? divisorX + 1 : divisorX - 1;
         divisorX = divisorX > 11 ? 11 : divisorX < 1 ? 1 : divisorX;
-        if (mAttenutorListener != null) {
-            mAttenutorListener.isToEdge(isRight ? AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT : AttenuatorAdjuster.AttenuatorBtn.BTN_LEFT, isRight ? divisorX < 11 : divisorX > 1);
-            mAttenutorListener.isToEdge(isRight ? AttenuatorAdjuster.AttenuatorBtn.BTN_LEFT : AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT, true);
+        if (mAttenuatorListener != null) {
+            mAttenuatorListener.isToEdge(isRight ? AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT : AttenuatorAdjuster.AttenuatorBtn.BTN_LEFT, isRight ? divisorX < 11 : divisorX > 1);
+            mAttenuatorListener.isToEdge(isRight ? AttenuatorAdjuster.AttenuatorBtn.BTN_LEFT : AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT, true);
         }
         mTouchPointX = (mViewWidth / EQUAL) * divisorX;
         invalidate();
@@ -207,9 +206,9 @@ public class SoundFieldCoordinateView extends View {
         int divisorY = (int) mTouchPointY / (mViewHeight / EQUAL);
         divisorY = isDown ? divisorY + 1 : divisorY - 1;
         divisorY = divisorY > 11 ? 11 : divisorY < 1 ? 1 : divisorY;
-        if (mAttenutorListener != null) {
-            mAttenutorListener.isToEdge(isDown ? AttenuatorAdjuster.AttenuatorBtn.BTN_DOWN : AttenuatorAdjuster.AttenuatorBtn.BTN_UP, isDown ? divisorY < 11 : divisorY > 1);
-            mAttenutorListener.isToEdge(isDown ? AttenuatorAdjuster.AttenuatorBtn.BTN_UP : AttenuatorAdjuster.AttenuatorBtn.BTN_DOWN, true);
+        if (mAttenuatorListener != null) {
+            mAttenuatorListener.isToEdge(isDown ? AttenuatorAdjuster.AttenuatorBtn.BTN_DOWN : AttenuatorAdjuster.AttenuatorBtn.BTN_UP, isDown ? divisorY < 11 : divisorY > 1);
+            mAttenuatorListener.isToEdge(isDown ? AttenuatorAdjuster.AttenuatorBtn.BTN_UP : AttenuatorAdjuster.AttenuatorBtn.BTN_DOWN, true);
         }
         mTouchPointY = (mViewHeight / EQUAL) * divisorY;
 
@@ -221,9 +220,9 @@ public class SoundFieldCoordinateView extends View {
         mTouchPointX = (mViewWidth / EQUAL) * 6;
         mTouchPointY = (mViewHeight / EQUAL) * 6;
         invalidate();
-        if (mAttenutorListener != null) {
+        if (mAttenuatorListener != null) {
             for (int i = AttenuatorAdjuster.AttenuatorBtn.BTN_UP; i <= AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT; i++) {
-                mAttenutorListener.isToEdge(i, true);
+                mAttenuatorListener.isToEdge(i, true);
             }
         }
     }

@@ -41,9 +41,9 @@ public class EqRegionLogic extends EqLogic {
      *
      * @param id eq模式id
      */
-    public void init(int id) {
+    protected void init(int id) {
         EqDataBean eqModeData = getEqModeData(id);
-        Logger.d("当前eq模式的数据：" + eqModeData.toString());
+        Logger.d("id: " + id + " 当前eq模式的数据：" + eqModeData.toString());
         for (int i = 0; i < eqModeData.frequencies.length; i++) {
             setEq(i, eqModeData.frequencies[i], eqModeData.qValues[i], eqModeData.gains[i]);
         }

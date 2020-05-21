@@ -39,7 +39,7 @@ public class EqFragment extends BaseFragment {
     private EqListAdapter adapter;
     private EqReNameDialog eqEditDialog;
     private EqDeleteDialog eqDeleteDialog;
-    private EqManager eqManager = EqManager.getInstance();
+    private static EqManager eqManager = EqManager.getInstance();
 
     private static final int MSG_EQ = 0;
     private EqHandler eqHandler = new EqHandler();
@@ -74,9 +74,11 @@ public class EqFragment extends BaseFragment {
         adapter.setOnItemListener(new EqListAdapter.OnItemListener() {
             @Override
             public void onItemClick(int position) {
-                adapter.updateChecked(position);
-                eqManager.saveCurrentEq(adapter.getCheckedPos());
-                eqHandler.sendEmptyMessage(MSG_EQ);
+                if (position != adapter.getCurrent()) {
+                    adapter.updateCurrent(position);
+                    eqManager.saveCurrentEq(adapter.getData(position).getId());
+                    eqHandler.sendEmptyMessage(MSG_EQ);
+                }
             }
 
             @Override
@@ -91,7 +93,7 @@ public class EqFragment extends BaseFragment {
                     int id = eqManager.getMaxEqId() + 1;
                     String name = ResUtils.getString(R.string.custom_, customEqCount + 1);
                     adapter.addEqMode(new EqMode(id, name));
-                    eqManager.saveCurrentEq(adapter.getCheckedPos());
+                    eqManager.saveCurrentEq(-1);
                     eqManager.saveEqList(adapter.getDatas());
                     eqManager.saveMaxEqId(id);
                 }
@@ -131,10 +133,10 @@ public class EqFragment extends BaseFragment {
                 eqDeleteDialog.setListener(new EqDeleteDialog.EqDeleteListener() {
                     @Override
                     public void onDelete() {
+                        eqManager.clearEqDataWhenDelete(adapter.getData(position).getId());
                         adapter.deleteEqMode(position);
                         eqManager.saveEqList(adapter.getDatas());
-                        eqManager.saveCurrentEq(adapter.getCheckedPos());
-                        eqManager.clearEqDataWhenDelete(adapter.getCheckedPos());
+                        eqManager.saveCurrentEq(-1);
                         eqDeleteDialog.cancel();
                         eqEditDialog.cancel();
                     }
@@ -170,13 +172,12 @@ public class EqFragment extends BaseFragment {
         }
     };
 
-    private class EqHandler extends Handler {
+    private static class EqHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == MSG_EQ) {
-                // 有些平台调节Eq底层比较耗时，可能造成UI卡顿
-                eqManager.init(eqManager.getCurrentEq());
+                eqManager.init();
             }
         }
     }

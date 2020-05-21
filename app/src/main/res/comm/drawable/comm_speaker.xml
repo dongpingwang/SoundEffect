@@ -3,6 +3,6 @@
 	<item android:width="@dimen/comm_speaker_size"
 		android:height="@dimen/comm_speaker_size"
 		android:gravity="center">
-		<bitmap android:src="@mipmap/comm_speaker"/>
+		<bitmap android:src="@mipmap/ic_comm_speaker"/>
 	</item>
 </layer-list>

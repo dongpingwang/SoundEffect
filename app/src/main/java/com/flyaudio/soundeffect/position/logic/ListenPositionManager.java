@@ -1,6 +1,8 @@
 package com.flyaudio.soundeffect.position.logic;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
+import com.flyaudio.soundeffect.delay.logic.DelayManager;
+import com.flyaudio.soundeffect.speaker.logic.SpeakerVolumeManager;
 
 import static com.flyaudio.soundeffect.position.logic.Constants.ListenPositionType.*;
 
@@ -34,6 +36,14 @@ public final class ListenPositionManager {
      */
     public int getListenPosition() {
         return SPCacheHelper.getInstance().getInt(KEY_LISTEN_POSITION, Constants.ListenPositionType.LISTEN_POSITION_ALL);
+    }
+
+    /**
+     * 切换收听位置，生效相应位置的喇叭音量和延时
+     */
+    public void setListenPosition() {
+        SpeakerVolumeManager.getInstance().init();
+        DelayManager.getInstance().init();
     }
 
     /**

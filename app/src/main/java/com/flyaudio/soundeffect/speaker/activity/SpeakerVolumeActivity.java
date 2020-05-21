@@ -94,7 +94,7 @@ public class SpeakerVolumeActivity extends BaseActivity {
     private void initCarSpeakers() {
         soundEffectView = getView(R.id.sound_effect_view);
         // 设置数字显示样式
-        soundEffectView.setSelectorValueFormater(new NumberSelector.ValueFormatter() {
+        soundEffectView.setSelectorValueFormatter(new NumberSelector.ValueFormatter() {
             @Override
             public void valueFormat(@NonNull TextView textView, int value) {
                 textView.setText(ResUtils.getString(R.string.speaker_volume_selector_format, value));

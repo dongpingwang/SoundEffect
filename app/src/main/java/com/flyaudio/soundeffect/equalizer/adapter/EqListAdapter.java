@@ -102,12 +102,17 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
         }
     }
 
-    public void updateChecked(int position) {
+    public void updateCurrent(int position) {
         int temp = current;
         current = position;
         notifyItemChanged(temp);
         notifyItemChanged(current);
     }
+
+    public int getCurrent() {
+        return current;
+    }
+
 
     public void updateCheckedById(int id) {
         int position = 0;
@@ -117,7 +122,7 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
                 break;
             }
         }
-        updateChecked(position);
+        updateCurrent(position);
     }
 
     public EqMode getChecked() {
@@ -140,14 +145,6 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
         notifyItemChanged(position, getItemViewCount() - 1);
     }
 
-
-    public int getCheckedPos() {
-        EqMode checked = getChecked();
-        if (checked != null) {
-            return checked.getId();
-        }
-        return -1;
-    }
 
     public void clearChecked() {
         int temp = current;

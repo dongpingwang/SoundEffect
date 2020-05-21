@@ -4,7 +4,11 @@ import com.flyaudio.dsp.DspManager;
 import com.flyaudio.lib.log.Logger;
 import com.flyaudio.soundeffect.config.AppPreferences;
 
-
+/**
+ * @author Dongping Wang
+ * date 2020/5/1  17:51
+ * email wangdongping@flyaudio.cn
+ */
 public class BaseDsp implements IDsp {
 
     private static final boolean DEBUG = AppPreferences.LOGGABLE_DSP;

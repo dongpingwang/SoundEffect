@@ -3,6 +3,7 @@ package com.flyaudio.soundeffect.speaker.logic;
 import android.util.SparseArray;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
+import com.flyaudio.soundeffect.dsp.logic.DspHelper;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 
@@ -31,9 +32,6 @@ public final class SpeakerVolumeManager {
         return InstanceHolder.instance;
     }
 
-
-    public static final int VOLUME_MIN = -20;
-    public static final int VOLUME_MAX = 20;
     /**
      * 记录扬声器音量：收听位置_喇叭位置_扬声器音量
      */
@@ -43,6 +41,7 @@ public final class SpeakerVolumeManager {
         int listenPosition = ListenPositionManager.getInstance().getListenPosition();
         for (int speaker : Constants.SPEAKER_TYPES) {
             int volume = getSpeakerVolume(listenPosition, speaker);
+            setSpeakerVolume(speaker, volume);
         }
     }
 
@@ -78,9 +77,6 @@ public final class SpeakerVolumeManager {
         String spKey = String.format(Locale.getDefault(), KEY_SPEAKER_VOLUME, position, speaker);
         SPCacheHelper.getInstance().put(spKey, volume);
     }
-    public void setSpeakerVolume(int speaker, int volume) {
-
-    }
 
     /**
      * 默认的扬声器设置
@@ -92,5 +88,18 @@ public final class SpeakerVolumeManager {
             speakerVolumeArr[i] = speakerVolumeMap.get(position).get(speaker).getDefaultValue();
         }
         return speakerVolumeArr;
+    }
+
+    public void setSpeakerVolume(@Constants.ListenPositionSpeakerType int speaker, int volume) {
+        if (speaker == Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_SUBWOOFER) {
+            Integer[] swChannels = Constants.SPEAKER_TYPE_MAP_SUBWOOFER.get(speaker);
+            for (int sw : swChannels) {
+                DspHelper.getDspHelper().setBalance(sw, volume);
+            }
+
+        } else {
+            int channel = Constants.SPEAKER_TYPE_MAP.get(speaker);
+            DspHelper.getDspHelper().setBalance(channel, volume);
+        }
     }
 }

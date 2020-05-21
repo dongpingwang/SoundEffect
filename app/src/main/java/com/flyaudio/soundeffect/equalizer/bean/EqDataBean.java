@@ -13,6 +13,7 @@ public class EqDataBean {
     public int[] frequencies;
     public int[] gains;
     public double[] qValues;
+    public int current;
 
     @Override
     public String toString() {

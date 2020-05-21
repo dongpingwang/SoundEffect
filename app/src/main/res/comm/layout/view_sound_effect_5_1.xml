@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    tools:ignore="NestedWeights">
+    android:layout_height="match_parent">
 
     <com.flyaudio.soundeffect.comm.view.CarSpeakersView
         android:id="@+id/sound_effect_5_1_speaker_view"
@@ -14,63 +11,55 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
 
-    <LinearLayout
+    <com.flyaudio.soundeffect.comm.view.NumberSelector
+        android:id="@+id/sound_effect_5_1_left_front_ns"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="92.43dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="82.16dp"
+        android:layout_marginTop="56.22dp"
+        app:text="@string/trumpet_front_left" />
 
-        <com.flyaudio.soundeffect.comm.view.NumberSelector
-            android:id="@+id/sound_effect_5_1_left_front_ns"
-            style="@style/SoundEffect_5_1_NumberSelector"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/sound_effect_5_1_selector_space"
-            app:text="@string/trumpet_front_left" />
 
-        <com.flyaudio.soundeffect.comm.view.NumberSelector
-            android:id="@+id/sound_effect_5_1_left_back_ns"
-            style="@style/SoundEffect_5_1_NumberSelector"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/sound_effect_5_1_selector_space"
-            app:text="@string/trumpet_back_left" />
-
-        <com.flyaudio.soundeffect.comm.view.NumberSelector
-            style="@style/SoundEffect_5_1_NumberSelector"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/sound_effect_5_1_selector_space"
-            android:visibility="invisible"
-            app:text="@string/trumpet_back_left" />
-    </LinearLayout>
-
-    <LinearLayout
+    <com.flyaudio.soundeffect.comm.view.NumberSelector
+        android:id="@+id/sound_effect_5_1_left_back_ns"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="92.43dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sound_effect_5_1_left_front_ns"
+        android:layout_alignLeft="@id/sound_effect_5_1_left_front_ns"
+        android:layout_alignRight="@id/sound_effect_5_1_left_front_ns"
+        android:layout_marginTop="11.35dp"
+        app:text="@string/trumpet_back_left" />
 
-        <com.flyaudio.soundeffect.comm.view.NumberSelector
-            android:id="@+id/sound_effect_5_1_right_front_ns"
-            style="@style/SoundEffect_5_1_NumberSelector"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/sound_effect_5_1_selector_space"
-            app:text="@string/trumpet_front_right" />
+    <com.flyaudio.soundeffect.comm.view.NumberSelector
+        android:id="@+id/sound_effect_5_1_right_front_ns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/sound_effect_5_1_left_front_ns"
+        android:layout_alignBottom="@id/sound_effect_5_1_left_front_ns"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="82.16dp"
+        app:text="@string/trumpet_front_right" />
 
-        <com.flyaudio.soundeffect.comm.view.NumberSelector
-            android:id="@+id/sound_effect_5_1_right_back_ns"
-            style="@style/SoundEffect_5_1_NumberSelector"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/sound_effect_5_1_selector_space"
-            app:text="@string/trumpet_back_right" />
+    <com.flyaudio.soundeffect.comm.view.NumberSelector
+        android:id="@+id/sound_effect_5_1_right_back_ns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sound_effect_5_1_right_front_ns"
+        android:layout_alignLeft="@id/sound_effect_5_1_right_front_ns"
+        android:layout_alignTop="@id/sound_effect_5_1_left_back_ns"
+        android:layout_alignRight="@id/sound_effect_5_1_right_front_ns"
+        android:layout_alignBottom="@id/sound_effect_5_1_left_back_ns"
+        app:text="@string/trumpet_back_right" />
 
-        <com.flyaudio.soundeffect.comm.view.NumberSelector
-            android:id="@+id/sound_effect_5_1_subwoofer_ns"
-            style="@style/SoundEffect_5_1_NumberSelector"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/sound_effect_5_1_selector_space"
-            app:text="@string/trumpet_mega_bass" />
-    </LinearLayout>
+    <com.flyaudio.soundeffect.comm.view.NumberSelector
+        android:id="@+id/sound_effect_5_1_subwoofer_ns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sound_effect_5_1_right_back_ns"
+        android:layout_alignLeft="@id/sound_effect_5_1_right_back_ns"
+        android:layout_alignRight="@id/sound_effect_5_1_right_back_ns"
+        android:layout_marginTop="11.35dp"
+        app:text="@string/trumpet_mega_bass" />
 </RelativeLayout>

@@ -49,7 +49,7 @@ public class TouchImageView extends ImageView {
         mPaint.setAntiAlias(true);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setPathEffect(new CornerPathEffect(3));
-        mTouchCircle = getResources().getDrawable(R.drawable.touch_img_circle);
+        mTouchCircle = getResources().getDrawable(R.drawable.touch_img_circle, null);
         mPointBlurMaskFilter = new BlurMaskFilter(17, BlurMaskFilter.Blur.SOLID);
         Paint.FontMetricsInt fontMetricsInt = mPaint.getFontMetricsInt();
         mTextCenter = (fontMetricsInt.ascent + fontMetricsInt.descent) / 2f;
@@ -78,19 +78,22 @@ public class TouchImageView extends ImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        // 绘制刻度
         drawScale(canvas);
         if (mPosition.getX() < 0 || mPosition.getY() < 0) {
             return;
         }
+        // 绘制十字线
         drawCrossLine(canvas);
+        // 绘制触摸圆
         drawTouchCircle(canvas);
+        // 绘制游标
         drawCursor(canvas);
     }
 
-    // 绘制刻度
     private void drawScale(Canvas canvas) {
         mPaint.setStrokeWidth(3.24F);
-        mPaint.setColor(getResources().getColor(R.color.text_color_gray));
+        mPaint.setColor(getResources().getColor(R.color.text_color_gray, null));
         float hSpace = (getWidth() - getPaddingLeft() - getPaddingRight()) * 1.0F / EQUAL;
         float vSpace = (getHeight() - getPaddingTop() - getPaddingBottom()) * 1.0F / EQUAL;
         float margin = getResources().getDimension(R.dimen.touch_img_space_middle);
@@ -107,19 +110,17 @@ public class TouchImageView extends ImageView {
         canvas.drawText("R5", margin, getHeight() - getPaddingBottom() - mTextCenter, mPaint);
     }
 
-    // 绘制十字线
     private void drawCrossLine(Canvas canvas) {
         canvas.save();
         canvas.clipRect(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
         mPaint.setStrokeWidth(4);
-        mPaint.setColor(getResources().getColor(R.color.text_color_gray));
+        mPaint.setColor(getResources().getColor(R.color.text_color_gray, null));
         canvas.drawLine(getPaddingLeft(), mPosition.y, getWidth(), mPosition.y, mPaint);
         canvas.drawLine(mPosition.x, getPaddingTop(), mPosition.x, getHeight(), mPaint);
         canvas.restore();
     }
 
-    // 绘制触摸圆
-    @SuppressWarnings("all")
+
     private void drawTouchCircle(Canvas canvas) {
 //        canvas.save();
 //        canvas.clipRect(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
@@ -131,14 +132,13 @@ public class TouchImageView extends ImageView {
 //        canvas.restore();
         mPaint.setStrokeWidth(4.0F);
         mPaint.setMaskFilter(mPointBlurMaskFilter);
-        mPaint.setColor(getContext().getResources().getColor(R.color.theme_color));
+        mPaint.setColor(getContext().getResources().getColor(R.color.theme_color, null));
         canvas.drawCircle(mPosition.x, mPosition.y, 16, mPaint);
         mPaint.setMaskFilter(null);
     }
 
-    // 绘制游标
     private void drawCursor(Canvas canvas) {
-        mPaint.setColor(getResources().getColor(R.color.theme_color));
+        mPaint.setColor(getResources().getColor(R.color.theme_color, null));
         float margin = getResources().getDimension(R.dimen.touch_img_space_middle);
         float wSize = getResources().getDimension(R.dimen.touch_img_cursor_width) / 2;
         float hSize = getResources().getDimension(R.dimen.touch_img_cursor_height) / 2;

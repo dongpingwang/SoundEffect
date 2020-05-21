@@ -1,10 +1,13 @@
 package com.flyaudio.soundeffect.position.fragment;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
 import com.flyaudio.lib.base.BaseFragment;
+import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.view.ListenPositionButtons;
 import com.flyaudio.soundeffect.comm.view.SpeakersLayout;
@@ -27,7 +30,10 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
     private TextView tvDelayAdjust;
     private ListenPositionButtons buttons;
     private SpeakersLayout speakers;
-    private ListenPositionManager listenPositionManager;
+    private static ListenPositionManager listenPositionManager;
+
+    private static final int MSG_SET_POSITION = 0;
+    private PositionHandler positionHandler = new PositionHandler();
 
     @Override
     protected int getLayoutId() {
@@ -46,6 +52,7 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
         tvSpeakerAdjust = getView(R.id.tv_speaker);
         tvDelayAdjust = getView(R.id.tv_delay);
 
+        speakers.setSpeakerImage(ResUtils.getDrawable(R.drawable.comm_speaker2));
         buttons.setListenPositionCheckedListener(this);
         tvSpeakerAdjust.setOnClickListener(this);
         tvDelayAdjust.setOnClickListener(this);
@@ -62,6 +69,7 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
     public void onCheckedChanged(int index) {
         int listenPosition = listenPositionManager.index2ListenPosition(index);
         listenPositionManager.saveListenPosition(listenPosition);
+        positionHandler.sendEmptyMessage(MSG_SET_POSITION);
         speakers.setSpeakersEnable(listenPositionManager.listenPosition2SpeakerStatus(listenPosition));
         // 关闭时不能调节喇叭音量和通道延时
         tvSpeakerAdjust.setEnabled(listenPosition != Constants.ListenPositionType.LISTEN_POSITION_CLOSE);
@@ -80,4 +88,14 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
         startActivity(intent);
     }
 
+    private static class PositionHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            removeMessages(msg.what);
+            if (msg.what == MSG_SET_POSITION) {
+                listenPositionManager.setListenPosition();
+            }
+        }
+    }
 }

@@ -91,7 +91,7 @@ public class SoundEffectView extends FrameLayout {
         }
     }
 
-    public void setSelectorValueFormater(NumberSelector.ValueFormatter valueFormatter) {
+    public void setSelectorValueFormatter(NumberSelector.ValueFormatter valueFormatter) {
         for (NumberSelector numberSelector : selectors) {
             numberSelector.setValueFormatter(valueFormatter);
         }

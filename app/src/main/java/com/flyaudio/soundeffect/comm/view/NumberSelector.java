@@ -1,6 +1,5 @@
 package com.flyaudio.soundeffect.comm.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
@@ -54,7 +53,6 @@ public class NumberSelector extends FrameLayout {
         init(context, attrs);
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private void init(Context context, AttributeSet attrs) {
         inflate(context, R.layout.view_number_selector, this);
         titleTv = (TextView) findViewById(R.id.title);
@@ -249,6 +247,12 @@ public class NumberSelector extends FrameLayout {
     }
 
     public interface ValueFormatter {
+        /**
+         * 数字调节器的文本显示样式
+         *
+         * @param textView 显示值的TextView
+         * @param value    设置格式后的值
+         */
         void valueFormat(@NonNull TextView textView, int value);
     }
 }

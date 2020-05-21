@@ -1,9 +1,12 @@
 package com.flyaudio.soundeffect.delay.logic;
 
+import android.support.annotation.IntRange;
 import android.util.SparseArray;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
+import com.flyaudio.soundeffect.dsp.logic.DspHelper;
 import com.flyaudio.soundeffect.position.logic.Constants;
+import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 
 import java.util.Locale;
 
@@ -41,12 +44,21 @@ public final class DelayManager {
         return channelDelayMap;
     }
 
+    public void init() {
+        int listenPosition = ListenPositionManager.getInstance().getListenPosition();
+        for (int speaker : Constants.SPEAKER_TYPES) {
+            int volume = getDelay(listenPosition, speaker);
+            setDelay(speaker, volume);
+        }
+    }
+
     /**
      * 获取通道延时，值为0-200(单位为0.1ms)
      *
      * @param position 收听位置
      * @param speaker  喇叭
      */
+    @IntRange(from = 0, to = 200)
     public int getDelay(@Constants.ListenPositionType int position,
                         @Constants.ListenPositionSpeakerType int speaker) {
         String spKey = String.format(Locale.getDefault(), KEY_CHANNEL_DELAY, position, speaker);
@@ -62,24 +74,40 @@ public final class DelayManager {
      * @param volume   延时
      */
     public void saveDelay(@Constants.ListenPositionType int position,
-                          @Constants.ListenPositionSpeakerType int speaker, int volume) {
+                          @Constants.ListenPositionSpeakerType int speaker, @IntRange(from = 0, to = 200) int volume) {
         String spKey = String.format(Locale.getDefault(), KEY_CHANNEL_DELAY, position, speaker);
         SPCacheHelper.getInstance().put(spKey, volume);
     }
 
-    public void setDelay(int speaker, int delay) {
-
+    /**
+     * 默认的扬声器延时, 单位为0.1ms
+     */
+    public int[] getDefaultSpeakerDelay(@Constants.ListenPositionType int position) {
+        int[] speakerDelayArr = new int[Constants.SPEAKER_TYPES.length];
+        for (int i = 0; i < speakerDelayArr.length; i++) {
+            int speaker = Constants.SPEAKER_TYPES[i];
+            speakerDelayArr[i] = getChannelDelayMap().get(position).get(speaker).getDefaultValue();
+        }
+        return speakerDelayArr;
     }
 
     /**
-     * 默认的扬声器设置
+     * 延时设置
+     * 注意单位为0.1ms，例如设置前左1ms延时setDelay(DspConstants.Channel.FL, 10)
+     *
+     * @param speaker 对应的喇叭通道
+     * @param delay   延时值(0-200，单位0.1ms)
      */
-    public int[] getDefaultSpeakerVolumes(@Constants.ListenPositionType int position) {
-        int[] speakerVolumeArr = new int[Constants.SPEAKER_TYPES.length];
-        for (int i = 0; i < speakerVolumeArr.length; i++) {
-            int speaker = Constants.SPEAKER_TYPES[i];
-            speakerVolumeArr[i] = getChannelDelayMap().get(position).get(speaker).getDefaultValue();
+    public void setDelay(int speaker, @IntRange(from = 0, to = 200) int delay) {
+        if (speaker == Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_SUBWOOFER) {
+            Integer[] swChannels = Constants.SPEAKER_TYPE_MAP_SUBWOOFER.get(speaker);
+            for (int sw : swChannels) {
+                DspHelper.getDspHelper().setDelay(sw, delay);
+            }
+        } else {
+            int channel = Constants.SPEAKER_TYPE_MAP.get(speaker);
+            DspHelper.getDspHelper().setDelay(channel, delay);
         }
-        return speakerVolumeArr;
     }
+
 }

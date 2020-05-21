@@ -56,8 +56,4 @@
     <dimen name="touch_img_cursor_height">13.33dp</dimen>
     <dimen name="touch_img_space_middle">10dp</dimen>
 
-    <!--BtnSelectLayout-->
-    <dimen name="btn_select_layout_margin">4dp</dimen>
-    <dimen name="btn_select_layout_padding">8dp</dimen>
-
 </resources>
