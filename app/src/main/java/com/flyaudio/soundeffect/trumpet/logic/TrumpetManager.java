@@ -6,6 +6,7 @@ package com.flyaudio.soundeffect.trumpet.logic;
  * email wangdongping@flyaudio.cn
  */
 public final class TrumpetManager {
+
     private TrumpetManager() {
 
     }
@@ -16,5 +17,10 @@ public final class TrumpetManager {
 
     public static TrumpetManager getInstance() {
         return InstanceHolder.instance;
+    }
+
+    public void init() {
+        SubwooferManager.getInstance().init();
+        BackRowManager.getInstance().init();
     }
 }

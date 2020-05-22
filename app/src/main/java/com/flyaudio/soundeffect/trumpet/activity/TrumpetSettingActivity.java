@@ -68,6 +68,7 @@ public class TrumpetSettingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean checked) {
                 subwooferManager.saveSubwooferState(!checked);
+                subwooferManager.setSubwooferEnable(!checked);
             }
         });
         // 调节后排
@@ -75,6 +76,7 @@ public class TrumpetSettingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(boolean checked) {
                 backRowManager.saveBackRowState(!checked);
+                backRowManager.setBackRowEnable(!checked);
             }
         });
     }

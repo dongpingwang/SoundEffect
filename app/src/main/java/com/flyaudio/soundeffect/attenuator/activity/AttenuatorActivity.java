@@ -106,10 +106,6 @@ public class AttenuatorActivity extends BaseActivity {
             @Override
             public boolean onPreDraw() {
                 touchImageView.getViewTreeObserver().removeOnPreDrawListener(this);
-//                float[] position = attenuatorLogic.getTouchIvValue();
-//                int x = (int) (touchImageView.getViewWidth() * position[0] / (position[0] + position[2]) + 0.5f);
-//                int y = (int) (touchImageView.getViewHeight() * position[1] / (position[1] + position[3]) + 0.5);
-//                touchImageView.setViewPosition(x, y);
                 return true;
             }
         });

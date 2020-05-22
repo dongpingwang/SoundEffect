@@ -210,6 +210,12 @@ public class CheckButton extends FrameLayout {
     }
 
     public interface OnCheckedChangeListener {
+        /**
+         * 按钮选中状态发生改变
+         *
+         * @param checkBtn  当前按钮
+         * @param isChecked 是否处于选中状态
+         */
         void onCheckedChanged(CheckButton checkBtn, boolean isChecked);
     }
 }

@@ -3,6 +3,7 @@ package com.flyaudio.soundeffect.dsp.logic;
 import com.flyaudio.lib.thread.TaskQueue;
 import com.flyaudio.soundeffect.equalizer.logic.EqManager;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
+import com.flyaudio.soundeffect.trumpet.logic.TrumpetManager;
 
 /**
  * @author Dongping Wang
@@ -32,6 +33,7 @@ public final class EffectManager {
     private static void initEffect() {
         EqManager.getInstance().init();
         ListenPositionManager.getInstance().setListenPosition();
+        TrumpetManager.getInstance().init();
     }
 
 }

@@ -540,14 +540,46 @@ public class ViewFrequencyAdjust extends View {
     }
 
     public interface OnTouchLineListener {
+        /**
+         * 切换调节线，即切换滤波类型
+         *
+         * @param oldTouchLine 上次的调节线
+         * @param newTouchLine 当前的调节线
+         */
         void onSwitchTouchLine(TouchLine oldTouchLine, TouchLine newTouchLine);
 
+        /**
+         * 调节线的值发生改变，即滤波的频率发生变化
+         *
+         * @param touchLine 当前调节线
+         * @param oldValue  原先的值
+         * @param newValue  现在的值
+         */
         void onValueChanged(TouchLine touchLine, double oldValue, double newValue);
 
+        /**
+         * 调节线的角度发生改变，即滤波的斜率发生变化
+         *
+         * @param touchLine 当前调节线
+         * @param oldAngle  原先的角度
+         * @param newAngle  现在的角度
+         */
         void onAngleChanged(TouchLine touchLine, double oldAngle, double newAngle);
 
+        /**
+         * 开始触摸
+         *
+         * @param touchLine 当前调节线
+         * @param touchType 类型
+         */
         void onStartTouch(TouchLine touchLine, int touchType);
 
+        /**
+         * 结束触摸
+         *
+         * @param touchLine 当前调节线
+         * @param touchType 类型
+         */
         void onStopTouch(TouchLine touchLine, int touchType);
     }
 

@@ -120,6 +120,11 @@ public class AttenuatorAdjuster extends FrameLayout {
     }
 
     public interface OnAdjustTouchListener {
+        /**
+         * 单击和长按
+         *
+         * @param button 上下左右居中按钮中的一个
+         */
         void onTouch(@AttenuatorBtn int button);
     }
 

@@ -20,8 +20,11 @@ import com.flyaudio.lib.utils.ConvertUtils;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 
+
 /**
- * created by Liu Zicong 19-06-05
+ * @author Liu Zicong
+ * date 19-06-05
+ *
  */
 public class SoundFieldCoordinateView extends View {
 
@@ -179,8 +182,17 @@ public class SoundFieldCoordinateView extends View {
 
 
     public interface IAttenuatorListener {
+        /**
+         * 设置喇叭音量
+         */
         void setBalance();
 
+        /**
+         * 是否调节到极限
+         *
+         * @param btn  上下左右按钮中的一个
+         * @param edge 是否调节到极限
+         */
         void isToEdge(int btn, boolean edge);
     }
 

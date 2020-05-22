@@ -49,8 +49,14 @@ public class EqDeleteDialog extends Dialog implements View.OnClickListener {
 
 
     public interface EqDeleteListener {
+        /**
+         * 删除一个eq模式
+         */
         void onDelete();
 
+        /**
+         * 取消，关闭弹框
+         */
         void onCancel();
     }
 }
