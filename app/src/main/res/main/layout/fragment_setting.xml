@@ -26,5 +26,6 @@
         android:id="@+id/rv_setting_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/comm_margin" />
+        android:layout_marginStart="@dimen/comm_margin"
+        android:layout_marginEnd="@dimen/comm_margin" />
 </LinearLayout>

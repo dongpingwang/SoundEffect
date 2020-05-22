@@ -15,6 +15,7 @@ import com.flyaudio.soundeffect.delay.activity.TimeCalibrationActivity;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 import com.flyaudio.soundeffect.speaker.activity.SpeakerVolumeActivity;
+import com.flyaudio.soundeffect.trumpet.logic.BackRowManager;
 
 /**
  * @author Dongping Wang
@@ -44,6 +45,13 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
     protected void init() {
         initView();
         initData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        buttons.displayIfBackRowOff(BackRowManager.getInstance().isBackRowOn());
+        speakers.displayIfBackRowOff(BackRowManager.getInstance().isBackRowOn());
     }
 
     private void initView() {

@@ -4,25 +4,24 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
-import com.flyaudio.soundeffect.comm.util.ColorUtils;
-
 
 /**
  * @author Dongping Wang
- * @date 2020/3/4 22:54
+ * @date 2020/3/422:54
  * email wangdongping@flyaudio.cn
  */
 public class EqSquareProgress extends View {
 
     private Paint paint;
-    private int max, min, step;
-    private int colorDefault, colorAdjusting, colorAdjustedStart, colorAdjustedEnd;
+    private Path cursorPath;
+    private int max, min, step, colorDefault, colorAdjusting, colorAdjusted;
     private int progress;
     private boolean adjusting;
 
@@ -42,16 +41,15 @@ public class EqSquareProgress extends View {
     private void init(Context context, AttributeSet attrs) {
         paint = new Paint();
         paint.setAntiAlias(true);
-        paint.setStrokeWidth(context.getResources().getDimension(R.dimen.eq_progress_line));
-
+        paint.setStrokeWidth(ResUtils.getDimension(R.dimen.eq_progress_line));
+        cursorPath = new Path();
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EqSquareProgress);
         max = typedArray.getInteger(R.styleable.EqSquareProgress_max, 14);
         min = typedArray.getInteger(R.styleable.EqSquareProgress_min, -14);
         step = typedArray.getInteger(R.styleable.EqSquareProgress_step, 1);
         colorDefault = typedArray.getColor(R.styleable.EqSquareProgress_default_color, ResUtils.getColor(R.color.eq_progress_default_color));
         colorAdjusting = typedArray.getColor(R.styleable.EqSquareProgress_adjusting_color, ResUtils.getColor(R.color.eq_progress_adjusting_color));
-        colorAdjustedStart = typedArray.getColor(R.styleable.EqSquareProgress_adjusted_color, ResUtils.getColor(R.color.eq_progress_gradient_end_color));
-        colorAdjustedEnd = typedArray.getColor(R.styleable.EqSquareProgress_adjusted_color, ResUtils.getColor(R.color.eq_progress_gradient_start_color));
+        colorAdjusted = typedArray.getColor(R.styleable.EqSquareProgress_adjusted_color, ResUtils.getColor(R.color.eq_progress_adjusted_color));
         typedArray.recycle();
     }
 
@@ -62,19 +60,43 @@ public class EqSquareProgress extends View {
         for (int i = 0; i < count; i++) {
             // 从下往上绘制
             float startX = getPaddingLeft();
-            float startY = getHeight() - ResUtils.getDimension(R.dimen.eq_progress_line_all) * i - ResUtils.getDimension(R.dimen.eq_progress_line);
-            float stopX = startX + getWidth() + getPaddingRight();
+            float lineHeight = ResUtils.getDimension(R.dimen.eq_progress_line);
+            float startY = getHeight() - ResUtils.getDimension(R.dimen.eq_progress_line_all) * i - lineHeight;
+            float stopX = getWidth() - getPaddingRight();
             float stopY = startY;
             if (min + i * step <= progress) {
-                int currentColor = ColorUtils.getGradientColor(i * 1.0F / (count - 1), colorAdjustedStart, colorAdjustedEnd);
-                paint.setColor(currentColor);
+                paint.setColor(colorAdjusted);
             } else {
                 paint.setColor(colorDefault);
             }
-            if (adjusting && min + i * step == progress) {
-                paint.setColor(colorAdjusting);
+            if (adjusting) {
+                if (min + i * step <= progress) {
+                    paint.setColor(colorAdjusting);
+                }
             }
             canvas.drawLine(startX, startY, stopX, stopY, paint);
+            // 绘制游标
+            if (adjusting && min + i * step == progress) {
+                paint.setColor(colorAdjusting);
+                float cursorMargin = ResUtils.getDimension(R.dimen.eq_progress_cursor_margin);
+                float cursorHeight = ResUtils.getDimension(R.dimen.eq_progress_cursor_size);
+                float cursorWidth = (float) (cursorHeight * 1.0F / 2 * Math.tan(Math.PI / 3));
+                cursorPath.reset();
+                cursorPath.moveTo(startX - cursorMargin, startY);
+                cursorPath.lineTo(startX - cursorMargin - cursorWidth, startY - cursorHeight * 1.0F / 2);
+                cursorPath.lineTo(startX - cursorMargin - cursorWidth, startY + cursorHeight * 1.0F / 2);
+                cursorPath.lineTo(startX - cursorMargin, startY);
+                cursorPath.close();
+                canvas.drawPath(cursorPath, paint);
+                cursorPath.reset();
+                cursorPath.moveTo(stopX + cursorMargin, stopY);
+                cursorPath.lineTo(stopX + cursorMargin + cursorWidth, stopY - cursorHeight * 1.0F / 2);
+                cursorPath.lineTo(stopX + cursorMargin + cursorWidth, stopY + cursorHeight * 1.0F / 2);
+                cursorPath.lineTo(stopX + cursorMargin, stopY);
+                this.cursorPath.close();
+                canvas.drawPath(cursorPath, paint);
+
+            }
         }
     }
 
@@ -107,6 +129,4 @@ public class EqSquareProgress extends View {
         this.step = step;
         invalidate();
     }
-
-
 }

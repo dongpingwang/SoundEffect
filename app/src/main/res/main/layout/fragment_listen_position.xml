@@ -23,13 +23,13 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="8.65dp"
+            android:background="@drawable/comm_ripple_rectangle"
             android:gravity="center"
             android:paddingLeft="17.3dp"
             android:paddingRight="17.3dp"
             android:singleLine="true"
             android:text="@string/time_calibration"
             android:textColor="@color/selector_listen_position_title"
-            android:background="@drawable/comm_ripple_rectangle"
             android:textSize="@dimen/font_16" />
 
         <TextView
@@ -37,13 +37,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_toStartOf="@id/tv_delay"
+            android:background="@drawable/comm_ripple_rectangle"
             android:gravity="center"
             android:paddingLeft="9.19dp"
             android:paddingRight="9.19dp"
             android:singleLine="true"
             android:text="@string/speaker_adjust"
             android:textColor="@color/selector_listen_position_title"
-            android:background="@drawable/comm_ripple_rectangle"
             android:textSize="@dimen/font_16" />
 
         <View
@@ -63,8 +63,8 @@
             android:id="@+id/btn_listen_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50.81dp"
-            android:layout_marginTop="57.84dp" />
+            android:layout_centerVertical="true"
+            android:layout_marginStart="50.81dp" />
 
 
         <com.flyaudio.soundeffect.comm.view.SpeakersLayout
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="42.16dp"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="64.86dp" />
     </RelativeLayout>
 

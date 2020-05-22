@@ -80,6 +80,13 @@ public class ListenPositionButtons extends FrameLayout implements RadioGroup.OnC
 
     public void displayIfBackRowOff(boolean on) {
         int visibility = on ? VISIBLE : GONE;
+        RadioGroup.LayoutParams param = (RadioGroup.LayoutParams) buttons.get(4).getLayoutParams();
+        if (on) {
+            param.topMargin = getResources().getDimensionPixelSize(R.dimen.btn_listen_position_margin_top);
+        } else {
+            param.topMargin = getResources().getDimensionPixelSize(R.dimen.btn_listen_position_margin_top_no_rear);
+        }
+        buttons.get(4).setLayoutParams(param);
         buttons.get(2).setVisibility(visibility);
         buttons.get(3).setVisibility(visibility);
     }

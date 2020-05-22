@@ -22,18 +22,22 @@
     <dimen name="btn_listen_position_height">48.65dp</dimen>
     <dimen name="btn_listen_position_margin_start">109.19dp</dimen><!--宽度+间距-->
     <dimen name="btn_listen_position_margin_top">19.46dp</dimen><!--间距-->
+    <dimen name="btn_listen_position_margin_top_no_rear">48.65dp</dimen><!--间距-->
     <dimen name="minus_btn_listen_position_height">-48.65dp</dimen>
     <dimen name="speakers_layout_size">217.3dp</dimen>
+    <dimen name="speakers_layout_size_no_rear">110.27dp</dimen>
 
     <!--eq条形进度条-->
     <dimen name="eq_progress_line">2.16dp</dimen>  <!--一隔进度的宽度-->
     <dimen name="eq_progress_line_all">5.4dp</dimen>  <!--一隔进度的宽度加上3.24dp间距-->
+    <dimen name="eq_progress_cursor_margin">2.16dp</dimen>
+    <dimen name="eq_progress_cursor_size">5.41dp</dimen><!-- 三角形游标的大小-->
     <!--eq条形进度条RecyclerView-->
     <dimen name="eq_progress_font">@dimen/font_10</dimen>
     <dimen name="eq_progress_font_height">12.81dp</dimen>
     <dimen name="eq_progress_top_line">1.08dp</dimen>
     <dimen name="eq_progress_item_width">38.20dp</dimen>
-    <dimen name="eq_progress_width">22.7dp</dimen>
+    <dimen name="eq_progress_width">34.7dp</dimen>
     <dimen name="eq_progress_bottom_margin">9.73dp</dimen>
 
     <!--eq调节和高低通滤波调节按钮-->

@@ -35,7 +35,6 @@ public class MainActivity extends BaseActivity {
         initViewPages();
     }
 
-
     private void initTabs() {
         tabBar = getView(R.id.tab_bar);
         tabBar.setOnSelectedIndexChangedListener(new FlyTabBar.OnSelectedIndexChangedListener() {
@@ -55,5 +54,10 @@ public class MainActivity extends BaseActivity {
         MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager(), fragments);
         pagerMain.setAdapter(adapter);
         tabBar.setSelectedIndex(0);
+    }
+
+    @Override
+    public void onBackPressed() {
+       moveTaskToBack(true);
     }
 }

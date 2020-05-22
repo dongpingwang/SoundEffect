@@ -11,6 +11,7 @@
     <color name="eq_progress_adjusting_color">@color/theme_color</color>
     <color name="eq_progress_gradient_end_color">#7F6CCF</color>
     <color name="eq_progress_gradient_start_color">#5D86FF</color>
+    <color name="eq_progress_adjusted_color">#B3FFFFFF</color>
 
     <!--checkButton颜色 -->
     <color name="check_btn_enable">#464646</color>
