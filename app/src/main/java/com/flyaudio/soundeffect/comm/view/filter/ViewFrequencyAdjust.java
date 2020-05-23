@@ -113,7 +113,7 @@ public class ViewFrequencyAdjust extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 mViewGuideAlpha = (int) valueAnimator.getAnimatedValue();
-                updateView();
+                invalidate();
             }
         });
         mViewGuideAphaAnimator.start();
@@ -153,10 +153,6 @@ public class ViewFrequencyAdjust extends View {
             drawViewGuide(canvas);
         }
 
-    }
-
-    public void updateView() {
-        invalidate();
     }
 
     private void drawBg(Canvas canvas) {

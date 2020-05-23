@@ -14,7 +14,6 @@
         <!--主界面-->
         <activity
             android:name=".main.activity.MainActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,34 +26,28 @@
         <!--eq调节-->
         <activity
             android:name=".equalizer.activity.EqAdjustActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
 
         <!--扬声器调节-->
         <activity
             android:name=".speaker.activity.SpeakerVolumeActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--时间校准-->
         <activity
             android:name=".delay.activity.TimeCalibrationActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
 
         <!--喇叭设置-->
         <activity
             android:name=".trumpet.activity.TrumpetSettingActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--衰减平衡-->
         <activity
             android:name=".attenuator.activity.AttenuatorActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--高低通滤波调节-->
         <activity
             android:name=".filter.activity.EqFilterActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--导入音效-->
         <activity
@@ -64,12 +57,10 @@
         <!--导出音效-->
         <activity
             android:name=".backup.activity.ExportEffectActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--测试模块-->
         <activity
             android:name=".test.activity.TestActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
 
         <!--提供framework在媒体记忆前拉起音效服务，进行初始化-->

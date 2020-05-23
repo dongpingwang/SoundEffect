@@ -50,6 +50,7 @@
     <string name="filter">滤波</string>
     <string name="on">开</string>
     <string name="off">关</string>
+    <string name="slope">斜率</string>
 
 
     <string name="cross_music_hpf_value_format_str">PHF %dHz</string>
@@ -62,7 +63,13 @@
     <string name="input_valid_file_name">请输入有效的文件名</string>
     <string name="file_path">路径:</string>
     <string name="select_path">选择路径</string>
+    <string name="effect_file">音效文件%s</string>
     <string name="import_effect_file">导入文件</string>
     <string name="export_effect_file">导出音效文件</string>
+    <string name="usb">U盘</string>
+    <string name="internal_storage">主目录路径</string>
+    <string name="sdcard">SD卡</string>
+    <string name="backup_success">导出成功</string>
+    <string name="backup_fail">未知错误,请稍后再试</string>
 
 </resources>

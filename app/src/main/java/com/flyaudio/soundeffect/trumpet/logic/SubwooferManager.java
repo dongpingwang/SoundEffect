@@ -22,6 +22,9 @@ public final class SubwooferManager {
     private final static String KEY_SUBOOFER_REVERSE = "suboofer_reverse";
 
 
+    private final static int SWL = DspConstants.Channel.SWL.getValue();
+    private final static int SWR = DspConstants.Channel.SWR.getValue();
+
     private SubwooferManager() {
 
     }
@@ -77,5 +80,10 @@ public final class SubwooferManager {
      */
     public void saveSubwooferReverse(boolean isReverse) {
         SPCacheHelper.getInstance().put(KEY_SUBOOFER_REVERSE, isReverse);
+    }
+
+    public void setSubooferReverse(boolean isSubwooferReverse) {
+        DspHelper.getDspHelper().setDspPhaseSwitch(SWL, isSubwooferReverse);
+        DspHelper.getDspHelper().setDspPhaseSwitch(SWR, isSubwooferReverse);
     }
 }

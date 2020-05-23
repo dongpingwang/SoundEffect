@@ -29,7 +29,7 @@ public interface IDsp {
      * @param gain    增益值
      * @param enable  是否可用
      * @return 0代表设置成功
-     * @see DspConstants.EqFilter
+     * @see DspConstants.EqFilterChannel
      */
     int setEqFilter(int channel, int type, double freq, double q, double gain, boolean enable);
 
@@ -69,7 +69,7 @@ public interface IDsp {
      * 通道正反向控制:通道正反向调节
      *
      * @param channel 声道选择
-     * @param reverse true代表反向，false代表正想
+     * @param reverse true代表反向，false代表正向
      * @return 0代表设置成功
      * @see DspConstants.Channel
      */

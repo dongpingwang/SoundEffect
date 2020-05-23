@@ -110,8 +110,10 @@ public class AttenuatorActivity extends BaseActivity {
         touchImageView = getView(R.id.attenuator_touch_iv);
         touchImageView.setPositionChangedListener(new SoundFieldCoordinateView.PositionChangedListener() {
             @Override
-            public void onPositionChanged(int x, int y) {
-                AttenuatorActivity.this.setBalance(x, y);
+            public void onPositionChanged(int x, int y, boolean byTouch) {
+                if (byTouch) {
+                    AttenuatorActivity.this.setBalance(x, y);
+                }
             }
         });
         updateTouchValue();

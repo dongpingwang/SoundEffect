@@ -128,50 +128,40 @@ public class EqAdjustActivity extends BaseActivity {
         btnEqValue = getView(R.id.btn_group2);
         btnFreq.setTitle(ResUtils.getString(R.string.frequency));
         btnEqValue.setTitle(ResUtils.getString(R.string.q_value_adjust));
-
         // 恢复最后调节的一段频率
         updateCurrentFreqEq();
+        btnGain.setListener(adjustListener);
+        btnFreq.setListener(adjustListener);
+        btnEqValue.setListener(adjustListener);
+    }
 
-        // 调节增益
-        btnGain.setListener(new CommVerticalAdjustButton.AdjustListener() {
-            @Override
-            public void onAdjust(boolean up) {
+
+    private CommAdjustButton.AdjustListener adjustListener = new CommAdjustButton.AdjustListener() {
+        @Override
+        public void onAdjust(View btn, boolean up) {
+            if (btn.equals(btnGain)) {
+                // 调节增益
                 int gain = EqRegionDataLogic.getGain(eqSquareBars.getProgress(), up);
                 eqSquareBars.updateProgress(gain);
                 btnGain.setValue(gain + ResUtils.getString(R.string.gain_unit));
                 eqDataBean.gains[eqSquareBars.getRegion()] = gain;
-                eqManager.saveEqModeData(eqMode.getId(), eqDataBean);
-                eqHandler.sendEmptyMessage(MSG_EQ);
-            }
-        });
-
-
-        // 调节频率
-        btnFreq.setListener(new CommAdjustButton.AdjustListener() {
-            @Override
-            public void onAdjust(boolean up) {
+            } else if (btn.equals(btnFreq)) {
+                // 调节频率
                 int freq = EqRegionDataLogic.getFreq(eqSquareBars.getRegion(),
                         eqSquareBars.getCurrentTitle(), eqSquareBars.getPrevTitle(), eqSquareBars.getNextTitle(), up);
                 eqSquareBars.updateTitle(freq);
                 btnFreq.setValue(EqUtils.getFreq2Str(freq));
                 eqDataBean.frequencies[eqSquareBars.getRegion()] = freq;
-                eqManager.saveEqModeData(eqMode.getId(), eqDataBean);
-                eqHandler.sendEmptyMessage(MSG_EQ);
-            }
-        });
-
-        // 调节q值
-        btnEqValue.setListener(new CommAdjustButton.AdjustListener() {
-            @Override
-            public void onAdjust(boolean up) {
+            } else {
+                // 调节q值
                 double eqValue = EqRegionDataLogic.getEqValue(eqDataBean.qValues[eqSquareBars.getRegion()], up);
                 eqDataBean.qValues[eqSquareBars.getRegion()] = eqValue;
                 btnEqValue.setValue(EQ_VALUE_DESCRIPTION[EqRegionDataLogic.getEqValueIndex(eqValue)]);
-                eqManager.saveEqModeData(eqMode.getId(), eqDataBean);
-                eqHandler.sendEmptyMessage(MSG_EQ);
             }
-        });
-    }
+            eqManager.saveEqModeData(eqMode.getId(), eqDataBean);
+            eqHandler.sendEmptyMessage(MSG_EQ);
+        }
+    };
 
     private void updateAllFreqEq() {
         eqSquareBars.updateProgesses(eqDataBean.gains);

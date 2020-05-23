@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.ui.flyaudio.FlyTabBar;
 import com.flyaudio.soundeffect.R;
+import com.flyaudio.soundeffect.backup.logic.UsbManager;
 import com.flyaudio.soundeffect.comm.view.NoScrollViewPager;
 import com.flyaudio.soundeffect.equalizer.fragment.EqFragment;
 import com.flyaudio.soundeffect.main.adpater.MainPagerAdapter;
@@ -33,6 +34,7 @@ public class MainActivity extends BaseActivity {
     protected void init() {
         initTabs();
         initViewPages();
+        UsbManager.getInstance().init();
     }
 
     private void initTabs() {
@@ -58,6 +60,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-       moveTaskToBack(true);
+        moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UsbManager.getInstance().deInit();
     }
 }

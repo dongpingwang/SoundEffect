@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<slopes>
+
+    <!--斜率分别为 -18dB/oct -12dB/oct -6dB/oct对应的Q值 -->
+    <item name="-18" q="0.6" />
+    <item name="-12" q="1.4" />
+    <item name="-6" q="2.8" />
+
+</slopes>

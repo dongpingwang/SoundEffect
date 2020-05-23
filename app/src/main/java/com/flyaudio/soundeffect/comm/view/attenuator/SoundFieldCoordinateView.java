@@ -42,6 +42,7 @@ public class SoundFieldCoordinateView extends View implements ValueAnimator.Anim
     private ValueAnimator yValueAnimator = new ValueAnimator();
 
     private static boolean showYCoordinate = true;
+    private static boolean byTouch = false;
 
     public SoundFieldCoordinateView(Context context) {
         this(context, null, 0);
@@ -81,29 +82,11 @@ public class SoundFieldCoordinateView extends View implements ValueAnimator.Anim
         yValueAnimator.addUpdateListener(this);
     }
 
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = MeasureSpec.getSize(heightMeasureSpec);
-        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.AT_MOST) {
-            width = (int) getResources().getDimension(R.dimen.touch_img_view_size);
-        }
-        if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.AT_MOST) {
-            height = (int) getResources().getDimension(R.dimen.touch_img_view_size);
-        }
-        setMeasuredDimension(width, height);
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (wSpace <= 0 || hSpace <= 0) {
-            wSpace = getWidth() * 1.0F / EQUAL;
-            hSpace = getHeight() * 1.0F / EQUAL;
-        }
-
+        wSpace = getWidth() * 1.0F / EQUAL;
+        hSpace = getHeight() * 1.0F / EQUAL;
         mTextPaint.setTextAlign(Paint.Align.RIGHT);
         canvas.drawText("L5", wSpace * MIN_POS, 10, mTextPaint);
         mTextPaint.setTextAlign(Paint.Align.LEFT);
@@ -165,6 +148,7 @@ public class SoundFieldCoordinateView extends View implements ValueAnimator.Anim
 
 
     private void updateTouchPos(float x, float y) {
+        byTouch = true;
         float xDiff = x % wSpace;
         int xCoordinate = (int) (x / wSpace);
         if (xDiff * 2 > wSpace) {
@@ -190,20 +174,34 @@ public class SoundFieldCoordinateView extends View implements ValueAnimator.Anim
         invalidate();
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (xValueAnimator.isRunning()) {
+            xValueAnimator.cancel();
+        }
+        if (yValueAnimator.isRunning()) {
+            yValueAnimator.cancel();
+        }
+        byTouch = false;
+    }
 
     public void changePosX(boolean isRight) {
         int x = position.getX();
         x = isRight ? x + 1 : x - 1;
+        byTouch = true;
         setPosition(x, position.getY());
     }
 
     public void changePosY(boolean isDown) {
         int y = position.getY();
         y = isDown ? y + 1 : y - 1;
+        byTouch = true;
         setPosition(position.getX(), y);
     }
 
     public void goToCenter() {
+        byTouch = true;
         setPosition(EQUAL / 2, EQUAL / 2);
     }
 
@@ -248,7 +246,7 @@ public class SoundFieldCoordinateView extends View implements ValueAnimator.Anim
                 this.x = this.x > MAX_POS ? MAX_POS : this.x < MIN_POS ? MIN_POS : this.x;
                 this.y = this.y > MAX_POS ? MAX_POS : this.y < MIN_POS ? MIN_POS : this.y;
                 if (mPositionChangedListener != null) {
-                    mPositionChangedListener.onPositionChanged(x, y);
+                    mPositionChangedListener.onPositionChanged(x, y, byTouch);
                 }
             }
         }
@@ -262,10 +260,11 @@ public class SoundFieldCoordinateView extends View implements ValueAnimator.Anim
         /**
          * 坐标发生改变
          *
-         * @param x x坐标，范围为0 - 11
-         * @param y y坐标，范围为0 - 11
+         * @param x       x坐标，范围为0 - 11
+         * @param y       y坐标，范围为0 - 11
+         * @param byTouch 是否触摸调节
          */
-        void onPositionChanged(int x, int y);
+        void onPositionChanged(int x, int y, boolean byTouch);
     }
 
     public void setPositionChangedListener(PositionChangedListener positionChangedListener) {

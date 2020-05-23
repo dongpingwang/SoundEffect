@@ -18,7 +18,7 @@ import com.flyaudio.soundeffect.R;
 public class CommVerticalAdjustButton extends FrameLayout implements View.OnClickListener {
 
     private TextView tvValue;
-    private AdjustListener listener;
+    private CommAdjustButton.AdjustListener listener;
 
 
     public CommVerticalAdjustButton(@NonNull Context context) {
@@ -49,24 +49,15 @@ public class CommVerticalAdjustButton extends FrameLayout implements View.OnClic
     public void onClick(View v) {
         if (listener != null) {
             if (v.getId() == R.id.btn_up) {
-                listener.onAdjust(true);
+                listener.onAdjust(this, true);
             } else if (v.getId() == R.id.btn_down) {
-                listener.onAdjust(false);
+                listener.onAdjust(this, false);
             }
         }
     }
 
-    public void setListener(AdjustListener listener) {
+    public void setListener(CommAdjustButton.AdjustListener listener) {
         this.listener = listener;
     }
 
-    public interface AdjustListener {
-        /**
-         * 调大
-         *
-         * @param up true表示调大
-         */
-        void onAdjust(boolean up);
-
-    }
 }

@@ -50,7 +50,7 @@ public class DspConstants {
     /**
      * 高低通滤波控制通道
      */
-    public enum EqFilter {
+    public enum EqFilterChannel {
         /**
          * 前排通道
          */
@@ -64,8 +64,36 @@ public class DspConstants {
          */
         SUBWOOF;
 
-        EqFilter() {
+        EqFilterChannel() {
             this.value += 1;
+        }
+
+        private int value;
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+    }
+
+    /**
+     * 高低通滤波滤波类型
+     */
+    public enum EqFilterType {
+        /**
+         * 低通滤波
+         */
+        GEQ_LPF(2),
+        /**
+         * 高通滤波
+         */
+        GEQ_HPF(3);
+
+        EqFilterType(int value) {
+            setValue(value);
         }
 
         private int value;
@@ -106,6 +134,7 @@ public class DspConstants {
         }
 
     }
+
 
     /**
      * 返回的结果代码

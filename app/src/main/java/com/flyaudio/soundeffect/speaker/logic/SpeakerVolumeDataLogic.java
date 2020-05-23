@@ -53,6 +53,7 @@ final class SpeakerVolumeDataLogic {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        parser.close();
         return channelDelayLinkage;
     }
 
