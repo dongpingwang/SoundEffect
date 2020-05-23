@@ -53,7 +53,7 @@
             android:screenOrientation="landscape" />
         <!--高低通滤波调节-->
         <activity
-            android:name=".filter.EqFilterActivity"
+            android:name=".filter.activity.EqFilterActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--导入音效-->

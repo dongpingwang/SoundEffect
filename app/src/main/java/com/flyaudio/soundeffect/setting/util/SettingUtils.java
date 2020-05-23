@@ -8,7 +8,7 @@ import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.backup.activity.ExportEffectActivity;
 import com.flyaudio.soundeffect.backup.activity.ImportEffectActivity;
 import com.flyaudio.soundeffect.attenuator.activity.AttenuatorActivity;
-import com.flyaudio.soundeffect.filter.EqFilterActivity;
+import com.flyaudio.soundeffect.filter.activity.EqFilterActivity;
 import com.flyaudio.soundeffect.trumpet.activity.TrumpetSettingActivity;
 
 import java.util.Arrays;

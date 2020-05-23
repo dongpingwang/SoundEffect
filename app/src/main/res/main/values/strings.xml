@@ -31,8 +31,6 @@
     <string name="will_you_reset_speaker_volume">确定重置扬声器音量?</string>
     <string name="will_you_reset_time_calibration">确定重置时间校准?</string>
 
-    <string name="dialog_filter_reset">确定重置高低通滤波?</string>
-
 
     <string name="trumpet_setting">喇叭设置</string>
     <string name="close_subwoofer">关闭重低音</string>
@@ -41,6 +39,22 @@
     <string name="attenuator_setting">衰减平衡设置</string>
     <string name="attenuator_adjust">衰减平衡调节</string>
 
+    <string name="eq_filter">高低通滤波</string>
+    <string name="will_you_reset_eq_filter">确定重置高低通滤波?</string>
+    <string name="eq_filter_type_front">前排</string>
+    <string name="eq_filter_type_back">后排</string>
+    <string name="eq_filter_type_subwoofer">重低音</string>
+    <string name="phase">相位</string>
+    <string name="phase_normal">正相</string>
+    <string name="phase_reverse">反相</string>
+    <string name="filter">滤波</string>
+    <string name="on">开</string>
+    <string name="off">关</string>
+
+
+    <string name="cross_music_hpf_value_format_str">PHF %dHz</string>
+    <string name="cross_music_lpf_value_format_str">LPF %dHz</string>
+    <string name="cross_music_slope_format_str"> -%ddB/oct</string>
 
     <string name="import_effect">导入音效</string>
     <string name="export_effect">导出音效</string>

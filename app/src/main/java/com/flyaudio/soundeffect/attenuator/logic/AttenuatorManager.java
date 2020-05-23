@@ -11,14 +11,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Locale;
 
-import static com.flyaudio.soundeffect.attenuator.logic.AttenuatorLogic.BalanceType.*;
+import static com.flyaudio.soundeffect.attenuator.logic.AttenuatorManager.BalanceType.*;
 
 /**
  * @author Dongping Wang
  * @date 20-5-6
  * email wangdongping@flyaudio.cn
  */
-public final class AttenuatorLogic extends TouchValueLogic{
+public final class AttenuatorManager extends TouchValueLogic {
 
     private static final int BALANCE_MIN = -100;
     private static final int BALANCE_MAX = 0;
@@ -31,9 +31,21 @@ public final class AttenuatorLogic extends TouchValueLogic{
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface BalanceType {
+        /**
+         * 前左喇叭
+         */
         int BALANCE_FRONT_LEFT = 0;
+        /**
+         * 前右喇叭
+         */
         int BALANCE_FRONT_RIGHT = 1;
+        /**
+         * 后左喇叭
+         */
         int BALANCE_BACK_LEFT = 2;
+        /**
+         * 后右喇叭
+         */
         int BALANCE_BACK_RIGHT = 3;
     }
 
@@ -45,19 +57,18 @@ public final class AttenuatorLogic extends TouchValueLogic{
 
     private static final int VALUE_BALANCE = 0;
 
-    private AttenuatorLogic() {
+    private AttenuatorManager() {
 
     }
 
     private static class InstanceHolder {
-        private static AttenuatorLogic instance = new AttenuatorLogic();
+        private static AttenuatorManager instance = new AttenuatorManager();
     }
 
 
-    public static AttenuatorLogic getInstance() {
+    public static AttenuatorManager getInstance() {
         return InstanceHolder.instance;
     }
-
 
 
     /**

@@ -5,7 +5,7 @@ import android.view.ViewTreeObserver;
 import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
-import com.flyaudio.soundeffect.attenuator.logic.AttenuatorLogic;
+import com.flyaudio.soundeffect.attenuator.logic.AttenuatorManager;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.SpeakersLayout;
 import com.flyaudio.soundeffect.comm.view.attenuator.AttenuatorAdjuster;
@@ -25,7 +25,7 @@ public class AttenuatorActivity extends BaseActivity {
     private SpeakersLayout speakers;
     private SoundFieldCoordinateView touchImageView;
 
-    private AttenuatorLogic attenuatorLogic;
+    private AttenuatorManager attenuatorManager;
     private boolean backRowOn;
 
     @Override
@@ -53,7 +53,7 @@ public class AttenuatorActivity extends BaseActivity {
     }
 
     private void initData() {
-        attenuatorLogic = AttenuatorLogic.getInstance();
+        attenuatorManager = AttenuatorManager.getInstance();
         backRowOn = BackRowManager.getInstance().isBackRowOn();
     }
 
@@ -121,10 +121,10 @@ public class AttenuatorActivity extends BaseActivity {
         touchImageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                int[] touchValue = attenuatorLogic.getTouchValue();
+                int[] touchValue = attenuatorManager.getTouchValue();
                 int x = touchValue[0];
                 if (!backRowOn) {
-                    x = attenuatorLogic.getTouchValueWhenRearOff();
+                    x = attenuatorManager.getTouchValueWhenRearOff();
                 }
                 touchImageView.setPosition(x, touchValue[1]);
             }
@@ -133,11 +133,11 @@ public class AttenuatorActivity extends BaseActivity {
 
     private void setBalance(int x, int y) {
         if (backRowOn) {
-            attenuatorLogic.saveTouchValue(x, y);
-            attenuatorLogic.setBalanceXYByWeight(x - 1, y - 1);
+            attenuatorManager.saveTouchValue(x, y);
+            attenuatorManager.setBalanceXYByWeight(x - 1, y - 1);
         } else {
-            attenuatorLogic.saveTouchValueWhenRearOff(x);
-            attenuatorLogic.setXBalanceByWeight(x - 1);
+            attenuatorManager.saveTouchValueWhenRearOff(x);
+            attenuatorManager.setXBalanceByWeight(x - 1);
         }
     }
 }

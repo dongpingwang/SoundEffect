@@ -16,6 +16,11 @@ public final class SubwooferManager {
      */
     private final static String KEY_SUBOOFER_ON = "suboofer_on";
 
+    /**
+     * 重低音是否反向
+     */
+    private final static String KEY_SUBOOFER_REVERSE = "suboofer_reverse";
+
 
     private SubwooferManager() {
 
@@ -56,7 +61,21 @@ public final class SubwooferManager {
      */
     public void setSubwooferEnable(boolean enable) {
         DspHelper.getDspHelper().setChannel(DspConstants.AudioSpeakerLayout.SPEAKER_LAYOUT_SUBWOOF.getValue(), enable);
-
     }
 
+    /**
+     * 重低音LPF滤波是否反向，默认正相
+     */
+    public boolean isSubwooferReverse() {
+        return SPCacheHelper.getInstance().getBoolean(KEY_SUBOOFER_REVERSE, false);
+    }
+
+    /**
+     * 保存重低音LPF滤波相位状态
+     *
+     * @param isReverse 是否反相
+     */
+    public void saveSubwooferReverse(boolean isReverse) {
+        SPCacheHelper.getInstance().put(KEY_SUBOOFER_REVERSE, isReverse);
+    }
 }
