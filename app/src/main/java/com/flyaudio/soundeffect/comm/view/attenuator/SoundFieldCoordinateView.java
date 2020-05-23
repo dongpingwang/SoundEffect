@@ -10,13 +10,11 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.flyaudio.lib.utils.ConvertUtils;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 
@@ -24,21 +22,26 @@ import com.flyaudio.soundeffect.R;
 /**
  * @author Liu Zicong
  * date 19-06-05
- *
  */
-public class SoundFieldCoordinateView extends View {
+public class SoundFieldCoordinateView extends View implements ValueAnimator.AnimatorUpdateListener {
 
-    private final static int EQUAL = 10 + 2;    //坐标分多少份
+    private final static int EQUAL = 12;
+    private final static int MAX_POS = 11;
+    private final static int MIN_POS = 1;
+
     private Paint mViewPaint;
     private Paint mTextPaint;
-    private float mTouchPointX;
-    private float mTouchPointY;
-    private int mViewWidth = -1;
-    private int mViewHeight = -1;
+    private Position position;
+    private float xPos, yPos;
     private Bitmap mCoordinateArrow;
     private Bitmap mCoordinateArrow90;
     private BlurMaskFilter mPointBlurMaskFilter;
-    private IAttenuatorListener mAttenuatorListener;
+    private PorterDuffColorFilter mPorterDuffColorFilter;
+    private static float wSpace, hSpace;
+    private ValueAnimator xValueAnimator = new ValueAnimator();
+    private ValueAnimator yValueAnimator = new ValueAnimator();
+
+    private static boolean showYCoordinate = true;
 
     public SoundFieldCoordinateView(Context context) {
         this(context, null, 0);
@@ -61,7 +64,7 @@ public class SoundFieldCoordinateView extends View {
         mViewPaint.setAntiAlias(true);
 
         mTextPaint = new Paint();
-        mTextPaint.setTextSize(ConvertUtils.sp2px(9));
+        mTextPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.sound_field_coordinate_view_text));
         mTextPaint.setAntiAlias(true);
         mTextPaint.setColor(ResUtils.getColor(R.color.text_color_gray));
 
@@ -70,50 +73,70 @@ public class SoundFieldCoordinateView extends View {
         matrix.setRotate(-90);
         mCoordinateArrow90 = Bitmap.createBitmap(mCoordinateArrow, 0, 0, mCoordinateArrow.getWidth(), mCoordinateArrow.getHeight(), matrix, false);
         mPointBlurMaskFilter = new BlurMaskFilter(16, BlurMaskFilter.Blur.SOLID);
+        mPorterDuffColorFilter = new PorterDuffColorFilter(ResUtils.getColor(R.color.theme_color), PorterDuff.Mode.SRC_IN);
         setWillNotDraw(false);
+
+        position = new Position();
+        xValueAnimator.addUpdateListener(this);
+        yValueAnimator.addUpdateListener(this);
     }
 
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.AT_MOST) {
+            width = (int) getResources().getDimension(R.dimen.touch_img_view_size);
+        }
+        if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.AT_MOST) {
+            height = (int) getResources().getDimension(R.dimen.touch_img_view_size);
+        }
+        setMeasuredDimension(width, height);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int width = getWidth();
-        int height = getHeight();
-        if (mViewWidth == -1 || mViewHeight == -1) {
-            mViewWidth = width;
-            mViewHeight = height;
-            checkView();
+        if (wSpace <= 0 || hSpace <= 0) {
+            wSpace = getWidth() * 1.0F / EQUAL;
+            hSpace = getHeight() * 1.0F / EQUAL;
         }
+
         mTextPaint.setTextAlign(Paint.Align.RIGHT);
-        canvas.drawText("L5", width / EQUAL, 10, mTextPaint);
+        canvas.drawText("L5", wSpace * MIN_POS, 10, mTextPaint);
         mTextPaint.setTextAlign(Paint.Align.LEFT);
-        canvas.drawText("R5", width / EQUAL * 11, 10, mTextPaint);
-        canvas.drawText("F5", 1, height / EQUAL, mTextPaint);
-        canvas.drawText("R5", 1, height / EQUAL * 11 + 5, mTextPaint);
-
-
+        canvas.drawText("R5", wSpace * MAX_POS, 10, mTextPaint);
+        if (showYCoordinate) {
+            canvas.drawText("F5", 1, hSpace * MIN_POS, mTextPaint);
+            canvas.drawText("R5", 1, hSpace * MAX_POS + 5, mTextPaint);
+        }
         mViewPaint.setStrokeWidth(6);
         mViewPaint.setColor(ResUtils.getColor(R.color.text_color_gray));
         for (int i = 2; i < EQUAL - 1; i++) {
-            canvas.drawPoint(width / EQUAL * i, 6, mViewPaint);
-            canvas.drawPoint(6, height / EQUAL * i, mViewPaint);
-
+            canvas.drawPoint(wSpace * i, 6, mViewPaint);
+            if (showYCoordinate) {
+                canvas.drawPoint(6, hSpace * i, mViewPaint);
+            }
+        }
+        mViewPaint.setStrokeWidth(4);
+        canvas.drawLine(34, yPos, getWidth() - 36, yPos, mViewPaint);
+        if (showYCoordinate) {
+            canvas.drawLine(xPos - 1, 34, xPos - 1, getHeight() - 36, mViewPaint);
         }
 
-        mViewPaint.setStrokeWidth(4);
-        canvas.drawLine(mTouchPointX - 1, 34, mTouchPointX - 1, height - 36, mViewPaint);
-
-        canvas.drawLine(34, mTouchPointY, width - 36, mTouchPointY, mViewPaint);
-        mViewPaint.setColorFilter(new PorterDuffColorFilter(ResUtils.getColor(R.color.theme_color), PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(mCoordinateArrow, mTouchPointX - 8.5f, 1, mViewPaint);
-        canvas.drawBitmap(mCoordinateArrow90, 0, mTouchPointY - 8, mViewPaint);
+        mViewPaint.setColorFilter(mPorterDuffColorFilter);
+        canvas.drawBitmap(mCoordinateArrow, xPos - 8.5f, 1, mViewPaint);
+        if (showYCoordinate) {
+            canvas.drawBitmap(mCoordinateArrow90, 0, yPos - 8, mViewPaint);
+        }
         mViewPaint.setColorFilter(null);
         mViewPaint.setMaskFilter(mPointBlurMaskFilter);
         mViewPaint.setColor(ResUtils.getColor(R.color.theme_color));
-        canvas.drawCircle(mTouchPointX - 1, mTouchPointY, 15, mViewPaint);
+        canvas.drawCircle(xPos - 1, yPos, 15, mViewPaint);
         mViewPaint.setMaskFilter(null);
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -121,11 +144,18 @@ public class SoundFieldCoordinateView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                updateTouchPoint(x, y);
+                xPos = x;
+                yPos = y;
+                if (!showYCoordinate) {
+                    yPos = getHeight() * 1.0F / 2;
+                }
+                xPos = xPos > wSpace * MAX_POS ? wSpace * MAX_POS : xPos < wSpace ? wSpace : xPos;
+                yPos = yPos > hSpace * MAX_POS ? hSpace * MAX_POS : yPos < hSpace ? hSpace : yPos;
+                invalidate();
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                updateTouchUpPointXY(x, y);
+                updateTouchPos(x, y);
                 break;
             default:
                 break;
@@ -133,137 +163,112 @@ public class SoundFieldCoordinateView extends View {
         return true;
     }
 
-    private void updateTouchPoint(float x, float y) {
-        x = limitValue(x, y)[0];
-        y = limitValue(x, y)[1];
-        mTouchPointX = x;
-        mTouchPointY = y;
-        invalidate();
-    }
 
-    private void updateTouchUpPointXY(float x, float y) {
-        x = limitValue(x, y)[0];
-        y = limitValue(x, y)[1];
-        float remainderX = x % (mViewWidth / EQUAL);
-        int divisorX = (int) x / (mViewWidth / EQUAL);
-        if (remainderX > (mViewWidth / EQUAL / 2))
-            mTouchPointX = (mViewWidth / EQUAL) * (divisorX + 1);
-        else
-            mTouchPointX = (mViewWidth / EQUAL) * divisorX;
-        ValueAnimator valueAnimatorX = ValueAnimator.ofFloat(x, mTouchPointX);
-        valueAnimatorX.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                invalidate();
-            }
-        });
-        valueAnimatorX.setDuration(300);
-        valueAnimatorX.start();
-
-
-        float remainderY = y % (mViewHeight / EQUAL);
-        int divisorY = (int) y / (mViewHeight / EQUAL);
-        if (remainderY > (mViewHeight / EQUAL / 2))
-            mTouchPointY = (mViewHeight / EQUAL) * (divisorY + 1);
-        else
-            mTouchPointY = (mViewHeight / EQUAL) * divisorY;
-        ValueAnimator valueAnimatorY = ValueAnimator.ofFloat(y, mTouchPointY);
-        valueAnimatorY.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                invalidate();
-            }
-        });
-        valueAnimatorY.setDuration(300);
-        valueAnimatorY.start();
-        if (mAttenuatorListener != null)
-            mAttenuatorListener.setBalance();
-    }
-
-
-    public interface IAttenuatorListener {
-        /**
-         * 设置喇叭音量
-         */
-        void setBalance();
-
-        /**
-         * 是否调节到极限
-         *
-         * @param btn  上下左右按钮中的一个
-         * @param edge 是否调节到极限
-         */
-        void isToEdge(int btn, boolean edge);
-    }
-
-    public void setAttenutorListener(IAttenuatorListener listener) {
-        mAttenuatorListener = listener;
-    }
-
-    public void changeXLeftRight(boolean isRight) {
-        checkView();
-        int divisorX = (int) mTouchPointX / (mViewWidth / EQUAL);
-        divisorX = isRight ? divisorX + 1 : divisorX - 1;
-        divisorX = divisorX > 11 ? 11 : divisorX < 1 ? 1 : divisorX;
-        if (mAttenuatorListener != null) {
-            mAttenuatorListener.isToEdge(isRight ? AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT : AttenuatorAdjuster.AttenuatorBtn.BTN_LEFT, isRight ? divisorX < 11 : divisorX > 1);
-            mAttenuatorListener.isToEdge(isRight ? AttenuatorAdjuster.AttenuatorBtn.BTN_LEFT : AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT, true);
+    private void updateTouchPos(float x, float y) {
+        float xDiff = x % wSpace;
+        int xCoordinate = (int) (x / wSpace);
+        if (xDiff * 2 > wSpace) {
+            xCoordinate = xCoordinate + 1;
         }
-        mTouchPointX = (mViewWidth / EQUAL) * divisorX;
+
+        float yDiff = y % hSpace;
+        int yCoordinate = (int) (y / hSpace);
+        if (yDiff * 2 > hSpace) {
+            yCoordinate = yCoordinate + 1;
+        }
+        setPosition(xCoordinate, yCoordinate);
+        xValueAnimator.setFloatValues(x, xPos);
+        xValueAnimator.setDuration(300);
+        xValueAnimator.start();
+        yValueAnimator.setFloatValues(y, yPos);
+        yValueAnimator.setDuration(300);
+        yValueAnimator.start();
+    }
+
+    @Override
+    public void onAnimationUpdate(ValueAnimator animation) {
         invalidate();
     }
 
-    public void changeYUpDown(boolean isDown) {
-        checkView();
-        int divisorY = (int) mTouchPointY / (mViewHeight / EQUAL);
-        divisorY = isDown ? divisorY + 1 : divisorY - 1;
-        divisorY = divisorY > 11 ? 11 : divisorY < 1 ? 1 : divisorY;
-        if (mAttenuatorListener != null) {
-            mAttenuatorListener.isToEdge(isDown ? AttenuatorAdjuster.AttenuatorBtn.BTN_DOWN : AttenuatorAdjuster.AttenuatorBtn.BTN_UP, isDown ? divisorY < 11 : divisorY > 1);
-            mAttenuatorListener.isToEdge(isDown ? AttenuatorAdjuster.AttenuatorBtn.BTN_UP : AttenuatorAdjuster.AttenuatorBtn.BTN_DOWN, true);
-        }
-        mTouchPointY = (mViewHeight / EQUAL) * divisorY;
 
-        invalidate();
+    public void changePosX(boolean isRight) {
+        int x = position.getX();
+        x = isRight ? x + 1 : x - 1;
+        setPosition(x, position.getY());
+    }
+
+    public void changePosY(boolean isDown) {
+        int y = position.getY();
+        y = isDown ? y + 1 : y - 1;
+        setPosition(position.getX(), y);
     }
 
     public void goToCenter() {
-        checkView();
-        mTouchPointX = (mViewWidth / EQUAL) * 6;
-        mTouchPointY = (mViewHeight / EQUAL) * 6;
+        setPosition(EQUAL / 2, EQUAL / 2);
+    }
+
+    public void setPosition(int x, int y) {
+        position.set(x, y);
+        xPos = position.getX() * wSpace;
+        yPos = position.getY() * hSpace;
+        if (!showYCoordinate) {
+            yPos = getHeight() * 1.0F / 2;
+        }
         invalidate();
-        if (mAttenuatorListener != null) {
-            for (int i = AttenuatorAdjuster.AttenuatorBtn.BTN_UP; i <= AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT; i++) {
-                mAttenuatorListener.isToEdge(i, true);
+    }
+
+    public void setShowYCoordinate(boolean showYCoordinate) {
+        SoundFieldCoordinateView.showYCoordinate = showYCoordinate;
+        invalidate();
+    }
+
+    public static class Position {
+
+        private int x;
+        private int y;
+        private PositionChangedListener mPositionChangedListener;
+
+        private Position() {
+            x = -1;
+            y = -1;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        private void set(int x, int y) {
+            if (this.x != x || this.y != y) {
+                this.x = x;
+                this.y = y;
+                this.x = this.x > MAX_POS ? MAX_POS : this.x < MIN_POS ? MIN_POS : this.x;
+                this.y = this.y > MAX_POS ? MAX_POS : this.y < MIN_POS ? MIN_POS : this.y;
+                if (mPositionChangedListener != null) {
+                    mPositionChangedListener.onPositionChanged(x, y);
+                }
             }
         }
-    }
 
-    public int[] getPos() {
-        checkView();
-        int x = (int) (mTouchPointX / (mViewHeight / EQUAL));
-        int y = (int) (mTouchPointY / (mViewHeight / EQUAL));
-        return new int[]{x, y};
-    }
-
-    public void setPos(@NonNull int[] pos) {
-        checkView();
-        mTouchPointX = (mViewWidth / EQUAL) * pos[0];
-        mTouchPointY = (mViewHeight / EQUAL) * pos[1];
-        invalidate();
-    }
-
-    private void checkView() {
-        if (mViewWidth == -1 || mViewHeight == -1) {
-            mViewWidth = 396;
-            mViewHeight = 396;
+        private void setPositionChangedListener(PositionChangedListener positionChangedListener) {
+            mPositionChangedListener = positionChangedListener;
         }
     }
 
-    private float[] limitValue(float x, float y) {
-        x = x > mViewWidth / EQUAL * 11 ? mViewWidth / EQUAL * 11 : x < mViewWidth / EQUAL ? mViewWidth / EQUAL : x;
-        y = y > mViewHeight / EQUAL * 11 ? mViewHeight / EQUAL * 11 : y < mViewHeight / EQUAL ? mViewHeight / EQUAL : y;
-        return new float[]{x, y};
+    public interface PositionChangedListener {
+        /**
+         * 坐标发生改变
+         *
+         * @param x x坐标，范围为0 - 11
+         * @param y y坐标，范围为0 - 11
+         */
+        void onPositionChanged(int x, int y);
     }
 
+    public void setPositionChangedListener(PositionChangedListener positionChangedListener) {
+        position.setPositionChangedListener(positionChangedListener);
+    }
 }

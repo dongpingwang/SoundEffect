@@ -52,12 +52,14 @@
     <dimen name="filter_space_large">18dp</dimen>
 
     <!--衰减平衡-->
-    <dimen name="touch_img_view_size">260.44dp</dimen>
+    <dimen name="touch_img_view_size">264.44dp</dimen>
     <dimen name="touch_img_width">223.33dp</dimen>
     <dimen name="touch_img_scale_space">27.78dp</dimen>
     <dimen name="touch_img_edge_space">13.89dp</dimen>
     <dimen name="touch_img_cursor_width">10dp</dimen>
     <dimen name="touch_img_cursor_height">13.33dp</dimen>
     <dimen name="touch_img_space_middle">10dp</dimen>
+    <dimen name="sound_field_coordinate_view_text">9sp</dimen>
+
 
 </resources>

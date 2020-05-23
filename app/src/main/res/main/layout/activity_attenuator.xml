@@ -16,37 +16,29 @@
             android:id="@+id/attenuator_adjuster_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="89.73dp"
-            android:layout_marginTop="48.65dp" />
+            android:layout_centerVertical="true"
+            android:layout_marginStart="89.73dp" />
 
         <com.flyaudio.soundeffect.comm.view.SpeakersLayout
             android:id="@+id/speakers_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="42.16dp"
-            android:layout_marginEnd="101.62dp"
-            android:background="#0f0" />
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="101.62dp" />
 
-        <com.flyaudio.soundeffect.comm.view.attenuator.TouchImageView
+        <com.flyaudio.soundeffect.comm.view.attenuator.SoundFieldCoordinateView
             android:id="@+id/attenuator_touch_iv"
-            android:layout_width="264dp"
-            android:layout_height="264dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignStart="@id/speakers_layout"
+            android:layout_alignTop="@id/speakers_layout"
+            android:layout_alignEnd="@id/speakers_layout"
             android:layout_alignBottom="@id/speakers_layout"
             android:layout_marginStart="-23dp"
-            android:layout_marginTop="25.14dp"
+            android:layout_marginTop="-23dp"
+            android:layout_marginEnd="-23dp"
             android:layout_marginBottom="-23dp" />
-
-
-        <!--<com.flyaudio.soundeffect.view.balance.SoundFieldCoordinateView-->
-            <!--android:id="@+id/sound_field_coordinate_view"-->
-            <!--android:layout_width="264dp"-->
-            <!--android:layout_height="264dp"-->
-            <!--android:layout_alignLeft="@id/adjust_view_layout"-->
-            <!--android:layout_alignTop="@id/adjust_view_layout"-->
-            <!--android:layout_marginLeft="-23dp"-->
-            <!--android:layout_marginTop="-23dp" />-->
     </RelativeLayout>
 
 </LinearLayout>

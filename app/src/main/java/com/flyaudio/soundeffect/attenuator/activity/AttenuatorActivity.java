@@ -1,7 +1,5 @@
 package com.flyaudio.soundeffect.attenuator.activity;
 
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.flyaudio.lib.base.BaseActivity;
@@ -12,7 +10,8 @@ import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.SpeakersLayout;
 import com.flyaudio.soundeffect.comm.view.attenuator.AttenuatorAdjuster;
 import com.flyaudio.soundeffect.comm.view.attenuator.SoundFieldCoordinateView;
-import com.flyaudio.soundeffect.comm.view.attenuator.TouchImageView;
+import com.flyaudio.soundeffect.trumpet.logic.BackRowManager;
+
 
 /**
  * @author Dongping Wang
@@ -24,26 +23,44 @@ public class AttenuatorActivity extends BaseActivity {
     private CommTitleBar titleBar;
     private AttenuatorAdjuster adjuster;
     private SpeakersLayout speakers;
-    private TouchImageView touchImageView;
+    private SoundFieldCoordinateView touchImageView;
 
     private AttenuatorLogic attenuatorLogic;
+    private boolean backRowOn;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_equilibrium;
+        return R.layout.activity_attenuator;
     }
 
     @Override
     protected void init() {
+        initData();
         initTitleBar();
         initTouchImg();
         initAdjuster();
         initSpeakers();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        backRowOn = BackRowManager.getInstance().isBackRowOn();
+        adjuster.displayIfBackRowOff(backRowOn);
+        speakers.displayIfBackRowOff(backRowOn);
+        touchImageView.setShowYCoordinate(backRowOn);
+        updateTouchValue();
+    }
+
+    private void initData() {
+        attenuatorLogic = AttenuatorLogic.getInstance();
+        backRowOn = BackRowManager.getInstance().isBackRowOn();
+    }
+
     private void initTitleBar() {
         titleBar = getView(R.id.eq_title_bar);
         titleBar.setTitleName(ResUtils.getString(R.string.attenuator_adjust));
+        titleBar.updateResetVisibility(false);
         titleBar.setListener(new CommTitleBar.TitleBarActionListener() {
             @Override
             public void onBack() {
@@ -67,34 +84,23 @@ public class AttenuatorActivity extends BaseActivity {
         adjuster.setAdjustListener(new AttenuatorAdjuster.OnAdjustTouchListener() {
             @Override
             public void onTouch(int btn) {
-//                TouchImageView.Position position = touchImageView.getPosition();
-//                int x = position.getX() - touchImageView.getPaddingLeft();
-//                int y = position.getY() - touchImageView.getPaddingTop();
-//                int xStep = (int) (touchImageView.getViewWidth() / 10f + 0.5f);
-//                int yStep = (int) (touchImageView.getViewHeight() / 10f + 0.5f);
-//                int xSpace = x % xStep;
-//                int ySpace = y % yStep;
-//                switch (btn) {
-//                    case AttenuatorAdjuster.AttenuatorBtn.BTN_UP:
-//                        y -= (ySpace == 0) ? yStep : ySpace;
-//                        break;
-//                    case AttenuatorAdjuster.AttenuatorBtn.BTN_DOWN:
-//                        y += (yStep - ySpace);
-//                        break;
-//                    case AttenuatorAdjuster.AttenuatorBtn.BTN_LEFT:
-//                        x -= (xSpace == 0) ? xStep : xSpace;
-//                        break;
-//                    case AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT:
-//                        x += (xStep - xSpace);
-//                        break;
-//                    default:
-//                        x = (int) (touchImageView.getViewWidth() * 0.5f + 0.5f);
-//                        y = (int) (touchImageView.getViewHeight() * 0.5f + 0.5f);
-//                }
-//                x = x < 0 ? 0 : x > touchImageView.getViewWidth() ? touchImageView.getViewWidth() : x;
-//                y = y < 0 ? 0 : y > touchImageView.getViewHeight() ? touchImageView.getViewHeight() : y;
-//                touchImageView.setViewPosition(x, y);
-//                saveValue();
+                switch (btn) {
+                    case AttenuatorAdjuster.AttenuatorBtn.BTN_UP:
+                        touchImageView.changePosY(false);
+                        break;
+                    case AttenuatorAdjuster.AttenuatorBtn.BTN_DOWN:
+                        touchImageView.changePosY(true);
+                        break;
+                    case AttenuatorAdjuster.AttenuatorBtn.BTN_LEFT:
+                        touchImageView.changePosX(false);
+                        break;
+                    case AttenuatorAdjuster.AttenuatorBtn.BTN_RIGHT:
+                        touchImageView.changePosX(true);
+                        break;
+                    default:
+                        touchImageView.goToCenter();
+                        break;
+                }
             }
         });
 
@@ -102,26 +108,36 @@ public class AttenuatorActivity extends BaseActivity {
 
     private void initTouchImg() {
         touchImageView = getView(R.id.attenuator_touch_iv);
-        touchImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+        touchImageView.setPositionChangedListener(new SoundFieldCoordinateView.PositionChangedListener() {
             @Override
-            public boolean onPreDraw() {
-                touchImageView.getViewTreeObserver().removeOnPreDrawListener(this);
-                return true;
+            public void onPositionChanged(int x, int y) {
+                AttenuatorActivity.this.setBalance(x, y);
             }
         });
-        touchImageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    saveValue();
-                }
-                return false;
-            }
-        });
-
+        updateTouchValue();
     }
 
-    private void saveValue() {
+    private void updateTouchValue() {
+        touchImageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int[] touchValue = attenuatorLogic.getTouchValue();
+                int x = touchValue[0];
+                if (!backRowOn) {
+                    x = attenuatorLogic.getTouchValueWhenRearOff();
+                }
+                touchImageView.setPosition(x, touchValue[1]);
+            }
+        });
+    }
 
+    private void setBalance(int x, int y) {
+        if (backRowOn) {
+            attenuatorLogic.saveTouchValue(x, y);
+            attenuatorLogic.setBalanceXYByWeight(x - 1, y - 1);
+        } else {
+            attenuatorLogic.saveTouchValueWhenRearOff(x);
+            attenuatorLogic.setXBalanceByWeight(x - 1);
+        }
     }
 }

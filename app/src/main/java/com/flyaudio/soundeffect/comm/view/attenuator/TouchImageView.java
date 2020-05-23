@@ -1,7 +1,6 @@
 package com.flyaudio.soundeffect.comm.view.attenuator;
 
 import android.content.Context;
-import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.CornerPathEffect;
 import android.graphics.Paint;
@@ -23,7 +22,6 @@ public class TouchImageView extends ImageView {
 
     private Paint mPaint;
     private Drawable mTouchCircle;
-    private BlurMaskFilter mPointBlurMaskFilter;
     private Position mPosition;
     private float mTextCenter;
     private int mTouchType;
@@ -50,7 +48,6 @@ public class TouchImageView extends ImageView {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setPathEffect(new CornerPathEffect(3));
         mTouchCircle = getResources().getDrawable(R.drawable.touch_img_circle, null);
-        mPointBlurMaskFilter = new BlurMaskFilter(17, BlurMaskFilter.Blur.SOLID);
         Paint.FontMetricsInt fontMetricsInt = mPaint.getFontMetricsInt();
         mTextCenter = (fontMetricsInt.ascent + fontMetricsInt.descent) / 2f;
         mTouchType = 0;
@@ -122,19 +119,14 @@ public class TouchImageView extends ImageView {
 
 
     private void drawTouchCircle(Canvas canvas) {
-//        canvas.save();
-//        canvas.clipRect(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
-//        int length = getWidth() / 5;
-//        int x = mPosition.x - length / 2;
-//        int y = mPosition.y - length / 2;
-//        mTouchCircle.setBounds(x, y, x + length, y + length);
-//        mTouchCircle.draw(canvas);
-//        canvas.restore();
-        mPaint.setStrokeWidth(4.0F);
-        mPaint.setMaskFilter(mPointBlurMaskFilter);
-        mPaint.setColor(getContext().getResources().getColor(R.color.theme_color, null));
-        canvas.drawCircle(mPosition.x, mPosition.y, 16, mPaint);
-        mPaint.setMaskFilter(null);
+        canvas.save();
+        canvas.clipRect(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom());
+        int length = getWidth() / 5;
+        int x = mPosition.x - length / 2;
+        int y = mPosition.y - length / 2;
+        mTouchCircle.setBounds(x, y, x + length, y + length);
+        mTouchCircle.draw(canvas);
+        canvas.restore();
     }
 
     private void drawCursor(Canvas canvas) {

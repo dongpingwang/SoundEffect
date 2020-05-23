@@ -133,6 +133,7 @@ public class AttenuatorAdjuster extends FrameLayout {
     }
 
     public void displayIfBackRowOff(boolean on) {
-
+        buttons[BTN_UP].setVisibility(on ? VISIBLE : INVISIBLE);
+        buttons[BTN_DOWN].setVisibility(on ? VISIBLE : INVISIBLE);
     }
 }
