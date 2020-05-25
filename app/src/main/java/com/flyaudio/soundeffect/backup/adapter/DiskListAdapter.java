@@ -32,10 +32,8 @@ public class DiskListAdapter extends RecyclerViewAdapter<Device> {
 
     @Override
     public void onBindViewHolder(Adapter.ViewHolder<Device> holder) {
-        TextView tvDiskName = holder.getView(R.id.tv_disk_name);
-        RadioButton rbCheck = holder.getView(R.id.rb_index);
-        tvDiskName.setText(getData(holder.getItemPosition()).getDescription());
-        rbCheck.setChecked(getData(holder.getItemPosition()).isChecked());
+        ((TextView) (holder.getView(R.id.tv_disk_name))).setText(getData(holder.getItemPosition()).getDescription());
+        ((RadioButton) (holder.getView(R.id.rb_disk_index))).setChecked(getData(holder.getItemPosition()).isChecked());
     }
 
     public void updateSelect(int position) {

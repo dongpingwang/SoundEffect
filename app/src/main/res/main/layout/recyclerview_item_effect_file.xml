@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="58.38dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="68dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_file_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_normal"
+            android:textSize="@dimen/font_15"
+            tools:text="动感音效" />
+
+        <TextView
+            android:id="@+id/tv_file_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:textColor="@color/text_color_normal8"
+            android:textSize="15sp"
+            tools:text="@string/internal_storage" />
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/rb_file_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="81.08dp"
+        android:button="@drawable/selector_radio_button"
+        android:clickable="false" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="66dp"
+        android:layout_marginRight="66dp"
+        android:background="@color/split_line" />
+</RelativeLayout>
+
+
+

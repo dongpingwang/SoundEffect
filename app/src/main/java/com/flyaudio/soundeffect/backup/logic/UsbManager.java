@@ -4,11 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.utils.AppUtils;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.lib.utils.StorageUtils;
@@ -102,7 +102,7 @@ public final class UsbManager {
     /**
      * 检查所有U盘、SD卡
      */
-    public List<Device> checkAllDisk() {
+    public List<Device> getAllDisk() {
         List<Device> devices = new ArrayList<>();
         List<StorageUtils.VolumeInfo> volumes = StorageUtils.getVolumes();
         for (StorageUtils.VolumeInfo volume : volumes) {
@@ -122,6 +122,7 @@ public final class UsbManager {
                             path = path.replace(STORAGE, MNT_MEDIA_RW);
                         }
                     }
+                    Logger.d("getAllDisk:" + path);
                     devices.add(new Device(description, path));
                 }
             }
@@ -130,6 +131,7 @@ public final class UsbManager {
         internalStorage.setDescription(ResUtils.getString(R.string.internal_storage));
         internalStorage.setPath(Environment.getExternalStorageDirectory().getAbsolutePath());
         devices.add(internalStorage);
+        Logger.d("getAllDisk:" + internalStorage.getPath());
         Device firstDevice = devices.get(0);
         firstDevice.setChecked(true);
         devices.set(0, firstDevice);

@@ -2,9 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_checked="false">
-        <bitmap android:src="@mipmap/radio_off" />
+        <bitmap android:src="@mipmap/radio_off" android:tint="@color/rb_off" />
     </item>
     <item android:state_checked="true">
-        <bitmap android:src="@mipmap/radio_on" />
+        <bitmap android:src="@mipmap/radio_on" android:tint="@color/theme_color" />
     </item>
 </selector>

@@ -26,4 +26,7 @@ ext {
 
     // leak-canary
     leakcanary_version = "1.5.4"
+
+    // rxjava
+    rxandroid_version = "2.1.1"
 }

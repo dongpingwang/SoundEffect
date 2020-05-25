@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/btn_export_effect"
+    android:id="@+id/btn_backup_effect"
     android:layout_width="204dp"
     android:layout_height="38dp"
     android:layout_alignParentBottom="true"

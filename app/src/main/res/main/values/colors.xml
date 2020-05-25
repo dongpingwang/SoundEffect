@@ -24,4 +24,7 @@
     <color name="switch_color_normal">#b9b9b9</color>
     <color name="switch_color_disable">#5f5f5f</color>
     <color name="switch_color_checked">@color/theme_color</color>
+
+    <!--radiobutton图标着色-->
+    <color name="rb_off">#FFFFFF</color>
 </resources>

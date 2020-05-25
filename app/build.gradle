@@ -29,25 +29,30 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     // android support
     implementation "com.android.support:appcompat-v7:$appcompat_v7_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "com.android.support.test:runner:$runner_version"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_core_version"
+
     // recycler-view
     implementation "com.android.support:recyclerview-v7:$recyclerview_version"
+
     // framework(@Deprecated)
     // flyaudio.jar
-     compileOnly fileTree(include: ['*.jar'], dir: 'syslibs')
+    //compileOnly fileTree(include: ['*.jar'], dir: 'syslibs')
+    implementation files('sys-libs/flyaudio.jar')
+
     // flyaudio-libs
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'flyaudio-libs')
-    // 3-rd libs
-    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs/gson')
-    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs/rxjava')
-    // implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs/leakcanary')
+
+    // gson
+    implementation "com.google.code.gson:gson:$gson_version"
+    // rxjava
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroid_version"
     // leak-canary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
-    implementation files('sys-libs/flyaudio.jar')
+
 }

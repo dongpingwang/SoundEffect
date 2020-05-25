@@ -64,12 +64,19 @@
     <string name="file_path">路径:</string>
     <string name="select_path">选择路径</string>
     <string name="effect_file">音效文件%s</string>
+    <string name="search_effect_file">查找本地音效文件</string>
+    <string name="searching">正在查找</string>
+    <string name="no_effect_file_and_try_later">未找到本地音效文件,请稍后再试</string>
     <string name="import_effect_file">导入文件</string>
+    <string name="importing">导入中</string>
+    <string name="imported">已导入</string>
     <string name="export_effect_file">导出音效文件</string>
     <string name="usb">U盘</string>
     <string name="internal_storage">主目录路径</string>
     <string name="sdcard">SD卡</string>
-    <string name="backup_success">导出成功</string>
+    <string name="exporting">导出中</string>
+    <string name="exported">已导出</string>
+    <string name="export_success">导出成功</string>
     <string name="backup_fail">未知错误,请稍后再试</string>
 
 </resources>
