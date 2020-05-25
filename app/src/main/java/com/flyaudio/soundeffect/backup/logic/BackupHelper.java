@@ -2,6 +2,7 @@ package com.flyaudio.soundeffect.backup.logic;
 
 import android.util.Xml;
 
+import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.lib.utils.AppUtils;
 
@@ -20,6 +21,7 @@ import java.util.Map;
  */
 public final class BackupHelper {
 
+    private static final String TAG = "BackupHelper";
     private static final String FILE_SUFFIX = ".snd";
 
     private BackupHelper() {
@@ -28,6 +30,7 @@ public final class BackupHelper {
 
     public static boolean backup(String path, String fileName) {
         File targetFile = new File(path, fileName + FILE_SUFFIX);
+        Logger.d(TAG, "备份音效: 路径 = " + path + " 文件 = " + targetFile.getAbsolutePath());
         boolean success = false;
         try {
             Map<String, ?> data = SPCacheHelper.getInstance().getAll();

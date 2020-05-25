@@ -10,7 +10,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_disk_list"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6.49dp" />
 
@@ -22,6 +22,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="31.08dp"
         android:layout_marginBottom="21.62dp"
+        android:background="@drawable/comm_ripple_rectangle"
+        android:padding="5dp"
         android:text="@string/cancel"
         android:textColor="@color/text_color_highlight"
         android:textSize="@dimen/font_15" />

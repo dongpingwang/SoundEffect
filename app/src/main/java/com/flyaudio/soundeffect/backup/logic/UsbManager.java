@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -24,6 +25,10 @@ import java.util.List;
  * email  wangdongping@flyaudio.cn
  */
 public final class UsbManager {
+
+    private static final String STORAGE = "/storage";
+    private static final String MNT_MEDIA_RW = "/mnt/media_rw";
+    public static final int VERSION_P = 28;
 
     private List<UsbListener> listeners = new ArrayList<>();
     private UsbReceiver usbReceiver;
@@ -110,6 +115,12 @@ public final class UsbManager {
                     String description = volume.getDescription();
                     if (TextUtils.isEmpty(description)) {
                         description = disk.isUsb() ? ResUtils.getString(R.string.usb) : ResUtils.getString(R.string.sdcard);
+                    }
+                    if (android.os.Build.VERSION.SDK_INT >= VERSION_P) {
+                        // android P 获取到U盘的路径没有写入权限；并且需要是系统应用
+                        if (path.contains(STORAGE)) {
+                            path = path.replace(STORAGE, MNT_MEDIA_RW);
+                        }
                     }
                     devices.add(new Device(description, path));
                 }

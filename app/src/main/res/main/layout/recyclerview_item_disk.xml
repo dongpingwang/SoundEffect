@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="48.65dp"
+    android:background="@drawable/comm_ripple_rectangle_dialog"
     android:gravity="center_vertical">
 
     <RadioButton
@@ -11,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18.38dp"
-        android:button="@drawable/selector_radio_button" />
+        android:button="@drawable/selector_radio_button"
+        android:clickable="false" />
 
     <TextView
         android:id="@+id/tv_disk_name"

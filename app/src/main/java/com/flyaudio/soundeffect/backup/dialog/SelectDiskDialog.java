@@ -65,6 +65,8 @@ public class SelectDiskDialog extends Dialog implements View.OnClickListener,
     @Override
     public void onItemClick(int position) {
         if (listener != null) {
+            adapter.updateSelect(position);
+            dismiss();
             listener.onSelectDisk(adapter.getData(position));
         }
     }

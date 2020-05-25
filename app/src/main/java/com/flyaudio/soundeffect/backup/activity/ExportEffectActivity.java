@@ -122,6 +122,7 @@ public class ExportEffectActivity extends BaseActivity implements UsbManager.Usb
     @Override
     public void onSelectDisk(Device device) {
         backupDevice = device;
+        tvFilePath.setText(backupDevice.getDescription());
     }
 
     @SuppressLint("HandlerLeak")
