@@ -51,12 +51,9 @@
     <string name="on">开</string>
     <string name="off">关</string>
     <string name="slope">斜率</string>
-
-
-    <string name="cross_music_hpf_value_format_str">PHF %dHz</string>
-    <string name="cross_music_lpf_value_format_str">LPF %dHz</string>
-    <string name="cross_music_slope_format_str"> -%ddB/oct</string>
-
+    <string name="eq_filter_hz_str">%dHz</string>
+    <string name="eq_filter_slope_str"> -%ddB/oct</string>
+    <string name="none">无</string>
     <string name="import_effect">导入音效</string>
     <string name="export_effect">导出音效</string>
     <string name="file_name">文件名:</string>

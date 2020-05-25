@@ -76,7 +76,7 @@ public class ViewFrequencyAdjust extends View {
      * 是否能够触摸进行调节
      */
     private boolean isTouchOn() {
-        return false;
+        return true;
     }
 
 
@@ -641,8 +641,9 @@ public class ViewFrequencyAdjust extends View {
             mTouchLineList.remove(touchLine);
             mTouchLineList.add(touchLine);
             invalidate();
-            if (mOnTouchLineListener != null)
+            if (mOnTouchLineListener != null) {
                 mOnTouchLineListener.onSwitchTouchLine(preSelectedTouchLine, touchLine);
+            }
         }
     }
 

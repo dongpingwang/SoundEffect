@@ -8,6 +8,8 @@ import com.flyaudio.soundeffect.R;
 
 import org.xmlpull.v1.XmlPullParser;
 
+import java.math.BigDecimal;
+
 /**
  * @author Dongping Wang
  * @date 2020/3/1615:22
@@ -18,15 +20,17 @@ public final class EqFilterDataLogic {
     /**
      * 高通频率
      */
-    private static final int[] HPF = new int[]{50, 63, 80, 100, 125, 160, 200};
+    static final int[] HPF = new int[]{50, 63, 80, 100, 125, 160, 200};
     /**
      * 低通频率(50-200 ，步进5)
      */
     private static final int LPF_MAX = 200;
     private static final int LPF_MIN = 50;
     private static final int LPF_STEP = 5;
-
-    private static final int[] SLOPES = new int[]{-18, -12, -6};
+    /**
+     * 分频斜率
+     */
+    static final int[] SLOPES = new int[]{6, 12, 18};
     private static final boolean LOOP = false;
 
     private EqFilterDataLogic() {
@@ -97,14 +101,13 @@ public final class EqFilterDataLogic {
     }
 
 
-    public int limitValue(double value, boolean isSubwoofer) {
+    public static int limitValue(double value, boolean isSubwoofer) {
         if (isSubwoofer && value % 5 > 2.5f) {
             return (int) (value + (5 - value % 5));
         }
         if (isSubwoofer) {
             return (int) (value - (value % 5));
         }
-
         if (value < 56) {
             return 50;
         }
@@ -127,7 +130,7 @@ public final class EqFilterDataLogic {
     }
 
 
-    public int limitAngle(double angle) {
+    public static int limitAngle(double angle) {
         if (angle < 30) {
             return 15;
         }
@@ -138,14 +141,14 @@ public final class EqFilterDataLogic {
     }
 
 
-    public int angle2Slope(double angle) {
+    public static int angle2Slope(double angle) {
         if (angle < 30) {
-            return -18;
+            return 6;
         }
         if (angle < 60) {
-            return -12;
+            return 12;
         }
-        return -6;
+        return 18;
     }
 
 
@@ -159,8 +162,8 @@ public final class EqFilterDataLogic {
         return 75;
     }
 
-    public static SparseArray<Float> getSlopEqValue() {
-        SparseArray<Float> maps = new SparseArray<>();
+    public static SparseArray<Double> getSlopEqValue() {
+        SparseArray<Double> maps = new SparseArray<>();
         XmlResourceParser parser = ResUtils.getXml(R.xml.eq_slope_q_value);
         try {
             int event = parser.getEventType();
@@ -169,7 +172,8 @@ public final class EqFilterDataLogic {
                     if ("item".equals(parser.getName())) {
                         int name = parser.getAttributeIntValue(null, "name", -1);
                         float qValue = parser.getAttributeFloatValue(null, "q", 0.0F);
-                        maps.put(name, qValue);
+                        BigDecimal bigDecimal = new BigDecimal(String.valueOf(qValue));
+                        maps.put(name, bigDecimal.doubleValue());
                     }
                 }
                 event = parser.next();

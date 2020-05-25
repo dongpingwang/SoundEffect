@@ -12,7 +12,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Locale;
 
-
 import static com.flyaudio.soundeffect.filter.logic.EqFilterManager.FilterChannel.*;
 
 /**
@@ -70,7 +69,7 @@ public final class EqFilterManager {
     // 增益
     private static final int EQ_FILTER_GAIN = 0;
 
-    private static SparseArray<Float> slopeEqValueMap;
+    private static SparseArray<Double> slopeEqValueMap;
 
     private EqFilterManager() {
         // singleton
@@ -85,7 +84,7 @@ public final class EqFilterManager {
     }
 
 
-    synchronized public SparseArray<Float> getSlopeEqValueMap() {
+    synchronized public SparseArray<Double> getSlopeEqValueMap() {
         if (slopeEqValueMap == null) {
             slopeEqValueMap = EqFilterDataLogic.getSlopEqValue();
         }
@@ -117,12 +116,12 @@ public final class EqFilterManager {
     /**
      * 获取高低通滤波的频率
      *
-     * @param type 滤波类型
+     * @param channel 滤波类型
      * @return 相应滤波的当前频率
      */
-    public int getFilterFreq(@FilterChannel int type) {
-        String spKey = String.format(Locale.getDefault(), KEY_EQ_FILTER_FREQ, type);
-        return SPCacheHelper.getInstance().getInt(spKey, 0);
+    public int getFilterFreq(@FilterChannel int channel) {
+        String spKey = String.format(Locale.getDefault(), KEY_EQ_FILTER_FREQ, channel);
+        return SPCacheHelper.getInstance().getInt(spKey, EqFilterDataLogic.HPF[0]);
     }
 
     /**
@@ -144,7 +143,7 @@ public final class EqFilterManager {
      */
     public int getFilterSlope(@FilterChannel int channel) {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_FILTER_SLOPE, channel);
-        return SPCacheHelper.getInstance().getInt(spKey, 0);
+        return SPCacheHelper.getInstance().getInt(spKey, EqFilterDataLogic.SLOPES[1]);
     }
 
     /**
@@ -158,8 +157,31 @@ public final class EqFilterManager {
         SPCacheHelper.getInstance().put(spKey, slope);
     }
 
+    /**
+     * 获取当前调节的那个滤波
+     */
+    public int getCurrentFilter() {
+        return SPCacheHelper.getInstance().getInt(KEY_EQ_FILTER_CURRENT, FRONT_ROW);
+    }
+
+    /**
+     * 保存当前调节的那个滤波
+     *
+     * @param channel 滤波通道
+     */
+    public void saveCurrentFilter(@FilterChannel int channel) {
+        SPCacheHelper.getInstance().put(KEY_EQ_FILTER_CURRENT, channel);
+    }
+
+
     public void setEqFilter(@FilterChannel int channel, double freq, int slope) {
         DspHelper.getDspHelper().setEqFilter(channel + 1, FILTER_TYPE_MAP.get(channel), freq, getSlopeEqValueMap().get(slope), EQ_FILTER_GAIN, isFilterEnable(channel));
     }
 
+    public class EqFilterParam {
+        int channel;
+        int freq;
+        int slope;
+        int enable;
+    }
 }

@@ -19,6 +19,8 @@ import com.flyaudio.soundeffect.trumpet.logic.SubwooferManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.flyaudio.soundeffect.filter.logic.EqFilterManager.FilterChannel.SUBWOOFER;
+
 /**
  * @author Dongping Wang
  * date 2020/4/25  23:04
@@ -27,7 +29,7 @@ import java.util.List;
 public class EqFilterActivity extends BaseActivity {
 
     private CommTitleBar titleBar;
-    private NumberSelector filterTypeSelector;
+    private NumberSelector typeSelector;
     private CheckButton phaseCbn;
     private CheckButton hpfCbn;
     private ViewFrequencyAdjust frequencyAdjust;
@@ -39,7 +41,8 @@ public class EqFilterActivity extends BaseActivity {
 
     private EqFilterManager eqFilterManager;
     private SubwooferManager subwooferManager;
-
+    @EqFilterManager.FilterChannel
+    private int currentFilterChannel = -1;
 
     @Override
     protected int getLayoutId() {
@@ -54,6 +57,7 @@ public class EqFilterActivity extends BaseActivity {
         initTypeSelector();
         initCheckButton();
         initAdjustButton();
+        updateCurrentFilter(eqFilterManager.getCurrentFilter());
     }
 
 
@@ -91,26 +95,26 @@ public class EqFilterActivity extends BaseActivity {
             if (channel == EqFilterManager.FilterChannel.SUBWOOFER) {
                 // 重低音不能调节斜率
                 touchLine.setEnableAngleAdjust(false);
+                touchLine.setDirection(ViewFrequencyAdjust.TouchLine.LEFT);
             }
             touchLines.add(touchLine);
             frequencyAdjust.addTouchLine(touchLine);
         }
-
         frequencyAdjust.setOnTouchLineListener(new ViewFrequencyAdjust.OnTouchLineListener() {
             @Override
             public void onSwitchTouchLine(ViewFrequencyAdjust.TouchLine oldTouchLine, ViewFrequencyAdjust.TouchLine newTouchLine) {
-
+                updateCurrentFilter(touchLines.indexOf(newTouchLine));
             }
 
             @Override
             public void onValueChanged(ViewFrequencyAdjust.TouchLine touchLine, double oldValue, double newValue) {
-
-
+                int value = EqFilterDataLogic.limitValue(touchLine.getValue(), touchLine.equals(touchLines.get(SUBWOOFER)));
+                btnAdjustFreq.setValue(ResUtils.getString(R.string.eq_filter_hz_str, value));
             }
 
             @Override
             public void onAngleChanged(ViewFrequencyAdjust.TouchLine touchLine, double oldAngle, double newAngle) {
-
+                btnAdjustSlop.setValue(ResUtils.getString(R.string.eq_filter_slope_str, (touchLine.isAdjustAble()) ? EqFilterDataLogic.angle2Slope(touchLine.getAngle()) : 0));
             }
 
             @Override
@@ -120,7 +124,33 @@ public class EqFilterActivity extends BaseActivity {
 
             @Override
             public void onStopTouch(ViewFrequencyAdjust.TouchLine touchLine, int touchType) {
-
+                int channel = touchLines.indexOf(touchLine);
+                if (touchType == 0) {
+                    double touchLineValue = touchLine.getValue();
+                    int value = EqFilterDataLogic.limitValue(touchLineValue, touchLine == touchLines.get(SUBWOOFER));
+                    if (value != touchLineValue) {
+                        touchLine.setValue(value);
+                        frequencyAdjust.invalidate();
+                        onValueChanged(touchLine, touchLineValue, touchLine.getValue());
+                    }
+                    if (value != eqFilterManager.getFilterFreq(channel)) {
+                        eqFilterManager.saveFilterFreq(channel, value);
+                        eqFilterManager.setEqFilter(channel, value, EqFilterDataLogic.angle2Slope(touchLine.getAngle()));
+                    }
+                } else if (touchType == 1) {
+                    double touchLineAngle = touchLine.getAngle();
+                    int angle = EqFilterDataLogic.limitAngle(touchLineAngle);
+                    if (angle != touchLineAngle) {
+                        touchLine.setAngle(angle);
+                        frequencyAdjust.invalidate();
+                        onAngleChanged(touchLine, touchLineAngle, angle);
+                    }
+                    int slope = EqFilterDataLogic.angle2Slope(touchLine.getAngle());
+                    if (slope != eqFilterManager.getFilterSlope(channel)) {
+                        eqFilterManager.setEqFilter(channel, EqFilterDataLogic.limitValue(touchLine.getValue(), touchLine.equals(touchLines.get(SUBWOOFER))), slope);
+                        eqFilterManager.saveFilterSlope(channel, slope);
+                    }
+                }
             }
         });
 
@@ -133,23 +163,32 @@ public class EqFilterActivity extends BaseActivity {
         selectorTypeList.add(R.string.eq_filter_type_back);
         selectorTypeList.add(R.string.eq_filter_type_subwoofer);
 
-        filterTypeSelector = getView(R.id.eq_filter_type_selector);
-        filterTypeSelector.setAdjustRange(0, touchLines.size() - 1);
-        filterTypeSelector.setValueFormatter(new NumberSelector.ValueFormatter() {
+        typeSelector = getView(R.id.eq_filter_type_selector);
+        typeSelector.setAdjustRange(0, touchLines.size() - 1);
+        typeSelector.setValueFormatter(new NumberSelector.ValueFormatter() {
             @Override
             public void valueFormat(@NonNull TextView textView, int value) {
                 textView.setText(selectorTypeList.get(value));
             }
         });
-
+        typeSelector.setOnNumberChangedListener(new NumberSelector.OnNumberChangedListener() {
+            @Override
+            public void onNumberChanged(int oldNum, int newNum, boolean byTouch) {
+                if (byTouch) {
+                    updateCurrentFilter(newNum);
+                }
+            }
+        });
     }
 
     private void initCheckButton() {
         phaseCbn = getView(R.id.eq_filter_phase_cbn);
         hpfCbn = getView(R.id.eq_filter_hpf_cbn);
+        int channel = touchLines.indexOf(frequencyAdjust.getSelectedTouchLine());
+        phaseCbn.setVisibility(channel == SUBWOOFER ? View.VISIBLE : View.GONE);
         phaseCbn.setChecked(!subwooferManager.isSubwooferReverse());
+        hpfCbn.setChecked(eqFilterManager.isFilterEnable(channel));
         phaseCbn.setOnCheckedChangeListener(checkButtonListener);
-        hpfCbn.setChecked(eqFilterManager.isFilterEnable(touchLines.indexOf(frequencyAdjust.getSelectedTouchLine())));
         hpfCbn.setOnCheckedChangeListener(checkButtonListener);
     }
 
@@ -163,8 +202,10 @@ public class EqFilterActivity extends BaseActivity {
                 ViewFrequencyAdjust.TouchLine touchLine = frequencyAdjust.getSelectedTouchLine();
                 touchLine.setAdjustAble(isChecked);
                 frequencyAdjust.invalidate();
-                eqFilterManager.saveFilterEnable(touchLines.indexOf(touchLine), isChecked);
-                // TODO
+                int channel = touchLines.indexOf(touchLine);
+                eqFilterManager.saveFilterEnable(channel, isChecked);
+                eqFilterManager.setEqFilter(channel, touchLine.getValue(),
+                        EqFilterDataLogic.angle2Slope(touchLine.getAngle()));
             }
         }
     };
@@ -177,6 +218,28 @@ public class EqFilterActivity extends BaseActivity {
         btnAdjustFreq.setListener(adjustListener);
         btnAdjustSlop.setListener(adjustListener);
     }
+
+    private void updateCurrentFilter(int channel) {
+        if (currentFilterChannel != channel) {
+            frequencyAdjust.setSelectedTouchLine(touchLines.get(channel));
+            typeSelector.setValue(channel);
+            phaseCbn.setVisibility(channel == SUBWOOFER ? View.VISIBLE : View.INVISIBLE);
+            phaseCbn.setChecked(!subwooferManager.isSubwooferReverse());
+            hpfCbn.setChecked(eqFilterManager.isFilterEnable(channel));
+            btnAdjustFreq.setValue(ResUtils.getString(R.string.eq_filter_hz_str,
+                    eqFilterManager.getFilterFreq(channel)));
+            if (channel == SUBWOOFER) {
+                btnAdjustSlop.setValue(ResUtils.getString(R.string.none));
+            } else {
+                btnAdjustSlop.setValue(ResUtils.getString(R.string.eq_filter_slope_str,
+                        eqFilterManager.getFilterSlope(channel)));
+            }
+            currentFilterChannel = channel;
+            eqFilterManager.saveCurrentFilter(channel);
+        }
+
+    }
+
 
     private CommAdjustButton.AdjustListener adjustListener = new CommAdjustButton.AdjustListener() {
         @Override
