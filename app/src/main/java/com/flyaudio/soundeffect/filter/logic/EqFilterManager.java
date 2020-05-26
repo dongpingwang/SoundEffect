@@ -177,11 +177,4 @@ public final class EqFilterManager {
     public void setEqFilter(@FilterChannel int channel, double freq, int slope) {
         DspHelper.getDspHelper().setEqFilter(channel + 1, FILTER_TYPE_MAP.get(channel), freq, getSlopeEqValueMap().get(slope), EQ_FILTER_GAIN, isFilterEnable(channel));
     }
-
-    public class EqFilterParam {
-        int channel;
-        int freq;
-        int slope;
-        int enable;
-    }
 }

@@ -76,7 +76,7 @@ public class ViewFrequencyAdjust extends View {
      * 是否能够触摸进行调节
      */
     private boolean isTouchOn() {
-        return true;
+        return false;
     }
 
 

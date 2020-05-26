@@ -38,7 +38,8 @@ public final class EqFilterDataLogic {
     }
 
 
-    public int getHpf(int current, boolean up) {
+    // 获取HPF
+    public static int getHpf(int current, boolean up) {
         int result = current;
         if (up) {
             for (int item : HPF) {
@@ -61,7 +62,8 @@ public final class EqFilterDataLogic {
         return result;
     }
 
-    public int getLpf(int current, boolean up) {
+    // 获取LPF
+    public static int getLpf(int current, boolean up) {
         int result = current;
         if (up) {
             result += LPF_STEP;
@@ -77,7 +79,8 @@ public final class EqFilterDataLogic {
         return result;
     }
 
-    public int getSlope(int current, boolean up) {
+    // 获斜率
+    public static int getSlope(int current, boolean up) {
         int result = current;
         if (up) {
             for (int item : SLOPES) {
@@ -108,6 +111,7 @@ public final class EqFilterDataLogic {
         if (isSubwoofer) {
             return (int) (value - (value % 5));
         }
+
         if (value < 56) {
             return 50;
         }
@@ -140,7 +144,6 @@ public final class EqFilterDataLogic {
         return 75;
     }
 
-
     public static int angle2Slope(double angle) {
         if (angle < 30) {
             return 6;
@@ -151,12 +154,11 @@ public final class EqFilterDataLogic {
         return 18;
     }
 
-
     public static double slope2Angle(int slope) {
-        if (slope < -15) {
+        if (slope < 9) {
             return 15;
         }
-        if (slope < -9) {
+        if (slope < 15) {
             return 45;
         }
         return 75;
