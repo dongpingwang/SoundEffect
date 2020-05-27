@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.flyaudio.soundeffect">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.flyaudio.soundeffect"
+    android:sharedUserId="android.uid.system"
+    android:versionCode="1"
+    android:versionName="1.0.0">
 
     <application
         android:name=".main.activity.SoundEffectApplication"

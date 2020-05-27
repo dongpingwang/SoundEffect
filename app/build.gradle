@@ -17,6 +17,40 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        def KEY_ALIAS = "sign"
+        def KEY_PSWD = "123456"
+        def STORE_FILE = "../signature/sign_8257.jks"
+        def STORE_FILE_PSWD = "123456"
+        if (project.hasProperty('FA_SIGN_KEY')) {
+            KEY_ALIAS = FA_SIGN_KEY
+        }
+        if (project.hasProperty('FA_SIGN_KEY_PSWD')) {
+            KEY_PSWD = FA_SIGN_KEY_PSWD
+        }
+        if (project.hasProperty('FA_STORE_FILE')) {
+            STORE_FILE = FA_STORE_FILE
+        }
+        if (project.hasProperty('FA_STORE_PASSWORD')) {
+            STORE_FILE_PSWD = FA_STORE_PASSWORD
+        }
+
+        debug {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PSWD
+            storeFile file(STORE_FILE)
+            storePassword STORE_FILE_PSWD
+        }
+
+        release {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PSWD
+            storeFile file(STORE_FILE)
+            storePassword STORE_FILE_PSWD
+        }
+    }
+
     sourceSets {
         main {
             res.srcDirs = [
