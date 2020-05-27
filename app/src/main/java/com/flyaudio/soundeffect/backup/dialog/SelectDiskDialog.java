@@ -72,6 +72,10 @@ public class SelectDiskDialog extends Dialog implements View.OnClickListener,
     }
 
     public interface SelectDiskListener {
+        /**
+         * 点击选中保存音效文件的磁盘
+         * @param device 磁盘
+         */
         void onSelectDisk(Device device);
     }
 

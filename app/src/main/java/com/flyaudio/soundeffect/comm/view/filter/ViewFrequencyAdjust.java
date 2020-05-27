@@ -249,17 +249,19 @@ public class ViewFrequencyAdjust extends View {
                 paintTouchLine.setStyle(Paint.Style.STROKE);
                 canvas.drawLine(endPoint.x, endPoint.y, touchPoint.x, touchPoint.y, paintTouchLine);
             } else {
-                if (mCurrentTouchLine == touchLine && mTouchType == 0)
+                if (mCurrentTouchLine == touchLine && mTouchType == 0) {
                     paintTouchLine.setColor(ResUtils.getColor(R.color.view_frequency_adjust_focus));
-                else if (mTouchLineList.indexOf(touchLine) == mTouchLineList.size() - 1)
+                } else if (mTouchLineList.indexOf(touchLine) == mTouchLineList.size() - 1) {
                     paintTouchLine.setColor(ResUtils.getColor(R.color.view_frequency_adjust_selected));
-                else
+                } else {
                     paintTouchLine.setColor(ResUtils.getColor(R.color.view_frequency_adjust_unselected));
+                }
                 Path path = new Path();
                 path.moveTo(startPoint.x, startPoint.y);
                 path.lineTo(endPoint.x, endPoint.y);
-                if (touchLine.adjustAble)
+                if (touchLine.adjustAble) {
                     path.lineTo(touchPoint.x, touchPoint.y);
+                }
                 canvas.drawPath(path, paintTouchLine);
             }
             paintTouchLine.setStyle(Paint.Style.FILL);
@@ -275,8 +277,9 @@ public class ViewFrequencyAdjust extends View {
     // 绘制引导箭头
     private void drawViewGuide(Canvas canvas) {
         if (mTouchLineList == null || mTouchLineList.size() <= 0
-                || !mTouchLineList.get(mTouchLineList.size() - 1).adjustAble)
+                || !mTouchLineList.get(mTouchLineList.size() - 1).adjustAble) {
             return;
+        }
         paintTouchLine.setPathEffect(new DashPathEffect(new float[]{6, 6}, 0));
         paintTouchLine.setStrokeWidth(2f);
         float guideLineSpace = ResUtils.getDimension(R.dimen.filter_guide_line_space);
@@ -483,37 +486,43 @@ public class ViewFrequencyAdjust extends View {
                 float b = x1 - x2;
                 float c = y1 * x2 - x1 * y2;
                 double d = Math.abs((a * x + b * y + c) / Math.sqrt(a * a + b * b));
-                if (d > mTouchRange)
+                if (d > mTouchRange) {
                     continue;
+                }
                 // 判断是否在斜线的两个端点范围内
                 if (x < Math.min(x1, x2) || x > Math.max(x1, x2)
                         || y < Math.min(y1, y2) || y > Math.max(y1, y2)) {
                     // 判断触碰范围是否是端点
                     if (Math.abs(Math.sqrt((x - x1) * (x - x1) + (y - y1) * (y - y1))) > mTouchRange
-                            && Math.abs(Math.sqrt((x - x2) * (x - x2) + (y - y2) * (y - y2))) > mTouchRange)
+                            && Math.abs(Math.sqrt((x - x2) * (x - x2) + (y - y2) * (y - y2))) > mTouchRange) {
                         continue;
+                    }
                 }
                 // 判断是否在端点的触碰范围内
-                if (Math.abs(Math.sqrt((x - x2) * (x - x2) + (y - y2) * (y - y2))) <= mTouchRange && touchLine.enableAngleAdjust)
+                if (Math.abs(Math.sqrt((x - x2) * (x - x2) + (y - y2) * (y - y2))) <= mTouchRange && touchLine.enableAngleAdjust) {
                     mTouchType = 1;
-                else
+                } else {
                     mTouchType = 0;
+                }
                 mCurrentTouchLine = touchLine;
                 break;
             }
             if (mTouchType != -1 && mCurrentTouchLine != null) {
-                if (mOnTouchLineListener != null)
+                if (mOnTouchLineListener != null) {
                     mOnTouchLineListener.onStartTouch(mCurrentTouchLine, mTouchType);
+                }
                 if (mTouchLineList.get(mTouchLineList.size() - 1) != mCurrentTouchLine) {
                     mTouchLineList.remove(mCurrentTouchLine);
                     mTouchLineList.add(mCurrentTouchLine);
-                    if (mOnTouchLineListener != null)
+                    if (mOnTouchLineListener != null) {
                         mOnTouchLineListener.onSwitchTouchLine(mTouchLineList.get(mTouchLineList.size() - 2), mCurrentTouchLine);
+                    }
                 }
             }
         } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-            if (mTouchType != -1 && mCurrentTouchLine != null && mOnTouchLineListener != null)
+            if (mTouchType != -1 && mCurrentTouchLine != null && mOnTouchLineListener != null) {
                 mOnTouchLineListener.onStopTouch(mCurrentTouchLine, mTouchType);
+            }
             mTouchType = -1;
             mCurrentTouchLine = null;
         } else if (mTouchType != -1 && mCurrentTouchLine != null && mCurrentTouchLine.adjustAble) {
@@ -522,8 +531,9 @@ public class ViewFrequencyAdjust extends View {
                 double oldValue = mCurrentTouchLine.value;
                 double value = xToValue(endPoint.x + (x - mPreTouchX));
                 mCurrentTouchLine.value = value < MIN_VALUE ? MIN_VALUE : value > MAX_VALUE ? MAX_VALUE : value;
-                if (oldValue != mCurrentTouchLine.value && mOnTouchLineListener != null)
+                if (oldValue != mCurrentTouchLine.value && mOnTouchLineListener != null) {
                     mOnTouchLineListener.onValueChanged(mCurrentTouchLine, oldValue, mCurrentTouchLine.value);
+                }
             } else if (mTouchType == 1) {
                 // 判断触控范围是否超出了角度
                 if (endPoint.y < y
@@ -534,8 +544,9 @@ public class ViewFrequencyAdjust extends View {
                     double dy = Math.abs(y - endPoint.y);
                     double angle = Math.toDegrees(Math.atan(dy / dx));
                     mCurrentTouchLine.angle = angle > MAX_ANGLE ? MAX_ANGLE : angle < MIN_ANGLE ? MIN_ANGLE : angle;
-                    if (oldAngle != mCurrentTouchLine.angle && mOnTouchLineListener != null)
+                    if (oldAngle != mCurrentTouchLine.angle && mOnTouchLineListener != null) {
                         mOnTouchLineListener.onAngleChanged(mCurrentTouchLine, oldAngle, mCurrentTouchLine.angle);
+                    }
                 }
             }
         }
@@ -659,8 +670,9 @@ public class ViewFrequencyAdjust extends View {
 
 
     public ViewFrequencyAdjust.TouchLine getSelectedTouchLine() {
-        if (getTouchLineCount() == 0)
+        if (getTouchLineCount() == 0) {
             return null;
+        }
         return mTouchLineList.get(mTouchLineList.size() - 1);
     }
 

@@ -89,7 +89,7 @@ public class CheckButton extends FrameLayout {
             remindTv.setVisibility(VISIBLE);
         }
         showTv.setText(checked ? onText : offText);
-        showTv.setTextColor(getResources().getColor(checked ? R.color.theme_color : R.color.text_color_normal));
+        showTv.setTextColor(getResources().getColor(checked ? R.color.theme_color : R.color.text_color_normal, null));
 
         if (isChecked != checked) {
             isChecked = checked;

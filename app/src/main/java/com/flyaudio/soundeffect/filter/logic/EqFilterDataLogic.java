@@ -38,7 +38,6 @@ public final class EqFilterDataLogic {
     }
 
 
-    // 获取HPF
     public static int getHpf(int current, boolean up) {
         int result = current;
         if (up) {
@@ -62,7 +61,6 @@ public final class EqFilterDataLogic {
         return result;
     }
 
-    // 获取LPF
     public static int getLpf(int current, boolean up) {
         int result = current;
         if (up) {
@@ -79,7 +77,6 @@ public final class EqFilterDataLogic {
         return result;
     }
 
-    // 获斜率
     public static int getSlope(int current, boolean up) {
         int result = current;
         if (up) {

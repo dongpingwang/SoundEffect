@@ -27,8 +27,13 @@ import java.util.List;
 public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.OnItemClickListener {
 
 
-    private static final int FREQUENCY_MIN = 0;
-    private static final int FREQUENCY_MAX = 10000 * 100;
+    private static final int FREQUENCY_MIN = 20 - 1;
+    private static final int FREQUENCY_MAX = 20000 + 1;
+
+    private static final int REGION_BASS = 4;
+    private static final int REGION_ALTO = 9;
+    private static final int REGION_COUNT = 3;
+
 
     private ProgressAdapter adapter;
     private List<DataBean> dataBeans;
@@ -100,13 +105,13 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
         float startX1, startY1, stopX1, stopY1;
         float startX2, startY2, stopX2, stopY2;
         startY1 = stopY1 = startY2 = stopY2 = y - 0.30F * ResUtils.getDimension(R.dimen.eq_progress_font_height);
-        if (region < 4) {
+        if (region < REGION_BASS) {
             // 低音
             startX1 = getPaddingLeft() + item * 0.3F;
             stopX1 = item * 1.5F;
             startX2 = item * 2.4F;
             stopX2 = item * 3.7F;
-        } else if (region < 9) {
+        } else if (region < REGION_ALTO) {
             // 中音
             startX1 = item * 4.3F;
             stopX1 = item * 6F;
@@ -119,14 +124,14 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
             startX2 = item * 11.4F;
             stopX2 = item * 12.7F;
         }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < REGION_COUNT; i++) {
             x = item * (1.7F + 4.5F * i);
             String text = i == 0 ? ResUtils.getString(R.string.bass) : i == 1 ? ResUtils.getString(R.string.alto) : ResUtils.getString(R.string.high);
-            if (i == 0 && region < 4) {
+            if (i == 0 && region < REGION_BASS) {
                 paintText.setColor(ResUtils.getColor(R.color.eq_progress_adjusting_color));
-            } else if (i == 1 && region >= 4 && region <= 8) {
+            } else if (i == 1 && region >= REGION_BASS && region < REGION_ALTO) {
                 paintText.setColor(ResUtils.getColor(R.color.eq_progress_adjusting_color));
-            } else if (i == 2 && region >= 9) {
+            } else if (i == 2 && region >= REGION_ALTO) {
                 paintText.setColor(ResUtils.getColor(R.color.eq_progress_adjusting_color));
             } else {
                 paintText.setColor(ResUtils.getColor(R.color.text_color_normal8));

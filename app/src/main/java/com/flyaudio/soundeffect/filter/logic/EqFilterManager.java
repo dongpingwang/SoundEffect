@@ -59,14 +59,16 @@ public final class EqFilterManager {
 
 
     public static final int[] FILTER_CHANNELS = {FRONT_ROW, REAR_ROW, SUBWOOFER};
-    // 对应底层参数
+    /**
+     * 对应底层滤波类型参数
+     */
     private static final SparseIntArray FILTER_TYPE_MAP = new SparseIntArray() {{
         put(FRONT_ROW, DspConstants.EqFilterType.GEQ_HPF.getValue());
         put(REAR_ROW, DspConstants.EqFilterType.GEQ_HPF.getValue());
         put(SUBWOOFER, DspConstants.EqFilterType.GEQ_LPF.getValue());
 
     }};
-    // 增益
+
     private static final int EQ_FILTER_GAIN = 0;
 
     private static SparseArray<Double> slopeEqValueMap;
