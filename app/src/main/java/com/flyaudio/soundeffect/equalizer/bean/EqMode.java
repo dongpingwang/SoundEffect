@@ -58,6 +58,14 @@ public class EqMode implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "EqMode{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

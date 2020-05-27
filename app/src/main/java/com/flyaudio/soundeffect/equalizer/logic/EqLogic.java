@@ -66,7 +66,7 @@ public class EqLogic {
      */
     private int[] getDefaultGains(int id) {
         int index = id < EQ_PRESET_COUNT ? id : EffectCommUtils.getEqGains().length - 1;
-        int[] eqGain = EffectCommUtils.getEqGains()[index];
+        int[] eqGain = EffectCommUtils.getEqGains()[index].clone();
         return eqGain;
     }
 
