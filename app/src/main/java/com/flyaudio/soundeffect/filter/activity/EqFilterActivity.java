@@ -178,7 +178,7 @@ public class EqFilterActivity extends BaseActivity {
                 eqFilterManager.saveCurrentFilter(channel);
             }
             Logger.d("updateCurrentFilter:" + eqFilterParam.toString());
-            eqFilterManager.setEqFilter(eqFilterParam.channel, eqFilterParam.freq, eqFilterParam.slope);
+            eqFilterManager.setEqFilter(eqFilterParam.channel, eqFilterParam.freq, eqFilterParam.slope, eqFilterParam.enable);
         }
         ViewFrequencyAdjust.TouchLine touchLine = touchLines.get(channel);
         touchLine.setAdjustAble(eqFilterParam.enable);

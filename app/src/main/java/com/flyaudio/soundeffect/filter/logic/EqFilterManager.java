@@ -91,6 +91,12 @@ public final class EqFilterManager {
         return slopeEqValueMap;
     }
 
+    public void init() {
+        for (int channel : FILTER_CHANNELS) {
+            setEqFilter(channel, getFilterFreq(channel), getFilterSlope(channel), isFilterEnable(channel));
+        }
+    }
+
     /**
      * 高低通滤波是否能用
      *
@@ -174,7 +180,7 @@ public final class EqFilterManager {
     }
 
 
-    public void setEqFilter(@FilterChannel int channel, double freq, int slope) {
-        DspHelper.getDspHelper().setEqFilter(channel + 1, FILTER_TYPE_MAP.get(channel), freq, getSlopeEqValueMap().get(slope), EQ_FILTER_GAIN, isFilterEnable(channel));
+    public void setEqFilter(@FilterChannel int channel, double freq, int slope, boolean enable) {
+        DspHelper.getDspHelper().setEqFilter(channel + 1, FILTER_TYPE_MAP.get(channel), freq, getSlopeEqValueMap().get(slope), EQ_FILTER_GAIN, enable);
     }
 }

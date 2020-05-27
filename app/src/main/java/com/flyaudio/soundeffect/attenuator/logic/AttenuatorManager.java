@@ -1,17 +1,15 @@
 package com.flyaudio.soundeffect.attenuator.logic;
 
-import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 
 import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.sp.SPCacheHelper;
-import com.flyaudio.soundeffect.dsp.logic.DspHelper;
+import com.flyaudio.soundeffect.position.logic.Constants;
+import com.flyaudio.soundeffect.speaker.logic.SpeakerVolumeManager;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.util.Arrays;
 import java.util.Locale;
 
-import static com.flyaudio.soundeffect.attenuator.logic.AttenuatorManager.BalanceType.*;
 
 /**
  * @author Dongping Wang
@@ -23,39 +21,11 @@ public final class AttenuatorManager extends TouchValueLogic {
     private static final int BALANCE_MIN = -100;
     private static final int BALANCE_MAX = 0;
 
-    @IntDef({
-            BALANCE_FRONT_LEFT,
-            BALANCE_FRONT_RIGHT,
-            BALANCE_BACK_LEFT,
-            BALANCE_BACK_RIGHT
-    })
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface BalanceType {
-        /**
-         * 前左喇叭
-         */
-        int BALANCE_FRONT_LEFT = 0;
-        /**
-         * 前右喇叭
-         */
-        int BALANCE_FRONT_RIGHT = 1;
-        /**
-         * 后左喇叭
-         */
-        int BALANCE_BACK_LEFT = 2;
-        /**
-         * 后右喇叭
-         */
-        int BALANCE_BACK_RIGHT = 3;
-    }
-
-
     /**
-     * 保存喇叭音量
+     * 保存衰减平衡的喇叭音量
      */
     private static final String KEY_BALANCE = "attenuator_balance_%d";
 
-    private static final int VALUE_BALANCE = 0;
 
     private AttenuatorManager() {
 
@@ -147,7 +117,7 @@ public final class AttenuatorManager extends TouchValueLogic {
             // 原点
             fl = fr = bl = fr = 0;
         }
-        setBalances(fl, fr, bl, br);
+        setBalances(new int[]{fl, fr, bl, br});
     }
 
     public void setXBalanceByWeight(@IntRange(from = 0, to = 10) int x) {
@@ -161,38 +131,32 @@ public final class AttenuatorManager extends TouchValueLogic {
             // 前右
             fl = BALANCE_MIN * (x - CENTER_LIMIT) / CENTER_LIMIT;
         }
-        setBalances(fl, fr, bl, br);
+        setBalances(new int[]{fl, fr, bl, br});
     }
 
-    private void setBalances(int fl, int fr, int bl, int br) {
-        Logger.d("setBalances: fl = " + fl + "  fr = " + fr + "  bl = " + bl + "  br = " + br);
-        setBalance(BALANCE_FRONT_LEFT, fl);
-        setBalance(BALANCE_FRONT_RIGHT, fr);
-        setBalance(BALANCE_BACK_LEFT, bl);
-        setBalance(BALANCE_BACK_RIGHT, br);
-        saveBalance(BALANCE_FRONT_LEFT, fl);
-        saveBalance(BALANCE_FRONT_RIGHT, fr);
-        saveBalance(BALANCE_BACK_LEFT, bl);
-        saveBalance(BALANCE_BACK_RIGHT, br);
+    private void setBalances(int[] values) {
+        Logger.d("setBalances: 前左/前右/后左/后右喇叭的衰减平衡音量值 = " + Arrays.toString(values));
+        // 依次设置前左 前右 后左 后右喇叭的衰减平衡音量值
+        for (int i = 0; i < values.length; i++) {
+            SpeakerVolumeManager.getInstance().setSpeakerVolume(Constants.SPEAKER_TYPES[i], values[i]);
+            saveBalance(Constants.SPEAKER_TYPES[i], values[i]);
+        }
+
     }
 
-    private void setBalance(@BalanceType int type, int value) {
-        DspHelper.getDspHelper().setBalance(type + 1, value);
-    }
-
-    private void saveBalance(@BalanceType int type, int value) {
-        String spKey = String.format(Locale.getDefault(), KEY_BALANCE, type);
+    private void saveBalance(@Constants.ListenPositionSpeakerType int speaker, int value) {
+        String spKey = String.format(Locale.getDefault(), KEY_BALANCE, speaker);
         SPCacheHelper.getInstance().putInt(spKey, value);
     }
 
     /**
      * 获取前左、前右、后左、后右喇叭对应的衰减平衡的值
      *
-     * @param type 相应位置的喇叭
-     * @return
+     * @param speaker 相应位置的喇叭
+     * @return 相应喇叭的衰减平衡音量
      */
-    private int getBalance(@BalanceType int type) {
-        String spKey = String.format(Locale.getDefault(), KEY_BALANCE, type);
+    private int getBalance(@Constants.ListenPositionSpeakerType int speaker) {
+        String spKey = String.format(Locale.getDefault(), KEY_BALANCE, speaker);
         return SPCacheHelper.getInstance().getInt(spKey, 0);
     }
 }

@@ -138,8 +138,6 @@ public final class Constants {
         put(LISTEN_POSITION_SPEAKER_FRONT_RIGHT, DspConstants.Channel.FR.getValue());
         put(LISTEN_POSITION_SPEAKER_BACK_LEFT, DspConstants.Channel.RL.getValue());
         put(LISTEN_POSITION_SPEAKER_BACK_RIGHT, DspConstants.Channel.RR.getValue());
-        put(LISTEN_POSITION_SPEAKER_SUBWOOFER, DspConstants.Channel.SWL.getValue());
-        put(LISTEN_POSITION_SPEAKER_SUBWOOFER, DspConstants.Channel.SWR.getValue());
     }};
 
     /**

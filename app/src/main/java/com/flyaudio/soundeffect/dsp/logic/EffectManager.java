@@ -1,8 +1,11 @@
 package com.flyaudio.soundeffect.dsp.logic;
 
 import com.flyaudio.lib.thread.TaskQueue;
+import com.flyaudio.soundeffect.delay.logic.DelayManager;
 import com.flyaudio.soundeffect.equalizer.logic.EqManager;
+import com.flyaudio.soundeffect.filter.logic.EqFilterManager;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
+import com.flyaudio.soundeffect.speaker.logic.VolumeManager;
 import com.flyaudio.soundeffect.trumpet.logic.TrumpetManager;
 
 /**
@@ -32,8 +35,10 @@ public final class EffectManager {
 
     private static void initEffect() {
         EqManager.getInstance().init();
-        ListenPositionManager.getInstance().setListenPosition();
+        DelayManager.getInstance().init();
+        VolumeManager.getInstance().init();
         TrumpetManager.getInstance().init();
+        EqFilterManager.getInstance().init();
     }
 
 }

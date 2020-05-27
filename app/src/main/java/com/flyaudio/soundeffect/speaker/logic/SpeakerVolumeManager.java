@@ -19,9 +19,7 @@ public final class SpeakerVolumeManager {
     private static SparseArray<SparseArray<SpeakerVolumeDataLogic.ChannelVolumeSpeakerBean>> speakerVolumeMap;
 
     private SpeakerVolumeManager() {
-        if (speakerVolumeMap == null) {
-            speakerVolumeMap = SpeakerVolumeDataLogic.parserSpeakerVolumeXml();
-        }
+
     }
 
     private static class InstanceHolder {
@@ -61,7 +59,7 @@ public final class SpeakerVolumeManager {
     public int getSpeakerVolume(@Constants.ListenPositionType int position,
                                 @Constants.ListenPositionSpeakerType int speaker) {
         String spKey = String.format(Locale.getDefault(), KEY_SPEAKER_VOLUME, position, speaker);
-        int defaultVolume = speakerVolumeMap.get(position).get(speaker).getDefaultValue();
+        int defaultVolume = getSpeakerVolumeMap().get(position).get(speaker).getDefaultValue();
         return SPCacheHelper.getInstance().getInt(spKey, defaultVolume);
     }
 
@@ -85,7 +83,7 @@ public final class SpeakerVolumeManager {
         int[] speakerVolumeArr = new int[Constants.SPEAKER_TYPES.length];
         for (int i = 0; i < speakerVolumeArr.length; i++) {
             int speaker = Constants.SPEAKER_TYPES[i];
-            speakerVolumeArr[i] = speakerVolumeMap.get(position).get(speaker).getDefaultValue();
+            speakerVolumeArr[i] = getSpeakerVolumeMap().get(position).get(speaker).getDefaultValue();
         }
         return speakerVolumeArr;
     }
