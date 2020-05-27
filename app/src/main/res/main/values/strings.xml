@@ -54,6 +54,13 @@
     <string name="eq_filter_hz_str">%dHz</string>
     <string name="eq_filter_slope_str"> -%ddB/oct</string>
     <string name="none">无</string>
+    <string name="front_row_high_filter_has_closed">前排高通滤波已关闭</string>
+    <string name="back_row_high_filter_has_closed">后排高通滤波已关闭</string>
+    <string name="suboowfer_low_filter_has_closed">重低音低通滤波已关闭</string>
+    <string name="suboowfer_has_closed_in_trumpet_setting">您已在设置-喇叭设置中关闭重低音输出</string>
+    <string name="back_row_has_closed_in_trumpet_setting">您已在设置-喇叭设置中关闭后排输出</string>
+    <string name="suboowfer_and_back_row_have_closed_in_trumpet_setting">您已在设置-喇叭设置中关闭后排与重低音输出</string>
+
     <string name="import_effect">导入音效</string>
     <string name="export_effect">导出音效</string>
     <string name="file_name">文件名:</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_main_content"
@@ -72,7 +73,8 @@
             android:singleLine="true"
             android:textColor="@color/text_color_normal"
             android:textSize="@dimen/font_16"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:text="@string/front_row_high_filter_has_closed" />
 
     </RelativeLayout>
 

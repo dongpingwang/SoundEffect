@@ -16,11 +16,14 @@ import com.flyaudio.soundeffect.comm.view.filter.ViewFrequencyAdjust;
 import com.flyaudio.soundeffect.filter.bean.EqFilterParam;
 import com.flyaudio.soundeffect.filter.logic.EqFilterDataLogic;
 import com.flyaudio.soundeffect.filter.logic.EqFilterManager;
+import com.flyaudio.soundeffect.trumpet.logic.BackRowManager;
 import com.flyaudio.soundeffect.trumpet.logic.SubwooferManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.flyaudio.soundeffect.filter.logic.EqFilterManager.FilterChannel.FRONT_ROW;
+import static com.flyaudio.soundeffect.filter.logic.EqFilterManager.FilterChannel.REAR_ROW;
 import static com.flyaudio.soundeffect.filter.logic.EqFilterManager.FilterChannel.SUBWOOFER;
 
 /**
@@ -37,6 +40,8 @@ public class EqFilterActivity extends BaseActivity {
     private ViewFrequencyAdjust frequencyAdjust;
     private CommAdjustButton btnAdjustFreq;
     private CommAdjustButton btnAdjustSlop;
+    private TextView tvCloseHint;
+
 
     private List<ViewFrequencyAdjust.TouchLine> touchLines;
     private List<Integer> selectorTypeList;
@@ -44,6 +49,8 @@ public class EqFilterActivity extends BaseActivity {
     private EqFilterManager eqFilterManager;
     private SubwooferManager subwooferManager;
     private EqFilterParam eqFilterParam;
+    private boolean subwooferOn;
+    private boolean backRowOn;
 
     @Override
     protected int getLayoutId() {
@@ -52,6 +59,7 @@ public class EqFilterActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        Logger.d("init");
         initData();
         initTitleBar();
         initFrequencyAdjustView();
@@ -64,6 +72,8 @@ public class EqFilterActivity extends BaseActivity {
     private void initData() {
         eqFilterManager = EqFilterManager.getInstance();
         subwooferManager = SubwooferManager.getInstance();
+        subwooferOn = subwooferManager.isSubwooferOn();
+        backRowOn = BackRowManager.getInstance().isBackRowOn();
     }
 
     private void initTitleBar() {
@@ -131,10 +141,6 @@ public class EqFilterActivity extends BaseActivity {
     private void initCheckButton() {
         phaseCbn = getView(R.id.eq_filter_phase_cbn);
         hpfCbn = getView(R.id.eq_filter_hpf_cbn);
-        int channel = touchLines.indexOf(frequencyAdjust.getSelectedTouchLine());
-        phaseCbn.setVisibility(channel == SUBWOOFER ? View.VISIBLE : View.GONE);
-        phaseCbn.setChecked(!subwooferManager.isSubwooferReverse());
-        hpfCbn.setChecked(eqFilterManager.isFilterEnable(channel));
         phaseCbn.setOnCheckedChangeListener(checkButtonListener);
         hpfCbn.setOnCheckedChangeListener(checkButtonListener);
     }
@@ -159,6 +165,7 @@ public class EqFilterActivity extends BaseActivity {
     private void initAdjustButton() {
         btnAdjustFreq = getView(R.id.btn_group1);
         btnAdjustSlop = getView(R.id.btn_group2);
+        tvCloseHint = getView(R.id.tv_filter_close_hint);
         btnAdjustFreq.setTitle(ResUtils.getString(R.string.frequency));
         btnAdjustSlop.setTitle(ResUtils.getString(R.string.slope));
         btnAdjustFreq.setListener(adjustListener);
@@ -187,7 +194,6 @@ public class EqFilterActivity extends BaseActivity {
         frequencyAdjust.setSelectedTouchLine(touchLine);
 
         typeSelector.setValue(channel);
-        phaseCbn.setVisibility(isSubwoofer() ? View.VISIBLE : View.INVISIBLE);
         phaseCbn.setChecked(!subwooferManager.isSubwooferReverse());
         hpfCbn.setChecked(eqFilterParam.enable);
         btnAdjustFreq.setValue(ResUtils.getString(R.string.eq_filter_hz_str, eqFilterParam.freq));
@@ -196,8 +202,47 @@ public class EqFilterActivity extends BaseActivity {
         } else {
             btnAdjustSlop.setValue(ResUtils.getString(R.string.eq_filter_slope_str, eqFilterParam.slope));
         }
+        updateUiVisibility();
     }
 
+
+    private void updateUiVisibility() {
+        boolean disable = !eqFilterParam.enable;
+        boolean closeWhenOnChannelSame = (eqFilterParam.channel != FRONT_ROW) && (!subwooferOn && isSubwoofer() || !backRowOn && !isSubwoofer());
+        frequencyAdjust.setVisibility(disable || closeWhenOnChannelSame ? View.GONE : View.VISIBLE);
+        btnAdjustFreq.setVisibility(disable || closeWhenOnChannelSame ? View.GONE : View.VISIBLE);
+        btnAdjustSlop.setVisibility(disable || closeWhenOnChannelSame ? View.GONE : View.VISIBLE);
+        tvCloseHint.setVisibility(disable || closeWhenOnChannelSame ? View.VISIBLE : View.GONE);
+        titleBar.updateResetVisibility(!closeWhenOnChannelSame);
+        phaseCbn.setVisibility(closeWhenOnChannelSame ? View.GONE : isSubwoofer() ? View.VISIBLE : View.GONE);
+        hpfCbn.setVisibility(closeWhenOnChannelSame ? View.GONE : View.VISIBLE);
+
+        if (!eqFilterParam.enable) {
+            String hintText;
+            if (eqFilterParam.channel == FRONT_ROW) {
+                hintText = ResUtils.getString(R.string.front_row_high_filter_has_closed);
+            } else if (eqFilterParam.channel == REAR_ROW) {
+                hintText = ResUtils.getString(R.string.back_row_high_filter_has_closed);
+            } else {
+                hintText = ResUtils.getString(R.string.suboowfer_low_filter_has_closed);
+            }
+            tvCloseHint.setText(hintText);
+        }
+        if (eqFilterParam.channel != FRONT_ROW) {
+            if (closeWhenOnChannelSame) {
+                String hintText;
+                if (!subwooferOn && !backRowOn) {
+                    hintText = ResUtils.getString(R.string.suboowfer_and_back_row_have_closed_in_trumpet_setting);
+                } else if (!subwooferOn) {
+                    hintText = ResUtils.getString(R.string.suboowfer_has_closed_in_trumpet_setting);
+                } else {
+                    hintText = ResUtils.getString(R.string.back_row_has_closed_in_trumpet_setting);
+                }
+                tvCloseHint.setText(hintText);
+            }
+        }
+
+    }
 
     private CommAdjustButton.AdjustListener adjustListener = new CommAdjustButton.AdjustListener() {
         @Override

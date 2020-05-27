@@ -109,13 +109,7 @@ public class ViewFrequencyAdjust extends View {
         mViewGuideAphaAnimator.setDuration(GUIDE_VIEW_SHOW_TIME);
         mViewGuideAphaAnimator.setRepeatMode(ValueAnimator.REVERSE);
         mViewGuideAphaAnimator.setRepeatCount(Animation.INFINITE);
-        mViewGuideAphaAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                mViewGuideAlpha = (int) valueAnimator.getAnimatedValue();
-                invalidate();
-            }
-        });
+        mViewGuideAphaAnimator.addUpdateListener(animatorUpdateListener);
         mViewGuideAphaAnimator.start();
 
 
@@ -136,6 +130,14 @@ public class ViewFrequencyAdjust extends View {
 
     }
 
+    private ValueAnimator.AnimatorUpdateListener animatorUpdateListener = new ValueAnimator.AnimatorUpdateListener() {
+        @Override
+        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            mViewGuideAlpha = (int) valueAnimator.getAnimatedValue();
+            invalidate();
+        }
+    };
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -152,7 +154,15 @@ public class ViewFrequencyAdjust extends View {
             // 调节引导
             drawViewGuide(canvas);
         }
+    }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (mViewGuideAphaAnimator != null && mViewGuideAphaAnimator.isRunning()) {
+            mViewGuideAphaAnimator.cancel();
+            mViewGuideAphaAnimator.removeUpdateListener(animatorUpdateListener);
+        }
     }
 
     private void drawBg(Canvas canvas) {
