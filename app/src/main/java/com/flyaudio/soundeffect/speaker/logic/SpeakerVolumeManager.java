@@ -74,6 +74,7 @@ public final class SpeakerVolumeManager {
                                   @Constants.ListenPositionSpeakerType int speaker, int volume) {
         String spKey = String.format(Locale.getDefault(), KEY_SPEAKER_VOLUME, position, speaker);
         SPCacheHelper.getInstance().put(spKey, volume);
+        VolumeManager.getInstance().saveVolume(speaker, volume);
     }
 
     /**

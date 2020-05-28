@@ -59,7 +59,6 @@ public class EqFilterActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        Logger.d("init");
         initData();
         initTitleBar();
         initFrequencyAdjustView();

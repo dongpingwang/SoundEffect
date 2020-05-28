@@ -1,12 +1,9 @@
 package com.flyaudio.soundeffect.dsp.logic;
 
-import com.flyaudio.lib.thread.TaskQueue;
-import com.flyaudio.soundeffect.delay.logic.DelayManager;
-import com.flyaudio.soundeffect.equalizer.logic.EqManager;
-import com.flyaudio.soundeffect.filter.logic.EqFilterManager;
-import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
-import com.flyaudio.soundeffect.speaker.logic.VolumeManager;
-import com.flyaudio.soundeffect.trumpet.logic.TrumpetManager;
+import android.content.Intent;
+
+import com.flyaudio.lib.utils.AppUtils;
+import com.flyaudio.soundeffect.dsp.service.InitEffectService;
 
 /**
  * @author Dongping Wang
@@ -20,25 +17,9 @@ public final class EffectManager {
     }
 
     public static void init() {
-        final TaskQueue taskQueue = new TaskQueue();
-        taskQueue.post(new Runnable() {
-            @Override
-            public void run() {
-                initEffect();
-                taskQueue.removeTask(this);
-                taskQueue.clearTaskQueue();
-                taskQueue.release();
-            }
-        });
-
-    }
-
-    private static void initEffect() {
-        EqManager.getInstance().init();
-        DelayManager.getInstance().init();
-        VolumeManager.getInstance().init();
-        TrumpetManager.getInstance().init();
-        EqFilterManager.getInstance().init();
+        AppUtils.getContext().startService(new Intent()
+                .setAction(InitEffectService.INIT_DSP_EFFECT)
+                .setPackage(AppUtils.getPackageName()));
     }
 
 }

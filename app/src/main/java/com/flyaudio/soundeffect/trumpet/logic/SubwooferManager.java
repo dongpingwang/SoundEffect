@@ -39,6 +39,7 @@ public final class SubwooferManager {
 
     public void init() {
         setSubwooferEnable(isSubwooferOn());
+        setSubooferReverse(isSubwooferReverse());
     }
 
     /**
