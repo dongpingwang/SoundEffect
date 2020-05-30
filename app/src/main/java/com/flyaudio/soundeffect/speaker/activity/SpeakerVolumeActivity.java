@@ -10,6 +10,7 @@ import com.flyaudio.soundeffect.comm.dialog.ResetDialog;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.NumberSelector;
 import com.flyaudio.soundeffect.comm.view.SoundEffectView;
+import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.position.fragment.ListenPositionFragment;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
@@ -133,7 +134,7 @@ public class SpeakerVolumeActivity extends BaseActivity {
 
     private void setVolume(@Constants.ListenPositionType int position, @Constants.ListenPositionSpeakerType int speaker, int volume) {
         speakerVolumeManager.saveSpeakerVolume(position, speaker, volume);
-        speakerVolumeManager.setSpeakerVolume(speaker, volume);
+        EffectManager.getInstance().setBalance(speaker, volume);
     }
 
 }

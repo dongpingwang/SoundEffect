@@ -1,9 +1,6 @@
-package com.flyaudio.soundeffect.dsp.logic;
+package com.flyaudio.soundeffect.dsp.dsp;
 
 import com.flyaudio.soundeffect.config.AppConfigUtils;
-import com.flyaudio.soundeffect.dsp.dsp.BaseDsp;
-import com.flyaudio.soundeffect.dsp.dsp.EmptyDsp;
-import com.flyaudio.soundeffect.dsp.dsp.IDsp;
 
 /**
  * @author Dongping Wang

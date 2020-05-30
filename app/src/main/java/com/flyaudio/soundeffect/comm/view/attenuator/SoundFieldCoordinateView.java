@@ -246,7 +246,7 @@ public class SoundFieldCoordinateView extends View implements ValueAnimator.Anim
                 this.x = this.x > MAX_POS ? MAX_POS : this.x < MIN_POS ? MIN_POS : this.x;
                 this.y = this.y > MAX_POS ? MAX_POS : this.y < MIN_POS ? MIN_POS : this.y;
                 if (mPositionChangedListener != null) {
-                    mPositionChangedListener.onPositionChanged(x, y, byTouch);
+                    mPositionChangedListener.onPositionChanged(this.x, this.y, byTouch);
                 }
             }
         }

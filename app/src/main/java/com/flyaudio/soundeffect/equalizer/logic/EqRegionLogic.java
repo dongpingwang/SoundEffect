@@ -4,7 +4,7 @@ import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.soundeffect.config.EffectCommUtils;
 import com.flyaudio.soundeffect.dsp.dsp.DspConstants;
-import com.flyaudio.soundeffect.dsp.logic.DspHelper;
+import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
 import com.flyaudio.soundeffect.equalizer.bean.EqDataBean;
 
 import java.util.Locale;

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.flyaudio.soundeffect"
-    android:sharedUserId="android.uid.system"
+
     android:versionCode="1"
     android:versionName="1.0.0">
 
@@ -68,7 +68,7 @@
             android:screenOrientation="landscape" />
 
         <!--提供framework在媒体记忆前拉起音效服务，进行初始化-->
-        <service android:name=".dsp.service.InitEffectService">
+        <service android:name=".dsp.service.EffectService">
             <intent-filter>
                 <action android:name="flyaudio.init.dsp.effect" />
             </intent-filter>

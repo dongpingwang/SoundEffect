@@ -5,13 +5,12 @@ import android.support.annotation.Size;
 
 import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.sp.SPCacheHelper;
+import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.position.logic.Constants;
-import com.flyaudio.soundeffect.speaker.logic.SpeakerVolumeManager;
 import com.flyaudio.soundeffect.speaker.logic.VolumeManager;
 
 import java.util.Arrays;
 import java.util.Locale;
-
 
 /**
  * @author Dongping Wang
@@ -53,7 +52,7 @@ public final class AttenuatorManager extends TouchValueLogic {
      * @param y 0-10
      */
     public void setBalanceXYByWeight(@IntRange(from = 0, to = 10) int x, @IntRange(from = 0, to = 10) int y) {
-
+        Logger.d("坐标为:(%d, %d)", x, y);
         int fl, fr, bl, br;
         fl = fr = bl = br = 0;
         int n = 0, m = 0;
@@ -126,6 +125,7 @@ public final class AttenuatorManager extends TouchValueLogic {
     }
 
     public void setXBalanceByWeight(@IntRange(from = 0, to = 10) int x) {
+        Logger.d("坐标为:" + x);
         int fl, fr, bl, br;
         fl = fr = 0;
         bl = br = BALANCE_MIN;
@@ -146,7 +146,7 @@ public final class AttenuatorManager extends TouchValueLogic {
         Logger.d("setBalances: 前左/前右/后左/后右喇叭的衰减平衡音量值 = " + Arrays.toString(values));
         // 依次设置前左 前右 后左 后右喇叭的衰减平衡音量值
         for (int i = 0; i < values.length; i++) {
-            SpeakerVolumeManager.getInstance().setSpeakerVolume(Constants.SPEAKER_TYPES[i], values[i]);
+            EffectManager.getInstance().setBalance(Constants.SPEAKER_TYPES[i], values[i]);
             VolumeManager.getInstance().saveVolume(Constants.SPEAKER_TYPES[i], values[i]);
         }
     }

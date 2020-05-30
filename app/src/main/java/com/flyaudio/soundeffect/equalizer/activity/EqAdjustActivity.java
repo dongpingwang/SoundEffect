@@ -1,10 +1,7 @@
 package com.flyaudio.soundeffect.equalizer.activity;
 
-import android.os.Handler;
-import android.os.Message;
 import android.os.SystemClock;
 import android.view.View;
-
 import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.constant.TimeUnit;
 import com.flyaudio.lib.utils.ResUtils;
@@ -15,6 +12,7 @@ import com.flyaudio.soundeffect.comm.view.CommAdjustButton;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.CommVerticalAdjustButton;
 import com.flyaudio.soundeffect.comm.view.eq.EqSquareBars;
+import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.equalizer.bean.EqDataBean;
 import com.flyaudio.soundeffect.equalizer.bean.EqMode;
 import com.flyaudio.soundeffect.equalizer.dialog.EqDataDetailDialog;
@@ -42,10 +40,6 @@ public class EqAdjustActivity extends BaseActivity {
     private EqMode eqMode;
     private EqManager eqManager;
     private EqDataBean eqDataBean;
-
-    private static final int MSG_EQ = 0;
-    private static final int MSG_EQ_ALL = 1;
-    private EqHandler eqHandler = new EqHandler();
 
     private long[] mHints = new long[5];
 
@@ -94,7 +88,7 @@ public class EqAdjustActivity extends BaseActivity {
                         eqManager.saveEqModeData(eqMode.getId(), eqDataBean);
                         updateAllFreqEq();
                         updateCurrentFreqEq();
-                        eqHandler.sendEmptyMessage(MSG_EQ_ALL);
+                        EffectManager.getInstance().setAllEq();
                         onCancel();
                     }
 
@@ -115,10 +109,10 @@ public class EqAdjustActivity extends BaseActivity {
                 eqDataBean.current = region;
                 eqManager.saveEqModeData(eqMode.getId(), eqDataBean);
                 updateCurrentFreqEq();
-                eqHandler.sendEmptyMessage(MSG_EQ);
+                EffectManager.getInstance().setEq();
             }
         });
-        // 恢复所有频率、增益 、当前调节的区间
+        // 恢复上次的所有频率、增益 、当前调节的区间
         updateAllFreqEq();
     }
 
@@ -159,7 +153,7 @@ public class EqAdjustActivity extends BaseActivity {
                 btnEqValue.setValue(EQ_VALUE_DESCRIPTION[EqRegionDataLogic.getEqValueIndex(eqValue)]);
             }
             eqManager.saveEqModeData(eqMode.getId(), eqDataBean);
-            eqHandler.sendEmptyMessage(MSG_EQ);
+            EffectManager.getInstance().setEq();
         }
     };
 
@@ -173,23 +167,6 @@ public class EqAdjustActivity extends BaseActivity {
         btnGain.setValue(eqDataBean.gains[eqDataBean.current] + ResUtils.getString(R.string.gain_unit));
         btnFreq.setValue(EqUtils.getFreq2Str(eqDataBean.frequencies[eqDataBean.current]));
         btnEqValue.setValue(EQ_VALUE_DESCRIPTION[EqRegionDataLogic.getEqValueIndex(eqDataBean.qValues[eqDataBean.current])]);
-    }
-
-
-    private class EqHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            removeMessages(msg.what);
-            if (msg.what == MSG_EQ) {
-                int region = eqSquareBars.getRegion();
-                eqManager.setEq(region, eqDataBean.frequencies[region], eqDataBean.qValues[region], eqDataBean.gains[region]);
-            } else if (msg.what == MSG_EQ_ALL) {
-                for (int i = 0; i < eqDataBean.frequencies.length; i++) {
-                    eqManager.setEq(i, eqDataBean.frequencies[i], eqDataBean.qValues[i], eqDataBean.gains[i]);
-                }
-            }
-        }
     }
 
     private void test() {

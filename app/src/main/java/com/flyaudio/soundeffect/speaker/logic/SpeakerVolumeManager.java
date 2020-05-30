@@ -3,7 +3,7 @@ package com.flyaudio.soundeffect.speaker.logic;
 import android.util.SparseArray;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
-import com.flyaudio.soundeffect.dsp.logic.DspHelper;
+import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 
@@ -95,7 +95,6 @@ public final class SpeakerVolumeManager {
             for (int sw : swChannels) {
                 DspHelper.getDspHelper().setBalance(sw, volume);
             }
-
         } else {
             int channel = Constants.SPEAKER_TYPE_MAP.get(speaker);
             DspHelper.getDspHelper().setBalance(channel, volume);

@@ -21,6 +21,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:background="@drawable/comm_ripple_borderless"
+        android:clickable="false"
         android:thumb="@drawable/switch_thumb"
         android:thumbTint="@color/switch_color_tint"
         android:track="@drawable/switch_track"

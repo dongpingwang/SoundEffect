@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.widget.TextView;
 
 import com.flyaudio.lib.base.BaseActivity;
-import com.flyaudio.lib.thread.TaskQueue;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.dialog.ResetDialog;
@@ -12,6 +11,7 @@ import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.NumberSelector;
 import com.flyaudio.soundeffect.comm.view.SoundEffectView;
 import com.flyaudio.soundeffect.delay.logic.DelayManager;
+import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.position.fragment.ListenPositionFragment;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
@@ -44,7 +44,6 @@ public class TimeCalibrationActivity extends BaseActivity {
     private DelayManager delayManager;
     private ListenPositionManager listenPositionManager;
     private static int listenPosition;
-    private TaskQueue taskQueue = new TaskQueue();
 
 
     @Override
@@ -144,14 +143,8 @@ public class TimeCalibrationActivity extends BaseActivity {
     }
 
     private void setDelay(@Constants.ListenPositionType final int position, @Constants.ListenPositionSpeakerType final int speaker, final int delay) {
-        taskQueue.post(new Runnable() {
-            @Override
-            public void run() {
-                delayManager.saveDelay(position, speaker, delay);
-                delayManager.setDelay(speaker, delay);
-                removeCallbacks(this);
-            }
-        });
+        delayManager.saveDelay(position, speaker, delay);
+        EffectManager.getInstance().setDelay(speaker, delay);
     }
 
 }

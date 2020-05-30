@@ -2,7 +2,7 @@ package com.flyaudio.soundeffect.trumpet.logic;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.soundeffect.dsp.dsp.DspConstants;
-import com.flyaudio.soundeffect.dsp.logic.DspHelper;
+import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
 
 /**
  * @author Dongping Wang

@@ -1,10 +1,13 @@
 package com.flyaudio.soundeffect.trumpet.activity;
 
+import android.view.View;
+
 import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.view.CommSwitch;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
+import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.trumpet.logic.BackRowManager;
 import com.flyaudio.soundeffect.trumpet.logic.SubwooferManager;
 
@@ -13,7 +16,7 @@ import com.flyaudio.soundeffect.trumpet.logic.SubwooferManager;
  * date 2020/4/25  23:08
  * email wangdongping@flyaudio.cn
  */
-public class TrumpetSettingActivity extends BaseActivity {
+public class TrumpetSettingActivity extends BaseActivity implements View.OnClickListener {
 
     private CommTitleBar titleBar;
     private CommSwitch switchSubwoofer;
@@ -59,25 +62,27 @@ public class TrumpetSettingActivity extends BaseActivity {
     private void initSwitch() {
         switchSubwoofer = getView(R.id.switch_subwoofer);
         switchBackRow = getView(R.id.switch_back_row);
-
+        switchSubwoofer.setOnClickListener(this);
+        switchBackRow.setOnClickListener(this);
         // 更新上次的状态
         switchSubwoofer.setChecked(!subwooferManager.isSubwooferOn());
         switchBackRow.setChecked(!backRowManager.isBackRowOn());
-        // 调节重低音
-        switchSubwoofer.setListener(new CommSwitch.OnItemClickListener() {
-            @Override
-            public void onCheckedChanged(boolean checked) {
-                subwooferManager.saveSubwooferState(!checked);
-                subwooferManager.setSubwooferEnable(!checked);
-            }
-        });
-        // 调节后排
-        switchBackRow.setListener(new CommSwitch.OnItemClickListener() {
-            @Override
-            public void onCheckedChanged(boolean checked) {
-                backRowManager.saveBackRowState(!checked);
-                backRowManager.setBackRowEnable(!checked);
-            }
-        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.equals(switchSubwoofer)) {
+            // 调节重低音
+            boolean checked = switchSubwoofer.isChecked();
+            switchSubwoofer.setChecked(!checked);
+            subwooferManager.saveSubwooferState(!checked);
+            EffectManager.getInstance().setSubwooferEnable();
+        } else {
+            // 调节后排
+            boolean checked = switchBackRow.isChecked();
+            switchBackRow.setChecked(!checked);
+            backRowManager.saveBackRowState(!checked);
+            EffectManager.getInstance().setBackRowEnable();
+        }
     }
 }

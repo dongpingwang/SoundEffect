@@ -13,6 +13,7 @@ import com.flyaudio.soundeffect.comm.view.CommAdjustButton;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.NumberSelector;
 import com.flyaudio.soundeffect.comm.view.filter.ViewFrequencyAdjust;
+import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.filter.bean.EqFilterParam;
 import com.flyaudio.soundeffect.filter.logic.EqFilterDataLogic;
 import com.flyaudio.soundeffect.filter.logic.EqFilterManager;
@@ -148,8 +149,8 @@ public class EqFilterActivity extends BaseActivity {
         @Override
         public void onCheckedChanged(CheckButton checkBtn, boolean isChecked) {
             if (checkBtn.equals(phaseCbn)) {
-                subwooferManager.setSubooferReverse(!isChecked);
                 subwooferManager.saveSubwooferReverse(!isChecked);
+                EffectManager.getInstance().setSubooferReverse();
             } else {
                 ViewFrequencyAdjust.TouchLine touchLine = frequencyAdjust.getSelectedTouchLine();
                 touchLine.setAdjustAble(isChecked);
@@ -184,7 +185,7 @@ public class EqFilterActivity extends BaseActivity {
                 eqFilterManager.saveCurrentFilter(channel);
             }
             Logger.d("updateCurrentFilter:" + eqFilterParam.toString());
-            eqFilterManager.setEqFilter(eqFilterParam.channel, eqFilterParam.freq, eqFilterParam.slope, eqFilterParam.enable);
+            EffectManager.getInstance().setEqFilter();
         }
         ViewFrequencyAdjust.TouchLine touchLine = touchLines.get(channel);
         touchLine.setAdjustAble(eqFilterParam.enable);

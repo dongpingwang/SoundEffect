@@ -37,7 +37,8 @@
                 app:off_remind_text="@string/filter"
                 app:off_text="@string/off"
                 app:on_remind_text="@string/filter"
-                app:on_text="@string/on" />
+                app:on_text="@string/on"
+                app:checked="false"/>
 
             <com.flyaudio.soundeffect.comm.view.CheckButton
                 android:id="@+id/eq_filter_phase_cbn"
@@ -49,7 +50,8 @@
                 app:off_remind_text="@string/phase"
                 app:off_text="@string/phase_reverse"
                 app:on_remind_text="@string/phase"
-                app:on_text="@string/phase_normal" />
+                app:on_text="@string/phase_normal"
+                app:checked="true"/>
         </RelativeLayout>
 
         <com.flyaudio.soundeffect.comm.view.filter.ViewFrequencyAdjust

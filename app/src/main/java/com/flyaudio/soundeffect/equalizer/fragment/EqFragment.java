@@ -14,6 +14,7 @@ import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.lib.toast.Toaster;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
+import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.equalizer.activity.EqAdjustActivity;
 import com.flyaudio.soundeffect.equalizer.adapter.EqListAdapter;
 import com.flyaudio.soundeffect.equalizer.bean.EqMode;
@@ -40,9 +41,6 @@ public class EqFragment extends BaseFragment {
     private EqReNameDialog eqEditDialog;
     private EqDeleteDialog eqDeleteDialog;
     private static EqManager eqManager = EqManager.getInstance();
-
-    private static final int MSG_EQ = 0;
-    private EqHandler eqHandler = new EqHandler();
 
     @Override
     protected int getLayoutId() {
@@ -77,7 +75,7 @@ public class EqFragment extends BaseFragment {
                 if (position != adapter.getCurrent()) {
                     adapter.updateCurrent(position);
                     eqManager.saveCurrentEq(adapter.getData(position).getId());
-                    eqHandler.sendEmptyMessage(MSG_EQ);
+                    EffectManager.getInstance().setAllEq();
                 }
             }
 
@@ -172,13 +170,5 @@ public class EqFragment extends BaseFragment {
         }
     };
 
-    private static class EqHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == MSG_EQ) {
-                eqManager.init();
-            }
-        }
-    }
+
 }

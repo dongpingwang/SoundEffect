@@ -4,7 +4,7 @@ import android.support.annotation.IntRange;
 import android.util.SparseArray;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
-import com.flyaudio.soundeffect.dsp.logic.DspHelper;
+import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 
@@ -98,7 +98,7 @@ public final class DelayManager {
      * @param speaker 对应的喇叭通道
      * @param delay   延时值(0-200，单位0.1ms)
      */
-    public void setDelay(int speaker, @IntRange(from = 0, to = 200) int delay) {
+    public void setDelay(@Constants.ListenPositionSpeakerType int speaker, @IntRange(from = 0, to = 200) int delay) {
         if (speaker == Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_SUBWOOFER) {
             Integer[] swChannels = Constants.SPEAKER_TYPE_MAP_SUBWOOFER.get(speaker);
             for (int sw : swChannels) {

@@ -1,8 +1,6 @@
 package com.flyaudio.soundeffect.position.fragment;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,6 +10,7 @@ import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.view.ListenPositionButtons;
 import com.flyaudio.soundeffect.comm.view.SpeakersLayout;
 import com.flyaudio.soundeffect.delay.activity.TimeCalibrationActivity;
+import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 import com.flyaudio.soundeffect.speaker.activity.SpeakerVolumeActivity;
@@ -33,8 +32,6 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
     private SpeakersLayout speakers;
     private static ListenPositionManager listenPositionManager;
 
-    private static final int MSG_SET_POSITION = 0;
-    private PositionHandler positionHandler = new PositionHandler();
 
     @Override
     protected int getLayoutId() {
@@ -77,7 +74,7 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
     public void onCheckedChanged(int index) {
         int listenPosition = listenPositionManager.index2ListenPosition(index);
         listenPositionManager.saveListenPosition(listenPosition);
-        positionHandler.sendEmptyMessage(MSG_SET_POSITION);
+        EffectManager.getInstance().setListenPosition();
         speakers.setSpeakersEnable(listenPositionManager.listenPosition2SpeakerStatus(listenPosition));
         // 关闭时不能调节喇叭音量和通道延时
         tvSpeakerAdjust.setEnabled(listenPosition != Constants.ListenPositionType.LISTEN_POSITION_CLOSE);
@@ -96,14 +93,4 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
         startActivity(intent);
     }
 
-    private static class PositionHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            removeMessages(msg.what);
-            if (msg.what == MSG_SET_POSITION) {
-                listenPositionManager.setListenPosition();
-            }
-        }
-    }
 }

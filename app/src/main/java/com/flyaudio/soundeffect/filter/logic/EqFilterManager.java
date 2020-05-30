@@ -6,7 +6,7 @@ import android.util.SparseIntArray;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.soundeffect.dsp.dsp.DspConstants;
-import com.flyaudio.soundeffect.dsp.logic.DspHelper;
+import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
