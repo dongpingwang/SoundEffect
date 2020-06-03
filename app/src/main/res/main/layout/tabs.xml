@@ -10,31 +10,30 @@
         android:layout_width="@dimen/tab_width"
         android:layout_height="match_parent"
         android:background="@drawable/bg_tab"
-        app:activeColor="@color/tab_selected_color"
         app:appIcon="@drawable/tab_app_icon"
-        app:normalColor="@color/tab_normal_color">
+        app:selectedIndex="0"
+        app:tabActiveBackground="@drawable/bg_tab_item"
+        app:tabAlign="center"
+        app:tabColor="@color/selector_tab_text"
+        app:tabTextSize="@dimen/font_12">
 
         <com.flyaudio.lib.ui.flyaudio.FlyTabIcon
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_item_height"
-            app:activeBackground="@drawable/bg_tab_item"
-            app:icon="@drawable/selector_tab_eq"
-            app:normalText="@string/eq_mode" />
+            app:normalText="@string/eq_mode"
+            app:tabIcon="@drawable/selector_tab_eq" />
 
         <com.flyaudio.lib.ui.flyaudio.FlyTabIcon
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_item_height"
             android:text="@string/listen_position"
-            app:activeBackground="@drawable/bg_tab_item"
-            app:icon="@drawable/selector_tab_listen_position" />
+            app:tabIcon="@drawable/selector_tab_listen_position" />
 
         <com.flyaudio.lib.ui.flyaudio.FlyTabIcon
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_item_height"
-            android:text="@string/setting"
-            app:activeBackground="@drawable/bg_tab_item"
-            app:icon="@drawable/selector_tab_setting" />
+            app:normalText="@string/setting"
+            app:tabIcon="@drawable/selector_tab_setting" />
     </com.flyaudio.lib.ui.flyaudio.FlyTabBar>
-
 </FrameLayout>
 

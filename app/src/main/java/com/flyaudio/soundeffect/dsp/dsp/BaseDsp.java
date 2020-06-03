@@ -26,7 +26,7 @@ public class BaseDsp implements IDsp {
         getDspManager();
     }
 
-    private DspManager getDspManager() {
+    private synchronized DspManager getDspManager() {
         if (dspManager == null) {
             dspManager = DspManager.getInstance();
         }

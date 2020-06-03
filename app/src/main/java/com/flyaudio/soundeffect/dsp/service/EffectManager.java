@@ -1,18 +1,22 @@
 package com.flyaudio.soundeffect.dsp.service;
 
 import android.content.Intent;
+
 import com.flyaudio.lib.utils.AppUtils;
+import com.flyaudio.soundeffect.dsp.dsp.DspConstants;
+import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
+import com.flyaudio.soundeffect.dsp.dsp.check.IDspCheck;
 
 /**
  * @author Dongping Wang
  * date 2020/5/1  18:02
  * email wangdongping@flyaudio.cn
  */
-public final class EffectManager {
+public final class EffectManager implements IDspCheck.DspServiceConnection {
 
 
     private EffectManager() {
-
+        DspHelper.getDspCheckHelper().setAutoConnect(true);
     }
 
     private static class InstanceHolder {
@@ -23,8 +27,23 @@ public final class EffectManager {
         return InstanceHolder.instance;
     }
 
-    public void init() {
+
+    @Override
+    public void onServiceConnected() {
         startService(Actions.EXTRA_INIT);
+    }
+
+    @Override
+    public void onServiceDisconnected() {
+
+    }
+
+    public void init() {
+        if (DspHelper.getDspCheckHelper().getDspInitState() == DspConstants.ResultCode.SUCCESS.getValue()) {
+            startService(Actions.EXTRA_INIT);
+        } else {
+            DspHelper.getDspCheckHelper().registerServiceConnection(this);
+        }
     }
 
     public void setEq() {

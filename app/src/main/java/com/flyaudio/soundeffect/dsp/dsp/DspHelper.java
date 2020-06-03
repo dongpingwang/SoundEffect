@@ -1,6 +1,9 @@
 package com.flyaudio.soundeffect.dsp.dsp;
 
 import com.flyaudio.soundeffect.config.AppConfigUtils;
+import com.flyaudio.soundeffect.dsp.dsp.check.BaseCheck;
+import com.flyaudio.soundeffect.dsp.dsp.check.EmptyCheck;
+import com.flyaudio.soundeffect.dsp.dsp.check.IDspCheck;
 
 /**
  * @author Dongping Wang
@@ -10,23 +13,39 @@ import com.flyaudio.soundeffect.config.AppConfigUtils;
 public final class DspHelper {
 
     private static volatile IDsp dsp;
+    private static volatile IDspCheck dspCheck;
 
     private DspHelper() {
-        // singleton
+
     }
 
     public synchronized static IDsp getDspHelper() {
-        if (DspHelper.dsp == null) {
+        if (dsp == null) {
             synchronized (DspHelper.class) {
-                if (DspHelper.dsp == null) {
+                if (dsp == null) {
                     if (AppConfigUtils.isDspOn()) {
-                        DspHelper.dsp = BaseDsp.getInstance();
+                        dsp = BaseDsp.getInstance();
                     } else {
-                        DspHelper.dsp = new EmptyDsp();
+                        dsp = new EmptyDsp();
                     }
                 }
             }
         }
-        return DspHelper.dsp;
+        return dsp;
+    }
+
+    public synchronized static IDspCheck getDspCheckHelper() {
+        if (dspCheck == null) {
+            synchronized (DspHelper.class) {
+                if (dspCheck == null) {
+                    if (AppConfigUtils.isDspOn()) {
+                        dspCheck = BaseCheck.getInstance();
+                    } else {
+                        dspCheck = new EmptyCheck();
+                    }
+                }
+            }
+        }
+        return dspCheck;
     }
 }

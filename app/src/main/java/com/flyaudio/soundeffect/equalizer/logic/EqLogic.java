@@ -8,6 +8,7 @@ import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.soundeffect.config.EffectCommUtils;
 import com.flyaudio.soundeffect.equalizer.bean.EqDataBean;
 import com.google.gson.Gson;
+
 import java.util.Locale;
 
 /**
@@ -65,6 +66,9 @@ public class EqLogic {
      * 获取默认的增益
      */
     private int[] getDefaultGains(int id) {
+        if (id < 0 || id > EffectCommUtils.getEqGains().length - 1) {
+            return new int[13];
+        }
         int index = id < EQ_PRESET_COUNT ? id : EffectCommUtils.getEqGains().length - 1;
         int[] eqGain = EffectCommUtils.getEqGains()[index].clone();
         return eqGain;
