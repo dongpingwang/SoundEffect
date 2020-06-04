@@ -2,6 +2,7 @@ package com.flyaudio.soundeffect.equalizer.activity;
 
 import android.os.SystemClock;
 import android.view.View;
+
 import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.constant.TimeUnit;
 import com.flyaudio.lib.utils.ResUtils;
@@ -12,6 +13,7 @@ import com.flyaudio.soundeffect.comm.view.CommAdjustButton;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.CommVerticalAdjustButton;
 import com.flyaudio.soundeffect.comm.view.eq.EqSquareBars;
+import com.flyaudio.soundeffect.config.AppPreferences;
 import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.equalizer.bean.EqDataBean;
 import com.flyaudio.soundeffect.equalizer.bean.EqMode;
@@ -170,6 +172,9 @@ public class EqAdjustActivity extends BaseActivity {
     }
 
     private void test() {
+        if (!AppPreferences.USER_DEBUG) {
+            return;
+        }
         // 点击5次打开eq数据详情
         titleBar.setOnClickListener(new View.OnClickListener() {
             @Override

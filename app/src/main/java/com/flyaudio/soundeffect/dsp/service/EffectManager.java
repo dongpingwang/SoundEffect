@@ -2,22 +2,26 @@ package com.flyaudio.soundeffect.dsp.service;
 
 import android.content.Intent;
 
+import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.utils.AppUtils;
 import com.flyaudio.soundeffect.dsp.dsp.DspConstants;
 import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
 import com.flyaudio.soundeffect.dsp.dsp.check.IDspCheck;
 import com.flyaudio.soundeffect.filter.bean.EqFilterParam;
+import com.flyaudio.soundeffect.main.event.EventContent;
+import com.flyaudio.soundeffect.main.event.EventController;
 
 /**
  * @author Dongping Wang
  * date 2020/5/1  18:02
  * email wangdongping@flyaudio.cn
  */
-public final class EffectManager implements IDspCheck.DspServiceConnection {
+public final class EffectManager implements IDspCheck.DspServiceConnection, EventController {
 
 
     private EffectManager() {
         DspHelper.getDspCheckHelper().setAutoConnect(true);
+        EventContent.addEventController(this);
     }
 
     private static class InstanceHolder {
@@ -28,6 +32,9 @@ public final class EffectManager implements IDspCheck.DspServiceConnection {
         return InstanceHolder.instance;
     }
 
+    public void deInit() {
+        EventContent.removeEventController(this);
+    }
 
     @Override
     public void onServiceConnected() {
@@ -37,6 +44,12 @@ public final class EffectManager implements IDspCheck.DspServiceConnection {
     @Override
     public void onServiceDisconnected() {
 
+    }
+
+    @Override
+    public void onRestoreData() {
+        Logger.d("导入音效文件成功，初始化音效！");
+        init();
     }
 
     public void init() {

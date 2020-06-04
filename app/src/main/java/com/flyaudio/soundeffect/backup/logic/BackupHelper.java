@@ -5,6 +5,7 @@ import android.util.Xml;
 import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.lib.utils.AppUtils;
+import com.flyaudio.soundeffect.equalizer.logic.EqManager;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
@@ -91,6 +92,8 @@ final class BackupHelper {
                 type = parser.next();
             }
             success = true;
+            // 恢复数据后选择第一个Eq模式
+            EqManager.getInstance().saveCurrentEq(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

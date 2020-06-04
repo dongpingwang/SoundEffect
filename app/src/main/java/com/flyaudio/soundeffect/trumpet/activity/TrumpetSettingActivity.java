@@ -72,16 +72,18 @@ public class TrumpetSettingActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         if (view.equals(switchSubwoofer)) {
+
+
             // 调节重低音
             boolean checked = switchSubwoofer.isChecked();
             switchSubwoofer.setChecked(!checked);
-            subwooferManager.saveSubwooferState(!checked);
+            subwooferManager.saveSubwooferState(checked);
             EffectManager.getInstance().setSubwooferEnable();
         } else {
             // 调节后排
             boolean checked = switchBackRow.isChecked();
             switchBackRow.setChecked(!checked);
-            backRowManager.saveBackRowState(!checked);
+            backRowManager.saveBackRowState(checked);
             EffectManager.getInstance().setBackRowEnable();
         }
     }

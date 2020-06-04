@@ -10,6 +10,7 @@ import com.flyaudio.lib.adapter.RecyclerViewAdapter;
 import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.lib.constant.TimeUnit;
 import com.flyaudio.soundeffect.R;
+import com.flyaudio.soundeffect.config.AppPreferences;
 import com.flyaudio.soundeffect.setting.util.SettingUtils;
 import com.flyaudio.soundeffect.setting.adapter.SettingListAdapter;
 import com.flyaudio.soundeffect.test.activity.TestActivity;
@@ -37,7 +38,18 @@ public class SettingFragment extends BaseFragment implements RecyclerViewAdapter
         rvSettingList.setLayoutManager(layoutManager);
         rvSettingList.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
+        test();
+    }
 
+    @Override
+    public void onItemClick(int position) {
+        SettingUtils.startActivity(context(), position);
+    }
+
+    private void test() {
+        if (!AppPreferences.USER_DEBUG) {
+            return;
+        }
         // 点击5次打开test模块
         getView(R.id.tv_test).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,11 +61,5 @@ public class SettingFragment extends BaseFragment implements RecyclerViewAdapter
                 }
             }
         });
-
-    }
-
-    @Override
-    public void onItemClick(int position) {
-        SettingUtils.startActivity(context(), position);
     }
 }
