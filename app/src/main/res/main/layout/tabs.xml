@@ -11,7 +11,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_tab"
         app:appIcon="@drawable/tab_app_icon"
-        app:selectedIndex="0"
         app:tabActiveBackground="@drawable/bg_tab_item"
         app:tabAlign="center"
         app:tabColor="@color/selector_tab_text"
