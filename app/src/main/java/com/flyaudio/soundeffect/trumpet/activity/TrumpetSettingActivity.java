@@ -5,6 +5,7 @@ import android.view.View;
 import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
+import com.flyaudio.soundeffect.attenuator.logic.AttenuatorManager;
 import com.flyaudio.soundeffect.comm.view.CommSwitch;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.dsp.service.EffectManager;
@@ -72,8 +73,6 @@ public class TrumpetSettingActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         if (view.equals(switchSubwoofer)) {
-
-
             // 调节重低音
             boolean checked = switchSubwoofer.isChecked();
             switchSubwoofer.setChecked(!checked);

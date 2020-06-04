@@ -14,6 +14,8 @@ import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 import com.flyaudio.soundeffect.speaker.activity.SpeakerVolumeActivity;
+import com.flyaudio.soundeffect.speaker.logic.SpeakerVolumeManager;
+import com.flyaudio.soundeffect.speaker.logic.VolumeManager;
 import com.flyaudio.soundeffect.trumpet.logic.BackRowManager;
 
 /**
@@ -75,6 +77,11 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
         int listenPosition = listenPositionManager.index2ListenPosition(index);
         listenPositionManager.saveListenPosition(listenPosition);
         EffectManager.getInstance().setListenPosition();
+        // 保存扬声器音量数据到喇叭音量
+        for (int speaker : Constants.SPEAKER_TYPES) {
+            int volume = SpeakerVolumeManager.getInstance().getSpeakerVolume(listenPosition, speaker);
+            VolumeManager.getInstance().saveVolume(speaker, volume);
+        }
         speakers.setSpeakersEnable(listenPositionManager.listenPosition2SpeakerStatus(listenPosition));
         // 关闭时不能调节喇叭音量和通道延时
         tvSpeakerAdjust.setEnabled(listenPosition != Constants.ListenPositionType.LISTEN_POSITION_CLOSE);

@@ -1,6 +1,7 @@
 package com.flyaudio.soundeffect.trumpet.logic;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
+import com.flyaudio.soundeffect.attenuator.logic.AttenuatorManager;
 import com.flyaudio.soundeffect.dsp.dsp.DspConstants;
 import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
 
@@ -29,7 +30,7 @@ public final class BackRowManager {
     }
 
     public void init() {
-        setBackRowEnable(isBackRowOn());
+        setBackRowEnable(isBackRowOn(), false);
     }
 
     /**
@@ -54,8 +55,14 @@ public final class BackRowManager {
      * @param enable 是否打开后排输出
      */
     public void setBackRowEnable(boolean enable) {
+        setBackRowEnable(enable, true);
+    }
+
+    private void setBackRowEnable(boolean enable, boolean setBalance) {
         DspHelper.getDspHelper().setChannel(DspConstants.AudioSpeakerLayout.SPEAKER_LAYOUT_REAR.getValue(), enable);
-        // TODO 这里要联动设置后排喇叭音量
+        if (setBalance) {
+            AttenuatorManager.getInstance().setBalanceIfBackRowOff(BackRowManager.getInstance().isBackRowOn());
+        }
     }
 
 }

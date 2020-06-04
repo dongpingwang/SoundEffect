@@ -142,12 +142,35 @@ public final class AttenuatorManager extends TouchValueLogic {
 
     }
 
-    private void setBalances(@Size(4) int[] values) {
+    /**
+     * 关闭后排是对应后左后右喇叭音量设置为最小值，再次打开后排时恢复
+     *
+     * @param enable 后排是否可用
+     */
+    public void setBalanceIfBackRowOff(boolean enable) {
+        // 喇叭设置中打开/关闭后排输出时，不改变SP中的后排喇叭的衰减平衡数据
+        int bl, br;
+        if (enable) {
+            bl = getBalance(Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_BACK_LEFT);
+            br = getBalance(Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_BACK_RIGHT);
+
+        } else {
+            bl = br = BALANCE_MIN;
+        }
+        setBalance(Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_BACK_LEFT, bl);
+        setBalance(Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_BACK_RIGHT, br);
+    }
+
+    private void setBalance(int speaker, int value) {
+        EffectManager.getInstance().setBalance(speaker, value);
+        VolumeManager.getInstance().saveVolume(speaker, value);
+    }
+
+    private void setBalances(int[] values) {
         Logger.d("setBalances: 前左/前右/后左/后右喇叭的衰减平衡音量值 = " + Arrays.toString(values));
         // 依次设置前左 前右 后左 后右喇叭的衰减平衡音量值
         for (int i = 0; i < values.length; i++) {
-            EffectManager.getInstance().setBalance(Constants.SPEAKER_TYPES[i], values[i]);
-            VolumeManager.getInstance().saveVolume(Constants.SPEAKER_TYPES[i], values[i]);
+            setBalance(Constants.SPEAKER_TYPES[i], values[i]);
         }
     }
 

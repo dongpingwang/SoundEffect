@@ -6,7 +6,7 @@
         android:gravity="center">
 
         <selector>
-            <item android:state_checked="true">
+            <item android:state_selected="true">
                 <bitmap
                     android:src="@mipmap/ic_listen_position"
                     android:tint="@color/tab_selected_color" />
