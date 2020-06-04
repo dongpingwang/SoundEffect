@@ -7,6 +7,7 @@ import android.util.SparseIntArray;
 import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.soundeffect.dsp.dsp.DspConstants;
 import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
+import com.flyaudio.soundeffect.filter.bean.EqFilterParam;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -39,6 +40,10 @@ public final class EqFilterManager {
      */
     private static final String KEY_EQ_FILTER_CURRENT = "eq_filter_current";
 
+
+    private static final boolean DEF_FILTER_ENABLE = false;
+    private static final int DEF_FILTER_FREQ = EqFilterDataLogic.HPF[0];
+    private static final int DEF_FILTER_SLOPE = EqFilterDataLogic.SLOPES[1];
 
     @IntDef({FRONT_ROW, REAR_ROW, SUBWOOFER})
     @Retention(RetentionPolicy.SOURCE)
@@ -102,22 +107,22 @@ public final class EqFilterManager {
     /**
      * 高低通滤波是否能用
      *
-     * @param type 滤波类型
+     * @param channel 滤波类型
      * @return 相应滤波是否能用，默认关闭
      */
-    public boolean isFilterEnable(@FilterChannel int type) {
-        String spKey = String.format(Locale.getDefault(), KEY_EQ_FILTER_ENABLE, type);
-        return SPCacheHelper.getInstance().getBoolean(spKey, false);
+    public boolean isFilterEnable(@FilterChannel int channel) {
+        String spKey = String.format(Locale.getDefault(), KEY_EQ_FILTER_ENABLE, channel);
+        return SPCacheHelper.getInstance().getBoolean(spKey, DEF_FILTER_ENABLE);
     }
 
     /**
      * 保存高低通滤波开关状态
      *
-     * @param type   滤波类型
+     * @param channel   滤波类型
      * @param enable 是否能用
      */
-    public void saveFilterEnable(@FilterChannel int type, boolean enable) {
-        String spKey = String.format(Locale.getDefault(), KEY_EQ_FILTER_ENABLE, type);
+    public void saveFilterEnable(@FilterChannel int channel, boolean enable) {
+        String spKey = String.format(Locale.getDefault(), KEY_EQ_FILTER_ENABLE, channel);
         SPCacheHelper.getInstance().put(spKey, enable);
     }
 
@@ -129,7 +134,7 @@ public final class EqFilterManager {
      */
     public int getFilterFreq(@FilterChannel int channel) {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_FILTER_FREQ, channel);
-        return SPCacheHelper.getInstance().getInt(spKey, EqFilterDataLogic.HPF[0]);
+        return SPCacheHelper.getInstance().getInt(spKey, DEF_FILTER_FREQ);
     }
 
     /**
@@ -151,7 +156,7 @@ public final class EqFilterManager {
      */
     public int getFilterSlope(@FilterChannel int channel) {
         String spKey = String.format(Locale.getDefault(), KEY_EQ_FILTER_SLOPE, channel);
-        return SPCacheHelper.getInstance().getInt(spKey, EqFilterDataLogic.SLOPES[1]);
+        return SPCacheHelper.getInstance().getInt(spKey, DEF_FILTER_SLOPE);
     }
 
     /**
@@ -179,6 +184,19 @@ public final class EqFilterManager {
      */
     public void saveCurrentFilter(@FilterChannel int channel) {
         SPCacheHelper.getInstance().put(KEY_EQ_FILTER_CURRENT, channel);
+    }
+
+    /**
+     * 获取默认的滤波参数
+     *
+     * @return 默认的滤波参数(其中通道未设置)
+     */
+    public EqFilterParam getDefaultEqFilterParam() {
+        EqFilterParam param = new EqFilterParam();
+        param.enable = DEF_FILTER_ENABLE;
+        param.freq = DEF_FILTER_FREQ;
+        param.slope = DEF_FILTER_SLOPE;
+        return param;
     }
 
 

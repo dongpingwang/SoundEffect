@@ -26,7 +26,7 @@
         <com.flyaudio.lib.ui.flyaudio.FlyTabIcon
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_item_height"
-            android:text="@string/listen_position"
+            android:text="@string/sound_field"
             app:tabIcon="@drawable/selector_tab_listen_position" />
 
         <com.flyaudio.lib.ui.flyaudio.FlyTabIcon

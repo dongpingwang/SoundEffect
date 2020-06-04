@@ -131,14 +131,15 @@ public class SoundEffectView extends FrameLayout {
         for (NumberSelector numberSelector : selectors) {
             numberSelector.setAdjusting(false);
         }
-        for (int i = 0; i < selectorTypes.size(); i++) {
-            int speaker = ListenPositionManager.getInstance().speakerType2Index(selectorTypes.get(i));
-            if (speaker >= 0 && speaker < selectors.size()) {
-                selectors.get(speaker).setAdjusting(true);
+        if (selectorTypes != null) {
+            for (int i = 0; i < selectorTypes.size(); i++) {
+                int speaker = ListenPositionManager.getInstance().speakerType2Index(selectorTypes.get(i));
+                if (speaker >= 0 && speaker < selectors.size()) {
+                    selectors.get(speaker).setAdjusting(true);
+                }
             }
         }
     }
-
 
     private int indexOfSelector(@Constants.ListenPositionSpeakerType int selectorType) {
         for (int i = 0; i < Constants.SPEAKER_TYPES.length; i++) {

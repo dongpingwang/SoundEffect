@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/comm_margin"
-            android:text="@string/listen_position"
+            android:text="@string/sound_field"
             android:textColor="@color/text_color_normal"
             android:textSize="@dimen/font_20" />
 

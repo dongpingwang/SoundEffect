@@ -59,19 +59,23 @@ public class CheckButton extends FrameLayout {
         setOffRemindText(typedArray.getString(R.styleable.CheckButton_off_remind_text));
         setOnText(typedArray.getString(R.styleable.CheckButton_on_text));
         setOffText(typedArray.getString(R.styleable.CheckButton_off_text));
-        setChecked(typedArray.getBoolean(R.styleable.CheckButton_checked, false));
+        setChecked(typedArray.getBoolean(R.styleable.CheckButton_checked, false), false);
         setCheckable(typedArray.getBoolean(R.styleable.CheckButton_checkable, true));
         typedArray.recycle();
         setBackgroundResource(R.drawable.comm_check_button_bg);
         inflateView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                setChecked(!isChecked());
+                setChecked(!isChecked(), true);
             }
         });
     }
 
     public void setChecked(boolean checked) {
+        setChecked(checked, false);
+    }
+
+    private void setChecked(boolean checked, boolean byTouch) {
         remindTv.setCompoundDrawablesWithIntrinsicBounds(checked ? onRemindIcon : offRemindIcon,
                 null, null, null);
         remindTv.setText(checked ? onRemindText : offRemindText);
@@ -94,7 +98,7 @@ public class CheckButton extends FrameLayout {
         if (isChecked != checked) {
             isChecked = checked;
             if (onCheckedChangeListener != null) {
-                onCheckedChangeListener.onCheckedChanged(this, isChecked);
+                onCheckedChangeListener.onCheckedChanged(this, isChecked, byTouch);
             }
         }
     }
@@ -215,7 +219,8 @@ public class CheckButton extends FrameLayout {
          *
          * @param checkBtn  当前按钮
          * @param isChecked 是否处于选中状态
+         * @param byTouch   是否手动切换
          */
-        void onCheckedChanged(CheckButton checkBtn, boolean isChecked);
+        void onCheckedChanged(CheckButton checkBtn, boolean isChecked, boolean byTouch);
     }
 }

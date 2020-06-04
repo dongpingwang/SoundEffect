@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/tv_value"
-        android:layout_width="65dp"
+        android:layout_width="74dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="19.46dp"
         android:gravity="center"
@@ -39,7 +39,7 @@
         android:id="@+id/btn_up"
         android:layout_width="@dimen/eq_iv_arrow_width"
         android:layout_height="@dimen/eq_iv_arrow_height"
-        android:layout_marginStart="20.16dp"
+        android:layout_marginStart="18.16dp"
         android:background="@drawable/comm_adjust_button_bg"
         android:src="@drawable/ic_eq_arrow_right" />
 

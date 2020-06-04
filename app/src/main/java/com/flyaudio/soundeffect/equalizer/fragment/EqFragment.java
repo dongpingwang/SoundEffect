@@ -100,6 +100,9 @@ public class EqFragment extends BaseFragment {
     }
 
     private void editEqMode(final int position) {
+        if (position < 0 || position > adapter.getDatas().size()) {
+            return;
+        }
         if (eqEditDialog == null) {
             eqEditDialog = new EqReNameDialog(context());
         }

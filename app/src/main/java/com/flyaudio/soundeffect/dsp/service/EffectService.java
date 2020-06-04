@@ -2,12 +2,14 @@ package com.flyaudio.soundeffect.dsp.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.flyaudio.soundeffect.delay.logic.DelayManager;
 import com.flyaudio.soundeffect.equalizer.bean.EqDataBean;
 import com.flyaudio.soundeffect.equalizer.logic.EqManager;
+import com.flyaudio.soundeffect.filter.bean.EqFilterParam;
 import com.flyaudio.soundeffect.filter.logic.EqFilterManager;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 import com.flyaudio.soundeffect.speaker.logic.SpeakerVolumeManager;
@@ -62,7 +64,7 @@ public class EffectService extends IntentService {
                         setBackRowEnable();
                         break;
                     default:
-                        setEqFilter();
+                        setEqFilter(intent);
                         break;
                 }
 
@@ -116,12 +118,11 @@ public class EffectService extends IntentService {
         BackRowManager.getInstance().setBackRowEnable(BackRowManager.getInstance().isBackRowOn());
     }
 
-    private void setEqFilter() {
-        int channel = EqFilterManager.getInstance().getCurrentFilter();
-        int freq = EqFilterManager.getInstance().getFilterFreq(channel);
-        int slope = EqFilterManager.getInstance().getFilterSlope(channel);
-        boolean enable = EqFilterManager.getInstance().isFilterEnable(channel);
-        EqFilterManager.getInstance().setEqFilter(channel, freq, slope, enable);
+    private void setEqFilter(Intent intent) {
+        EqFilterParam eqFilterParam = intent.getParcelableExtra(Actions.EXTRA_EQ_FILTER_VALUE);
+        if (eqFilterParam != null) {
+            EqFilterManager.getInstance().setEqFilter(eqFilterParam.channel, eqFilterParam.freq, eqFilterParam.slope, eqFilterParam.enable);
+        }
     }
 }
 

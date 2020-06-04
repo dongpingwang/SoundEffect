@@ -83,6 +83,7 @@ public class TimeCalibrationActivity extends BaseActivity {
                 resetDialog.setListener(new ResetDialog.ResetListener() {
                     @Override
                     public void onReset() {
+                        soundEffectView.setAdjusting(null);
                         int[] defaultSpeakerVolumes = delayManager.getDefaultSpeakerDelay(listenPosition);
                         for (int i = 0; i < defaultSpeakerVolumes.length; i++) {
                             setDelay(listenPosition, listenPositionManager.index2SpeakerType(i), defaultSpeakerVolumes[i]);

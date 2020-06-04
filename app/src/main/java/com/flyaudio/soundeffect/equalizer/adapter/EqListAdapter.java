@@ -61,6 +61,9 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
             tvName.setText(getData(position).getName());
             if (current >= 0 && current < getDatas().size() && current == position) {
                 holder.getContentView().setBackground(ResUtils.getDrawable(R.drawable.bg_eq_item_select));
+                ivEdit.setSelected(true);
+            } else {
+                ivEdit.setSelected(false);
             }
         }
 

@@ -6,6 +6,7 @@ import com.flyaudio.lib.utils.AppUtils;
 import com.flyaudio.soundeffect.dsp.dsp.DspConstants;
 import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
 import com.flyaudio.soundeffect.dsp.dsp.check.IDspCheck;
+import com.flyaudio.soundeffect.filter.bean.EqFilterParam;
 
 /**
  * @author Dongping Wang
@@ -84,8 +85,11 @@ public final class EffectManager implements IDspCheck.DspServiceConnection {
         startService(Actions.EXTRA_SET_TRUMPET_BACK_ROW);
     }
 
-    public void setEqFilter() {
-        startService(Actions.EXTRA_SET_EQ_FILTER);
+    public void setEqFilter(EqFilterParam param) {
+        Intent intent = getIntent(Actions.EXTRA_SET_EQ_FILTER)
+                .putExtra(Actions.EXTRA_EQ_FILTER_VALUE, param);
+        AppUtils.getContext().startService(intent);
+
     }
 
     private void startService(int effectType) {

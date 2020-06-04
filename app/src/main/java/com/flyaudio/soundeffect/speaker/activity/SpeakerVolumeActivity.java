@@ -75,6 +75,7 @@ public class SpeakerVolumeActivity extends BaseActivity {
                 resetDialog.setListener(new ResetDialog.ResetListener() {
                     @Override
                     public void onReset() {
+                        soundEffectView.setAdjusting(null);
                         int[] defaultSpeakerVolumes = speakerVolumeManager.getDefaultSpeakerVolumes(listenPosition);
                         for (int i = 0; i < defaultSpeakerVolumes.length; i++) {
                             setVolume(listenPosition, listenPositionManager.index2SpeakerType(i), defaultSpeakerVolumes[i]);

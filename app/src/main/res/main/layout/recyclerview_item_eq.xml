@@ -5,7 +5,6 @@
     android:id="@+id/rl_root"
     android:layout_width="127.57dp"
     android:layout_height="100.54dp"
-    android:layout_gravity="center"
     android:layout_marginEnd="18.38dp"
     android:layout_marginBottom="16.22dp">
 
@@ -13,8 +12,8 @@
         android:id="@+id/iv_edit"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@mipmap/ic_more"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/selector_eq_ic_more" />
 
     <TextView
         android:id="@+id/tv_name"

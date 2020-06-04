@@ -56,6 +56,10 @@ final class Actions {
      */
     static final int EXTRA_SET_TRUMPET_BACK_ROW = 8;
 
+    /**
+     * 设置高低通滤波
+     */
     static final int EXTRA_SET_EQ_FILTER = 9;
+    static final String EXTRA_EQ_FILTER_VALUE = "eq_filter_param";
 
 }
