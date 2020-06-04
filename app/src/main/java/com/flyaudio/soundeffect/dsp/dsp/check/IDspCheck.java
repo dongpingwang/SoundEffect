@@ -28,6 +28,12 @@ public interface IDspCheck {
      */
     void registerServiceConnection(DspServiceConnection connection);
 
+    /**
+     * 反注册dsp远程服务连接监听
+     *
+     * @param connection 监听回调
+     */
+    void unregisterServiceConnection(DspServiceConnection connection);
 
     interface DspServiceConnection {
         /**

@@ -67,6 +67,15 @@ public class BaseCheck implements IDspCheck, DspManager.ServiceConnection {
     }
 
     @Override
+    public void unregisterServiceConnection(DspServiceConnection connection) {
+        if (DEBUG) {
+            Logger.d("unregisterServiceConnection:");
+        }
+        connections.remove(connection);
+        getDspManager().unregisterServiceConnection(this);
+    }
+
+    @Override
     public void onServiceConnected() {
         if (DEBUG) {
             Logger.d("onServiceConnected:");

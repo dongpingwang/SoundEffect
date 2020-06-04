@@ -20,7 +20,8 @@ import com.flyaudio.soundeffect.backup.logic.ScanManager;
 import com.flyaudio.soundeffect.backup.logic.UsbManager;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.ProgressStateView;
-import com.flyaudio.soundeffect.main.event.EventContent;
+import com.flyaudio.soundeffect.main.event.Event;
+import com.flyaudio.soundeffect.main.event.EventPoster;
 
 import java.io.File;
 import java.util.List;
@@ -133,7 +134,7 @@ public class ImportEffectActivity extends BaseActivity implements UsbManager.Usb
                     updateViewVisibility(true, "");
                     progressStateView.complete(ResUtils.getString(R.string.imported));
                     if (result) {
-                        EventContent.sendDataRestore();
+                        EventPoster.getDefaultPoster().post(Event.RESTORE_DATA);
                     }
                 }
 

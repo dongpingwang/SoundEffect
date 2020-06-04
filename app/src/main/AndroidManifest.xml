@@ -67,13 +67,22 @@
             android:name=".test.activity.TestActivity"
             android:screenOrientation="landscape" />
 
-        <!--提供framework在媒体记忆前拉起音效服务，进行初始化-->
+        <!--音效Dsp执行服务-->
         <service android:name=".dsp.service.EffectService">
             <intent-filter>
                 <action android:name="flyaudio.init.dsp.effect" />
             </intent-filter>
         </service>
 
+        <!--车机开机广播-->
+        <receiver android:name=".main.receiver.BootReceiver">
+            <intent-filter android:priority="0x7FFFFFFF">
+                <action android:name="android.intent.action.BOOT_COMPLETED" /><!--重启广播-->
+                <action android:name="com.flyaudio.intent.action.BOOT_ANIMATION_COMPLETE" /> <!--动画结束广播-->
+                <action android:name="flyaudio.intent.action.ACC_ON" /> <!--acc_on广播-->
+                <action android:name="android.intent.action.ACTION_PREBOOT_IPO" /><!--休眠起来广播-->
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

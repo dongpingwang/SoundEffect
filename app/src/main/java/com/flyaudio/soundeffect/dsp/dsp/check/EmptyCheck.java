@@ -35,4 +35,11 @@ public class EmptyCheck implements IDspCheck {
             Logger.d("registerServiceConnection: " );
         }
     }
+
+    @Override
+    public void unregisterServiceConnection(DspServiceConnection connection) {
+        if (DEBUG) {
+            Logger.d("unregisterServiceConnection: " );
+        }
+    }
 }

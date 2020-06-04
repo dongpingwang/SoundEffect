@@ -21,11 +21,11 @@ public class SoundEffectApplication extends BaseApplication {
                 EffectManager.getInstance().init();
             }
         });
-
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
+        EffectManager.getInstance().deInit();
     }
 }
