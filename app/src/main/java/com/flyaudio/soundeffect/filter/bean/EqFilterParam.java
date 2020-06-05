@@ -20,6 +20,12 @@ public class EqFilterParam implements Parcelable {
 
     }
 
+    public EqFilterParam(int freq, int slope, boolean enable) {
+        this.freq = freq;
+        this.slope = slope;
+        this.enable = enable;
+    }
+
     protected EqFilterParam(Parcel in) {
         channel = in.readInt();
         freq = in.readInt();

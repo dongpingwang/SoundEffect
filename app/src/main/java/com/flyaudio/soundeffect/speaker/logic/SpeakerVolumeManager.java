@@ -59,7 +59,12 @@ public final class SpeakerVolumeManager {
     public int getSpeakerVolume(@Constants.ListenPositionType int position,
                                 @Constants.ListenPositionSpeakerType int speaker) {
         String spKey = String.format(Locale.getDefault(), KEY_SPEAKER_VOLUME, position, speaker);
-        int defaultVolume = getSpeakerVolumeMap().get(position).get(speaker).getDefaultValue();
+        int defaultVolume;
+        try {
+            defaultVolume = getSpeakerVolumeMap().get(position).get(speaker).getDefaultValue();
+        } catch (Exception e) {
+            defaultVolume = 0;
+        }
         return SPCacheHelper.getInstance().getInt(spKey, defaultVolume);
     }
 

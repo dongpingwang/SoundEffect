@@ -197,11 +197,9 @@ public class EqFilterActivity extends BaseActivity {
 
     private void updateCurrentFilter(int channel) {
         if (eqFilterParam == null) {
-            eqFilterParam = new EqFilterParam();
+            eqFilterParam = new EqFilterParam(eqFilterManager.getFilterFreq(channel), eqFilterManager.getFilterSlope(channel),
+                    eqFilterManager.isFilterEnable(channel));
             eqFilterParam.channel = channel;
-            eqFilterParam.enable = eqFilterManager.isFilterEnable(channel);
-            eqFilterParam.freq = eqFilterManager.getFilterFreq(channel);
-            eqFilterParam.slope = eqFilterManager.getFilterSlope(channel);
         } else {
             if (eqFilterParam.channel != channel) {
                 eqFilterParam.channel = channel;

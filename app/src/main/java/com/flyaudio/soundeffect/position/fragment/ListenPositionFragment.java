@@ -1,16 +1,19 @@
 package com.flyaudio.soundeffect.position.fragment;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
+import com.flyaudio.soundeffect.comm.base.AbstractFragment;
 import com.flyaudio.soundeffect.comm.view.ListenPositionButtons;
 import com.flyaudio.soundeffect.comm.view.SpeakersLayout;
 import com.flyaudio.soundeffect.delay.activity.TimeCalibrationActivity;
 import com.flyaudio.soundeffect.dsp.service.EffectManager;
+import com.flyaudio.soundeffect.main.event.Event;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 import com.flyaudio.soundeffect.speaker.activity.SpeakerVolumeActivity;
@@ -23,7 +26,7 @@ import com.flyaudio.soundeffect.trumpet.logic.BackRowManager;
  * date 20-4-24
  * email wangdongping@flyaudio.cn
  */
-public class ListenPositionFragment extends BaseFragment implements View.OnClickListener,
+public class ListenPositionFragment extends AbstractFragment implements View.OnClickListener,
         ListenPositionButtons.ListenPositionCheckedListener {
 
     public static final String INTENT_POSITION_NAME = "position_name";
@@ -41,7 +44,7 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
     }
 
     @Override
-    protected void init() {
+    protected void onInit() {
         initView();
         initData();
     }
@@ -100,4 +103,10 @@ public class ListenPositionFragment extends BaseFragment implements View.OnClick
         startActivity(intent);
     }
 
+    @Override
+    public void onEvent(String event) {
+        if (TextUtils.equals(event, Event.RESTORE_DATA)) {
+            initData();
+        }
+    }
 }

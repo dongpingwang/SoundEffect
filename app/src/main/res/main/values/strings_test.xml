@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <string name="eq_mode_data_surmise">
+                                      EQ模式
+                                      \n 名称: %s \n
+                                      id:  %d \n
+                                      频率: %s \n
+                                      增益： %s \n
+                                      Q值： %s  \n
+                                      当前Index： %d   </string>
+    <string name="listen_position_data_surmise">
+                                      \n 收听位置
+                                      \n 位置: %s \n
+                                      扬声器音量(dB):  %s \n
+                                      时间校准(0.1ms): %s \n
+                                      </string>
+    <string name="trumpet_setting_data_surmise">
+                                      喇叭设置\n
+                                      重低音输出开启  %s \n
+                                      重低音是否反相  %s \n
+                                      后排输出开启: %s \n
+                                      </string>
+
+    <string name="attenuator_data_surmise">
+                                       衰减平衡 \n
+                                       平衡值(dB): %s \n
+                                      </string>
+    <string name="volume_data_surmise">
+                                       喇叭音量(扬声器设置与衰减平衡叠加) \n
+                                       音量值(dB): %s \n
+                                      </string>
+
+    <string name="eq_filter_data_surmise">
+                                       高低通滤波 \n
+                                       前排HPF: %s \n
+                                       后排HPF: %s \n
+                                       重低音LPF: %s \n
+                                      </string>
+
+
+    <string name="test_app_data">音效数据测试</string>
+    <string name="clear_app_data">清空数据</string>
+    <string name="app_data_has_been_cleared">音效数据已清空</string>
+</resources>

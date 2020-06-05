@@ -62,7 +62,12 @@ public final class DelayManager {
     public int getDelay(@Constants.ListenPositionType int position,
                         @Constants.ListenPositionSpeakerType int speaker) {
         String spKey = String.format(Locale.getDefault(), KEY_CHANNEL_DELAY, position, speaker);
-        int defaultVolume = getChannelDelayMap().get(position).get(speaker).getDefaultValue();
+        int defaultVolume;
+        try {
+            defaultVolume = getChannelDelayMap().get(position).get(speaker).getDefaultValue();
+        } catch (Exception e) {
+            defaultVolume = 0;
+        }
         return SPCacheHelper.getInstance().getInt(spKey, defaultVolume);
     }
 

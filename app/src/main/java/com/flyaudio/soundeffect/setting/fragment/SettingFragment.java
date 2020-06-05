@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.flyaudio.lib.adapter.RecyclerViewAdapter;
-import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.lib.constant.TimeUnit;
 import com.flyaudio.soundeffect.R;
+import com.flyaudio.soundeffect.comm.base.AbstractFragment;
 import com.flyaudio.soundeffect.config.AppPreferences;
 import com.flyaudio.soundeffect.setting.util.SettingUtils;
 import com.flyaudio.soundeffect.setting.adapter.SettingListAdapter;
@@ -20,7 +20,7 @@ import com.flyaudio.soundeffect.test.activity.TestActivity;
  * @date 20-4-24
  * email wangdongping@flyaudio.cn
  */
-public class SettingFragment extends BaseFragment implements RecyclerViewAdapter.OnItemClickListener {
+public class SettingFragment extends AbstractFragment implements RecyclerViewAdapter.OnItemClickListener {
 
     private long[] mHints = new long[5];
     private RecyclerView rvSettingList;
@@ -31,7 +31,7 @@ public class SettingFragment extends BaseFragment implements RecyclerViewAdapter
     }
 
     @Override
-    protected void init() {
+    protected void onInit() {
         rvSettingList = getView(R.id.rv_setting_list);
         SettingListAdapter adapter = new SettingListAdapter(context(), SettingUtils.getNames());
         LinearLayoutManager layoutManager = new LinearLayoutManager(context(), LinearLayoutManager.VERTICAL, false);

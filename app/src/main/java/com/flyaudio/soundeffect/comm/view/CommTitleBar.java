@@ -64,6 +64,10 @@ public class CommTitleBar extends FrameLayout implements View.OnClickListener {
         tvName.setText(titleName);
     }
 
+    public void setActionName(String actionName) {
+        tvReset.setText(actionName);
+    }
+
     public void updateResetVisibility(boolean visible) {
         tvReset.setVisibility(visible ? VISIBLE : GONE);
     }

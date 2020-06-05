@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_comm_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/comm_margin"
+        android:layout_marginEnd="@dimen/comm_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_eq_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/font_16"
+                tools:text="EQ模式数据" />
+
+            <TextView
+                android:id="@+id/tv_listen_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/font_16"
+                tools:text="收听位置数据" />
+
+            <TextView
+                android:id="@+id/tv_trumpet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/font_16"
+                tools:text="喇叭设置数据" />
+
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/font_16"
+                tools:text="衰减平衡数据" />
+
+            <TextView
+                android:id="@+id/tv_volume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/font_16"
+                tools:text="喇叭音量数据(扬声器设置与衰减平衡叠加)" />
+
+            <TextView
+                android:id="@+id/tv_eq_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_normal"
+                android:textSize="@dimen/font_16"
+                tools:text="高低通滤波数据" />
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>

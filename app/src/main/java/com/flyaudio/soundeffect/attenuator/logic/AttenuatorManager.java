@@ -1,8 +1,6 @@
 package com.flyaudio.soundeffect.attenuator.logic;
 
 import android.support.annotation.IntRange;
-import android.support.annotation.Size;
-
 import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.soundeffect.dsp.service.EffectManager;
@@ -19,8 +17,8 @@ import java.util.Locale;
  */
 public final class AttenuatorManager extends TouchValueLogic {
 
-    private static final int BALANCE_MIN = -100;
-    private static final int BALANCE_MAX = 0;
+    public static final int BALANCE_MIN = -100;
+    public static final int BALANCE_MAX = 0;
 
     /**
      * 保存衰减平衡的喇叭音量
@@ -191,7 +189,7 @@ public final class AttenuatorManager extends TouchValueLogic {
      * @param speaker 相应位置的喇叭
      * @return 相应喇叭的衰减平衡音量
      */
-    private int getBalance(@Constants.ListenPositionSpeakerType int speaker) {
+    public int getBalance(@Constants.ListenPositionSpeakerType int speaker) {
         String spKey = String.format(Locale.getDefault(), KEY_BALANCE, speaker);
         return SPCacheHelper.getInstance().getInt(spKey, 0);
     }

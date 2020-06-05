@@ -12,6 +12,7 @@
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -65,6 +66,7 @@
         <!--测试模块-->
         <activity
             android:name=".test.activity.TestActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape" />
 
         <!--音效Dsp执行服务-->

@@ -63,8 +63,10 @@ final class BackupHelper {
 
     static boolean restore(File sourceFile) {
         boolean success = false;
+        SPCacheHelper spHelper = SPCacheHelper.getInstance();
+        // TODO 注意导入失败的情况
+        spHelper.clear();
         try {
-            SPCacheHelper spHelper = SPCacheHelper.getInstance();
             FileInputStream fis = new FileInputStream(sourceFile);
             XmlPullParser parser = Xml.newPullParser();
             parser.setInput(fis, "UTF-8");

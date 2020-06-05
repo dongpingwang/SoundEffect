@@ -1,8 +1,6 @@
 package com.flyaudio.soundeffect.equalizer.fragment;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +8,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.lib.toast.Toaster;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
+
+import com.flyaudio.soundeffect.comm.base.AbstractFragment;
 import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.equalizer.activity.EqAdjustActivity;
 import com.flyaudio.soundeffect.equalizer.adapter.EqListAdapter;
@@ -21,6 +20,7 @@ import com.flyaudio.soundeffect.equalizer.bean.EqMode;
 import com.flyaudio.soundeffect.equalizer.dialog.EqDeleteDialog;
 import com.flyaudio.soundeffect.equalizer.dialog.EqReNameDialog;
 import com.flyaudio.soundeffect.equalizer.logic.EqManager;
+import com.flyaudio.soundeffect.main.event.Event;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ import java.util.List;
  * @date 20-4-24
  * email wangdongping@flyaudio.cn
  */
-public class EqFragment extends BaseFragment {
+public class EqFragment extends AbstractFragment {
 
     private static final int DEFAULT_SPAN_COUNT = 4;
     private static final int EQ_MODE_MAX_COUNT = 30;
@@ -48,7 +48,7 @@ public class EqFragment extends BaseFragment {
     }
 
     @Override
-    protected void init() {
+    protected void onInit() {
         initView();
         initAdapter();
     }
@@ -173,5 +173,11 @@ public class EqFragment extends BaseFragment {
         }
     };
 
-
+    @Override
+    public void onEvent(String event) {
+        if (TextUtils.equals(event, Event.RESTORE_DATA)) {
+            adapter.updateAdapter(eqManager.getEqList());
+            adapter.updateCheckedById(eqManager.getCurrentEq());
+        }
+    }
 }

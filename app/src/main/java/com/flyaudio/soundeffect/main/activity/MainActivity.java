@@ -3,10 +3,10 @@ package com.flyaudio.soundeffect.main.activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import com.flyaudio.lib.base.BaseActivity;
 import com.flyaudio.lib.ui.flyaudio.FlyTabBar;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.backup.logic.UsbManager;
+import com.flyaudio.soundeffect.comm.base.AbstractActivity;
 import com.flyaudio.soundeffect.equalizer.fragment.EqFragment;
 import com.flyaudio.soundeffect.position.fragment.ListenPositionFragment;
 import com.flyaudio.soundeffect.setting.fragment.SettingFragment;
@@ -16,7 +16,7 @@ import com.flyaudio.soundeffect.setting.fragment.SettingFragment;
  * @date 20-4-24
  * email wangdongping@flyaudio.cn
  */
-public class MainActivity extends BaseActivity implements FlyTabBar.OnSelectedIndexChangedListener {
+public class MainActivity extends AbstractActivity implements FlyTabBar.OnSelectedIndexChangedListener {
 
     private static final int FRAGMENT_EQ = 0;
     private static final int FRAGMENT_POSITION = 1;
@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity implements FlyTabBar.OnSelectedIn
     }
 
     @Override
-    protected void init() {
+    protected void onInit() {
         initTabs();
         UsbManager.getInstance().init();
     }
@@ -62,10 +62,8 @@ public class MainActivity extends BaseActivity implements FlyTabBar.OnSelectedIn
         ft.commit();
     }
 
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        UsbManager.getInstance().deInit();
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

@@ -45,7 +45,7 @@ public final class VolumeManager {
         SPCacheHelper.getInstance().put(spKey, volume);
     }
 
-    private int getVolume(@Constants.ListenPositionSpeakerType int speaker) {
+    public int getVolume(@Constants.ListenPositionSpeakerType int speaker) {
         // 默认是扬声器的音量
         String spKey = String.format(Locale.getDefault(), KEY_VOLUME, speaker);
         int defaultValue = SpeakerVolumeManager.getInstance().getSpeakerVolumeMap().
