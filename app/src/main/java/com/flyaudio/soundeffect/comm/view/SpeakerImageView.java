@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+
 import com.flyaudio.soundeffect.R;
 
 /**
@@ -17,7 +18,7 @@ import com.flyaudio.soundeffect.R;
  * date 2019.12.25
  * email wangdongping@flyaudio.cn
  */
-public class SpeakerImageView extends ImageView implements ValueAnimator.AnimatorUpdateListener{
+public class SpeakerImageView extends ImageView implements ValueAnimator.AnimatorUpdateListener {
 
     private static final long ANIMATOR_TIME = 2000;
 
@@ -29,11 +30,11 @@ public class SpeakerImageView extends ImageView implements ValueAnimator.Animato
     private Paint mPaint;
 
     public SpeakerImageView(Context context) {
-        this(context,null,0);
+        this(context, null, 0);
     }
 
     public SpeakerImageView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public SpeakerImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -41,20 +42,20 @@ public class SpeakerImageView extends ImageView implements ValueAnimator.Animato
         init();
     }
 
-    private void init(){
+    private void init() {
         speaker = getResources().getDrawable(R.drawable.comm_speaker, null);
 
         int strokeWidth = 2;
         int speakerSize = Math.max(speaker.getIntrinsicWidth(), speaker.getIntrinsicHeight());
-        speakerSize = (int) (Math.sqrt(speakerSize*speakerSize*2) + 0.5f);
+        speakerSize = (int) (Math.sqrt(speakerSize * speakerSize * 2) + 0.5f);
 
-        minDiffusionCircleRadius = (int) ((speakerSize + getResources().getDimension(R.dimen.car_speaker_min_diffusion_diameter))/2f + 0.5f);
+        minDiffusionCircleRadius = (int) ((speakerSize + getResources().getDimension(R.dimen.car_speaker_min_diffusion_diameter)) / 2f + 0.5f);
         maxDiffusionCircleRadius = (int) (minDiffusionCircleRadius + getResources().getDimension(R.dimen.car_speaker_max_diffusion_diameter) + 0.5f);
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStrokeWidth(strokeWidth);
-        mPaint.setColor(getResources().getColor(R.color.theme_color,null));
+        mPaint.setColor(getResources().getColor(R.color.theme_color, null));
 
         diffusionCircleValueAnimator = ValueAnimator.ofInt(minDiffusionCircleRadius, maxDiffusionCircleRadius);
         diffusionCircleValueAnimator.setDuration(ANIMATOR_TIME);
@@ -69,8 +70,8 @@ public class SpeakerImageView extends ImageView implements ValueAnimator.Animato
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(isEnabled()) {
-            drawDiffusionSpeaker(canvas, getWidth()/2, getHeight()/2);
+        if (isEnabled()) {
+            drawDiffusionSpeaker(canvas, getWidth() / 2, getHeight() / 2);
         }
     }
 
@@ -79,6 +80,7 @@ public class SpeakerImageView extends ImageView implements ValueAnimator.Animato
         super.onDetachedFromWindow();
         if (diffusionCircleValueAnimator.isRunning()) {
             diffusionCircleValueAnimator.cancel();
+            diffusionCircleValueAnimator.removeUpdateListener(this);
         }
     }
 
@@ -92,22 +94,22 @@ public class SpeakerImageView extends ImageView implements ValueAnimator.Animato
         mPaint.setAlpha(calculateAlpha(circleRadius));
         canvas.drawCircle(centerX, centerY, circleRadius, mPaint);
 
-        circleRadius += (maxDiffusionCircleRadius - minDiffusionCircleRadius)/2;
-        circleRadius = minDiffusionCircleRadius + (circleRadius - minDiffusionCircleRadius)%(maxDiffusionCircleRadius - minDiffusionCircleRadius);
+        circleRadius += (maxDiffusionCircleRadius - minDiffusionCircleRadius) / 2;
+        circleRadius = minDiffusionCircleRadius + (circleRadius - minDiffusionCircleRadius) % (maxDiffusionCircleRadius - minDiffusionCircleRadius);
         mPaint.setAlpha(calculateAlpha(circleRadius));
         canvas.drawCircle(centerX, centerY, circleRadius, mPaint);
 
         int speakerW = speaker.getIntrinsicWidth();
         int speakerH = speaker.getIntrinsicHeight();
-        speaker.setBounds(centerX-speakerW/2, centerY-speakerH/2, centerX+speakerW/2, centerY+speakerH/2);
+        speaker.setBounds(centerX - speakerW / 2, centerY - speakerH / 2, centerX + speakerW / 2, centerY + speakerH / 2);
         speaker.draw(canvas);
     }
 
     private int calculateAlpha(int radius) {
-        if(radius <= minDiffusionCircleRadius) {
+        if (radius <= minDiffusionCircleRadius) {
             return 0xff;
         }
-        if(radius >= maxDiffusionCircleRadius) {
+        if (radius >= maxDiffusionCircleRadius) {
             return 0x00;
         }
         return (maxDiffusionCircleRadius - radius) * 0xff / (maxDiffusionCircleRadius - minDiffusionCircleRadius);
@@ -124,8 +126,9 @@ public class SpeakerImageView extends ImageView implements ValueAnimator.Animato
         invalidate();
     }
 
-    public void setDrawable(Drawable drawable){
+    public void setDrawable(Drawable drawable) {
         this.speaker = drawable;
         invalidate();
     }
+
 }

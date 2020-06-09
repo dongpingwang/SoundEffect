@@ -64,8 +64,6 @@ final class BackupHelper {
     static boolean restore(File sourceFile) {
         boolean success = false;
         SPCacheHelper spHelper = SPCacheHelper.getInstance();
-        // TODO 注意导入失败的情况
-        spHelper.clear();
         try {
             FileInputStream fis = new FileInputStream(sourceFile);
             XmlPullParser parser = Xml.newPullParser();
@@ -89,6 +87,8 @@ final class BackupHelper {
                         } else if ("Long".equals(classType)) {
                             spHelper.putLong(key, Long.parseLong(value));
                         }
+                    }else {
+                        spHelper.clear();
                     }
                 }
                 type = parser.next();

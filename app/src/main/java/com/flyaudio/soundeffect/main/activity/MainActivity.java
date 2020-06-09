@@ -1,8 +1,8 @@
 package com.flyaudio.soundeffect.main.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-
 import com.flyaudio.lib.ui.flyaudio.FlyTabBar;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.backup.logic.UsbManager;
@@ -10,6 +10,8 @@ import com.flyaudio.soundeffect.comm.base.AbstractActivity;
 import com.flyaudio.soundeffect.equalizer.fragment.EqFragment;
 import com.flyaudio.soundeffect.position.fragment.ListenPositionFragment;
 import com.flyaudio.soundeffect.setting.fragment.SettingFragment;
+
+import java.util.List;
 
 /**
  * @author Dongping Wang
@@ -21,7 +23,7 @@ public class MainActivity extends AbstractActivity implements FlyTabBar.OnSelect
     private static final int FRAGMENT_EQ = 0;
     private static final int FRAGMENT_POSITION = 1;
     private static final int FRAGMENT_SETTING = 2;
-
+    private static final String KEY_CURRENT_TAB_INDEX = "current_tab_index";
     private FlyTabBar tabBar;
     private Fragment[] fragments = new Fragment[FRAGMENT_SETTING + 1];
 
@@ -43,8 +45,28 @@ public class MainActivity extends AbstractActivity implements FlyTabBar.OnSelect
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_CURRENT_TAB_INDEX, tabBar.getSelectedIndex());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (tabBar != null) {
+            tabBar.setSelectedIndex(savedInstanceState.getInt(KEY_CURRENT_TAB_INDEX, FRAGMENT_EQ));
+        }
+    }
+
+    @Override
     public void onSelectedIndexChanged(int pre, int current) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        List<Fragment> findFragments = getSupportFragmentManager().getFragments();
+        if (findFragments.size() > getFragmentCount()) {
+            for (Fragment fragment : findFragments) {
+                ft.remove(fragment);
+            }
+        }
         if (fragments[current] == null) {
             if (current == FRAGMENT_EQ) {
                 fragments[current] = new EqFragment();
@@ -55,7 +77,7 @@ public class MainActivity extends AbstractActivity implements FlyTabBar.OnSelect
             }
             ft.add(R.id.fl_main, fragments[current]);
         }
-        if (pre >= 0) {
+        if (pre >= 0 && fragments[pre] != null) {
             ft.hide(fragments[pre]);
         }
         ft.show(fragments[current]);
@@ -65,5 +87,15 @@ public class MainActivity extends AbstractActivity implements FlyTabBar.OnSelect
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
+    }
+
+    private int getFragmentCount() {
+        int size = fragments.length;
+        for (Fragment fragment : fragments) {
+            if (fragment == null) {
+                size--;
+            }
+        }
+        return size;
     }
 }
