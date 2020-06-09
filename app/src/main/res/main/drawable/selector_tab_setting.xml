@@ -17,7 +17,9 @@
                     android:tint="@color/tab_selected_color" />
             </item>
             <item>
-                <bitmap android:src="@mipmap/ic_setting" />
+                <bitmap
+                    android:src="@mipmap/ic_setting"
+                    android:tint="@color/tab_normal_color" />
             </item>
         </selector>
     </item>

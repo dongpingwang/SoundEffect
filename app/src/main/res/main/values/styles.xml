@@ -9,7 +9,7 @@
     <style name="eq_gain_left_title_tv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_color_normal</item>
+        <item name="android:textColor">@color/text_color_white</item>
         <item name="android:textSize">@dimen/font_13</item>
         <item name="android:layout_gravity">end</item>
     </style>
@@ -17,7 +17,7 @@
     <style name="dialog_action_tv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_color_normal</item>
+        <item name="android:textColor">@color/text_color_white</item>
         <item name="android:textSize">@dimen/font_15</item>
         <item name="android:background">@drawable/comm_ripple_rectangle_dialog</item>
         <item name="android:padding">5dp</item>

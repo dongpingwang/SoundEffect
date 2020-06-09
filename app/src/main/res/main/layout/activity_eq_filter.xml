@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:singleLine="true"
-            android:textColor="@color/text_color_normal"
+            android:textColor="@color/text_color_white"
             android:textSize="@dimen/font_16"
             android:visibility="gone"
             tools:text="@string/front_row_high_filter_has_closed" />

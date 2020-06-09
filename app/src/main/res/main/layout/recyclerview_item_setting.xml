@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:textColor="@color/text_color_normal"
+        android:textColor="@color/text_color_white"
         android:textSize="@dimen/font_16"
         tools:text="导入音效" />
 

@@ -10,10 +10,10 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="16.75dp"
+        android:background="@drawable/comm_ripple_borderless"
         android:padding="12.97dp"
         android:scaleType="center"
-        android:src="@mipmap/comm_title_bar_back"
-        android:background="@drawable/comm_ripple_borderless"/>
+        android:src="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/tv_title_name"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="68.11dp"
-        android:textColor="@color/text_color_normal"
+        android:textColor="@color/text_color_white"
         android:textSize="@dimen/font_16"
         tools:text="标题栏" />
 
@@ -31,11 +31,11 @@
         android:layout_width="@dimen/title_action_tv_width"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
+        android:background="@drawable/comm_ripple_rectangle"
         android:gravity="center"
         android:text="@string/reset"
         android:textColor="@color/text_color_highlight"
-        android:textSize="@dimen/font_16"
-        android:background="@drawable/comm_ripple_rectangle"/>
+        android:textSize="@dimen/font_16" />
 
     <View
         android:layout_width="match_parent"

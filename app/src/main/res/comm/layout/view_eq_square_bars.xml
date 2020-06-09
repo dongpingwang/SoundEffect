@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:singleLine="true"
-        android:textColor="@color/text_color_normal8"
+        android:textColor="@color/text_color_white8"
         android:textSize="@dimen/eq_progress_font"
         android:visibility="gone"
         tools:text="+6" />
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textColor="@color/text_color_normal8"
+        android:textColor="@color/text_color_white8"
         android:textSize="@dimen/eq_progress_font"
         tools:text="1.33KHz" />
 </LinearLayout>

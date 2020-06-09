@@ -6,10 +6,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.flyaudio.lib.adapter.Adapter;
 import com.flyaudio.lib.adapter.RecyclerViewAdapter;
-import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.config.EffectCommUtils;
 import com.flyaudio.soundeffect.equalizer.bean.EqMode;
@@ -56,13 +54,13 @@ public class EqListAdapter extends RecyclerViewAdapter<EqMode> implements
         ivAdd.setVisibility(modeItem ? View.GONE : View.VISIBLE);
         ivEdit.setVisibility(modeItem && position >= PRESET_SIZE ? View.VISIBLE : View.GONE);
 
-        holder.getContentView().setBackground(ResUtils.getDrawable(R.drawable.bg_eq_item));
         if (modeItem && position < getDatas().size()) {
             tvName.setText(getData(position).getName());
             if (current >= 0 && current < getDatas().size() && current == position) {
-                holder.getContentView().setBackground(ResUtils.getDrawable(R.drawable.bg_eq_item_select));
+                holder.getContentView().setSelected(true);
                 ivEdit.setSelected(true);
             } else {
+                holder.getContentView().setSelected(false);
                 ivEdit.setSelected(false);
             }
         }

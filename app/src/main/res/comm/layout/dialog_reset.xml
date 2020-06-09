@@ -12,7 +12,7 @@
         android:layout_marginStart="16.22dp"
         android:layout_marginTop="19.46dp"
         android:text="@string/will_you_rest_the_eq_mode"
-        android:textColor="@color/text_color_normal"
+        android:textColor="@color/text_color_white"
         android:textSize="@dimen/font_16" />
 
     <TextView

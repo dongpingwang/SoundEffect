@@ -134,7 +134,7 @@ public class EqSquareBars extends RecyclerView implements RecyclerViewAdapter.On
             } else if (i == 2 && region >= REGION_ALTO) {
                 paintText.setColor(ResUtils.getColor(R.color.eq_progress_adjusting_color));
             } else {
-                paintText.setColor(ResUtils.getColor(R.color.text_color_normal8));
+                paintText.setColor(ResUtils.getColor(R.color.text_color_white8));
             }
             c.drawText(text, x, y, paintText);
         }

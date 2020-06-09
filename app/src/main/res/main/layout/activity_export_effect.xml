@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@string/file_name"
-                android:textColor="@color/text_color_normal"
+                android:textColor="@color/text_color_white"
                 android:textSize="@dimen/font_15" />
 
             <EditText
@@ -38,8 +38,8 @@
                 android:background="@null"
                 android:focusable="false"
                 android:hint="@string/input_valid_file_name"
-                android:textColor="@color/text_color_normal"
-                android:textColorHint="@color/text_color_normal8"
+                android:textColor="@color/text_color_white"
+                android:textColorHint="@color/text_color_white8"
                 android:textSize="@dimen/font_15"
                 tools:text="带感的音效" />
 
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@string/file_path"
-                android:textColor="@color/text_color_normal"
+                android:textColor="@color/text_color_white"
                 android:textSize="@dimen/font_15" />
 
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="6.62dp"
                 android:layout_toEndOf="@id/tv_path"
-                android:textColor="@color/text_color_normal"
+                android:textColor="@color/text_color_white"
                 android:textSize="@dimen/font_15"
                 tools:text="本地主目录" />
 

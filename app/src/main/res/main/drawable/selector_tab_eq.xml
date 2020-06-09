@@ -22,7 +22,7 @@
                     android:tint="@color/tab_selected_color" />
             </item>
             <item>
-                <bitmap android:src="@mipmap/ic_eq" />
+                <bitmap android:src="@mipmap/ic_eq" android:tint="@color/tab_normal_color"/>
             </item>
         </selector>
     </item>

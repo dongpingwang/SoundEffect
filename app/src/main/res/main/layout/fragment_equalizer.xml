@@ -17,7 +17,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/comm_margin"
             android:text="@string/eq_mode"
-            android:textColor="@color/text_color_normal"
+            android:textColor="@color/text_color_white"
             android:textSize="@dimen/font_20" />
 
         <TextView

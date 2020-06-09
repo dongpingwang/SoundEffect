@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:textColor="@color/text_color_normal"
+        android:textColor="@color/text_color_white"
         android:textSize="@dimen/font_16"
         tools:text="正在查找" />
 </LinearLayout>

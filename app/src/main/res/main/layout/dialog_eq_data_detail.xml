@@ -12,7 +12,7 @@
         android:id="@+id/tv_eq_frequencies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color_normal"
+        android:textColor="@color/text_color_white"
         android:textSize="@dimen/font_16"
         tools:text="频率数据" />
 
@@ -20,7 +20,7 @@
         android:id="@+id/tv_eq_gains"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color_normal"
+        android:textColor="@color/text_color_white"
         android:textSize="@dimen/font_16"
         tools:text="增益数据" />
 
@@ -28,7 +28,7 @@
         android:id="@+id/tv_eq_q_values"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color_normal"
+        android:textColor="@color/text_color_white"
         android:textSize="@dimen/font_16"
         tools:text="Q值数据" />
 </LinearLayout>
