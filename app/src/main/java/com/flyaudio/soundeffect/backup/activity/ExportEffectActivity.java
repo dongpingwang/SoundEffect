@@ -85,7 +85,7 @@ public class ExportEffectActivity extends BaseActivity implements UsbManager.Usb
         tvFilePath = getView(R.id.tv_file_path);
         tvSelectPath = getView(R.id.tv_select_path);
 
-        String timeStamp = TimeUtils.date2String(new Date(), "yyyy-MM-dd  HH:mm:ss").replaceAll("\\s| |_|[-]|/|:", "");
+        String timeStamp = TimeUtils.date2String(new Date(), "yyyyMMddHHmmss");
         etFileName.setText(ResUtils.getString(R.string.effect_file, timeStamp));
         tvSelectPath.setOnClickListener(this);
         tvFilePath.setText(backupDevice.getDescription());

@@ -53,6 +53,8 @@ final class BackupHelper {
                 serializer.endTag(null, AppUtils.getPackageName());
                 serializer.endDocument();
                 success = true;
+            } else {
+                Logger.d("音效数据为空!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,7 +89,7 @@ final class BackupHelper {
                         } else if ("Long".equals(classType)) {
                             spHelper.putLong(key, Long.parseLong(value));
                         }
-                    }else {
+                    } else {
                         spHelper.clear();
                     }
                 }
@@ -101,5 +103,6 @@ final class BackupHelper {
         }
         return success;
     }
+
 
 }

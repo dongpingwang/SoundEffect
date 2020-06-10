@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">音效</string>
+    <string name="app_name">音效Pro</string>
     <string name="eq_mode">EQ模式</string>
     <string name="listen_position">收听位置</string>
     <string name="sound_field">声场</string>

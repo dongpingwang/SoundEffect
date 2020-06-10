@@ -40,5 +40,6 @@
 
     <string name="test_app_data">音效数据测试</string>
     <string name="clear_app_data">清空数据</string>
-    <string name="app_data_has_been_cleared">音效数据已清空</string>
+    <string name="app_data_has_been_cleared">音效数据已清空，DSP恢复默认设置</string>
+    <string name="app_data_has_been_empty">还未设置音效数据</string>
 </resources>

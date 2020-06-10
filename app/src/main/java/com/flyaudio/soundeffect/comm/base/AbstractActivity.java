@@ -15,7 +15,7 @@ public abstract class AbstractActivity extends BaseActivity {
     }
 
     /**
-     * Fragment onViewCreated 回调执行
+     * Activity onCreate 回调执行
      */
     protected abstract void onInit();
 }

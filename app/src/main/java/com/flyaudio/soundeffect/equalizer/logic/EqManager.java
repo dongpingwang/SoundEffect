@@ -64,7 +64,6 @@ public final class EqManager extends EqRegionLogic {
             result = getEqListFromSp();
         } else {
             result = getPresetEqList();
-            saveEqList(result);
         }
         return result;
     }
@@ -105,7 +104,6 @@ public final class EqManager extends EqRegionLogic {
             EqMode mode = new EqMode(i, names[i]);
             list.add(mode);
         }
-        saveMaxEqId(names.length - 1);
         return list;
     }
 
@@ -136,7 +134,7 @@ public final class EqManager extends EqRegionLogic {
      * 获取最大的id
      */
     public int getMaxEqId() {
-        return SPCacheHelper.getInstance().getInt(KEY_EQ_INDEX_MAX);
+        return SPCacheHelper.getInstance().getInt(KEY_EQ_INDEX_MAX, EffectCommUtils.getEqNames().length - 1);
     }
 
     /**

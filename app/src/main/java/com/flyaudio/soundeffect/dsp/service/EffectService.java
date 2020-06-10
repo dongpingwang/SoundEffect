@@ -4,8 +4,6 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-
-import com.flyaudio.soundeffect.attenuator.logic.AttenuatorManager;
 import com.flyaudio.soundeffect.delay.logic.DelayManager;
 import com.flyaudio.soundeffect.equalizer.bean.EqDataBean;
 import com.flyaudio.soundeffect.equalizer.logic.EqManager;

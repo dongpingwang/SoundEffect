@@ -1,15 +1,14 @@
 package com.flyaudio.soundeffect.test.activity;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.widget.TextView;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
+import com.flyaudio.lib.sp.SPHelper;
 import com.flyaudio.lib.toast.Toaster;
-import com.flyaudio.lib.utils.AppUtils;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.attenuator.logic.AttenuatorManager;
+import com.flyaudio.soundeffect.backup.logic.BackupManager;
 import com.flyaudio.soundeffect.comm.base.AbstractActivity;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.delay.logic.DelayManager;
@@ -30,6 +29,7 @@ import com.flyaudio.soundeffect.trumpet.logic.SubwooferManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Dongping Wang
@@ -88,10 +88,14 @@ public class TestActivity extends AbstractActivity {
 
             @Override
             public void onReset() {
-                SPCacheHelper.getInstance().clear();
-                EventPoster.getDefaultPoster().post(Event.RESTORE_DATA);
-                Toaster.show(ResUtils.getString(R.string.app_data_has_been_cleared));
-                onBack();
+                if (!BackupManager.getInstance().isDataEmpty()) {
+                    SPCacheHelper.getInstance().clear();
+                    EventPoster.getDefaultPoster().post(Event.RESTORE_DATA);
+                    Toaster.show(ResUtils.getString(R.string.app_data_has_been_cleared));
+                    onBack();
+                } else {
+                    Toaster.show(ResUtils.getString(R.string.app_data_has_been_empty));
+                }
             }
         });
     }

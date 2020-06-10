@@ -57,7 +57,6 @@
         <!--导入音效-->
         <activity
             android:name=".backup.activity.ImportEffectActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
         <!--导出音效-->
         <activity
@@ -71,7 +70,7 @@
 
         <!--音效Dsp执行服务-->
         <service android:name=".dsp.service.EffectService">
-            <intent-filter>
+            <intent-filter android:priority="0x7FFFFFFF">
                 <action android:name="flyaudio.init.dsp.effect" />
             </intent-filter>
         </service>
@@ -85,6 +84,7 @@
                 <action android:name="android.intent.action.ACTION_PREBOOT_IPO" /><!--休眠起来广播-->
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>
