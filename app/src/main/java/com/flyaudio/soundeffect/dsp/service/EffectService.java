@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
+import com.flyaudio.soundeffect.attenuator.logic.AttenuatorManager;
 import com.flyaudio.soundeffect.delay.logic.DelayManager;
 import com.flyaudio.soundeffect.equalizer.bean.EqDataBean;
 import com.flyaudio.soundeffect.equalizer.logic.EqManager;
@@ -16,13 +18,13 @@ import com.flyaudio.soundeffect.trumpet.logic.BackRowManager;
 import com.flyaudio.soundeffect.trumpet.logic.SubwooferManager;
 import com.flyaudio.soundeffect.trumpet.logic.TrumpetManager;
 
-import static com.flyaudio.soundeffect.position.logic.Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_FRONT_LEFT;
-
 /**
  * @author Dongping Wang
  * @date 2020.01.06
  */
 public class EffectService extends IntentService {
+
+    private static final int SPEAKER_FRONT_LEFT = 0;
 
     public EffectService() {
         super("InitLogicService");
@@ -48,6 +50,9 @@ public class EffectService extends IntentService {
                         break;
                     case Actions.EXTRA_SET_DELAY:
                         setDelay(intent);
+                        break;
+                    case Actions.EXTRA_SET_SPEAKER_VOLUME:
+                        setSpeakerVolume(intent);
                         break;
                     case Actions.EXTRA_SET_BALANCE:
                         setBalance(intent);
@@ -93,16 +98,23 @@ public class EffectService extends IntentService {
     }
 
     private void setDelay(Intent intent) {
-        int speaker = intent.getIntExtra(Actions.EXTRA_SPEAKER, LISTEN_POSITION_SPEAKER_FRONT_LEFT);
+        int speaker = intent.getIntExtra(Actions.EXTRA_SPEAKER, SPEAKER_FRONT_LEFT);
         int value = intent.getIntExtra(Actions.EXTRA_DELAY_VALUE, 0);
         DelayManager.getInstance().setDelay(speaker, value);
     }
 
     private void setBalance(Intent intent) {
-        int speaker = intent.getIntExtra(Actions.EXTRA_SPEAKER, LISTEN_POSITION_SPEAKER_FRONT_LEFT);
+        int speaker = intent.getIntExtra(Actions.EXTRA_SPEAKER, SPEAKER_FRONT_LEFT);
         int value = intent.getIntExtra(Actions.EXTRA_BALANCE_VALUE, 0);
+        AttenuatorManager.getInstance().setBalance(speaker, value);
+    }
+
+    private void setSpeakerVolume(Intent intent) {
+        int speaker = intent.getIntExtra(Actions.EXTRA_SPEAKER, SPEAKER_FRONT_LEFT);
+        int value = intent.getIntExtra(Actions.EXTRA_SPEAKER_VOLUME_VALUE, 0);
         SpeakerVolumeManager.getInstance().setSpeakerVolume(speaker, value);
     }
+
 
     private void setSubwooferEnable() {
         SubwooferManager.getInstance().setSubwooferEnable(SubwooferManager.getInstance().isSubwooferOn());

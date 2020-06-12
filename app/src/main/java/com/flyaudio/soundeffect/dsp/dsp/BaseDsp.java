@@ -91,5 +91,13 @@ public class BaseDsp implements IDsp {
         return result;
     }
 
+    @Override
+    public int setChannelVolume(int channel, double volumeValue) {
+        int result = getDspManager().setChannelVolume(channel, volumeValue);
+        if (DEBUG) {
+            Logger.i("setChannelVolume: channel = " + channel + " volumeValue = " + volumeValue + " | result = " + result);
+        }
+        return result;
+    }
 
 }

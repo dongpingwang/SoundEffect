@@ -1,6 +1,7 @@
 package com.flyaudio.soundeffect.speaker.logic;
 
 import com.flyaudio.lib.sp.SPCacheHelper;
+import com.flyaudio.soundeffect.attenuator.logic.AttenuatorManager;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 
@@ -18,6 +19,7 @@ public final class VolumeManager {
     /**
      * 记录调节衰减平衡和扬声器调节后的喇叭音量
      */
+    @Deprecated
     private static final String KEY_VOLUME = "volume_%d";
 
     private VolumeManager() {
@@ -34,17 +36,18 @@ public final class VolumeManager {
 
 
     public void init() {
-        for (int speaker : Constants.SPEAKER_TYPES) {
-            SpeakerVolumeManager.getInstance().setSpeakerVolume(speaker, getVolume(speaker));
-        }
+        SpeakerVolumeManager.getInstance().init();
+        AttenuatorManager.getInstance().init();
     }
 
 
+    @Deprecated
     public void saveVolume(@Constants.ListenPositionSpeakerType int speaker, int volume) {
         String spKey = String.format(Locale.getDefault(), KEY_VOLUME, speaker);
         SPCacheHelper.getInstance().put(spKey, volume);
     }
 
+    @Deprecated
     public int getVolume(@Constants.ListenPositionSpeakerType int speaker) {
         // 默认是扬声器的音量
         String spKey = String.format(Locale.getDefault(), KEY_VOLUME, speaker);

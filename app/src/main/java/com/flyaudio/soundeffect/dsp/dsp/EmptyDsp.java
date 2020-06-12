@@ -61,4 +61,12 @@ public class EmptyDsp implements IDsp {
         }
         return FAIL_CODE;
     }
+
+    @Override
+    public int setChannelVolume(int channel, double volumeValue) {
+        if (DEBUG) {
+            Logger.i("setChannelVolume: channel = " + channel + " volumeValue = " + volumeValue + " | result = " + -1);
+        }
+        return FAIL_CODE;
+    }
 }

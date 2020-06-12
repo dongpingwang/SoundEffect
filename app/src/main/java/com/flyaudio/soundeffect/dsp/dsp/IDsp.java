@@ -56,7 +56,7 @@ public interface IDsp {
 
 
     /**
-     * 音量控制：输出通道音量控制
+     * 衰减平衡设置
      *
      * @param channel      声道选择
      * @param balanceValue 声道增益值
@@ -74,5 +74,15 @@ public interface IDsp {
      * @see DspConstants.Channel
      */
     int setDspPhaseSwitch(int channel, boolean reverse);
+
+    /**
+     * 扬声器音量音量设置
+     *
+     * @param channel     声道选择
+     * @param volumeValue 声道音量
+     * @return 0代表设置成功
+     * @see DspConstants.Channel
+     */
+    int setChannelVolume(int channel, double volumeValue);
 
 }

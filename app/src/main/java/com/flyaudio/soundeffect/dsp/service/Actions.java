@@ -41,25 +41,32 @@ final class Actions {
     /**
      * 设置某个喇叭的音量值
      */
-    static final int EXTRA_SET_BALANCE = 5;
+    static final int EXTRA_SET_SPEAKER_VOLUME = 5;
+    static final String EXTRA_SPEAKER_VOLUME_VALUE = "speaker_volume_value";
+
+    /**
+     * 设置某个喇叭的衰减平衡值
+     */
+    static final int EXTRA_SET_BALANCE = 6;
     static final String EXTRA_BALANCE_VALUE = "balance_value";
     /**
      * 设置重低音喇叭是否打开输出
      */
-    static final int EXTRA_SET_TRUMPET_SUBWOOFER = 6;
+    static final int EXTRA_SET_TRUMPET_SUBWOOFER = 7;
     /**
      * 设置重低音喇叭是否正反相位
      */
-    static final int EXTRA_SET_TRUMPET_SUBWOOFER_REVERSE = 7;
+    static final int EXTRA_SET_TRUMPET_SUBWOOFER_REVERSE = 8;
     /**
      * 设置后排喇叭是否打开输出
      */
-    static final int EXTRA_SET_TRUMPET_BACK_ROW = 8;
+    static final int EXTRA_SET_TRUMPET_BACK_ROW = 9;
 
     /**
      * 设置高低通滤波
      */
-    static final int EXTRA_SET_EQ_FILTER = 9;
+    static final int EXTRA_SET_EQ_FILTER = 10;
     static final String EXTRA_EQ_FILTER_VALUE = "eq_filter_param";
+
 
 }

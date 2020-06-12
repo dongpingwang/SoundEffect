@@ -117,7 +117,7 @@ public final class UsbManager {
                         description = disk.isUsb() ? ResUtils.getString(R.string.usb) : ResUtils.getString(R.string.sdcard);
                     }
                     if (android.os.Build.VERSION.SDK_INT >= VERSION_P) {
-                        // android P 获取到U盘的路径没有写入权限；并且需要是系统应用
+                        // android P 系统应用获取到U盘的路径没有写入权限，替换路径增加-w权限
                         if (path.contains(STORAGE)) {
                             path = path.replace(STORAGE, MNT_MEDIA_RW);
                         }

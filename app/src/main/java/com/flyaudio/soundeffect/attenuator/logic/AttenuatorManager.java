@@ -1,11 +1,13 @@
 package com.flyaudio.soundeffect.attenuator.logic;
 
 import android.support.annotation.IntRange;
+
 import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.sp.SPCacheHelper;
+import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
 import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.position.logic.Constants;
-import com.flyaudio.soundeffect.speaker.logic.VolumeManager;
+import com.flyaudio.soundeffect.trumpet.logic.BackRowManager;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -17,7 +19,7 @@ import java.util.Locale;
  */
 public final class AttenuatorManager extends TouchValueLogic {
 
-    public static final int BALANCE_MIN = -100;
+    public static final int BALANCE_MIN = -144;
     public static final int BALANCE_MAX = 0;
 
     /**
@@ -34,11 +36,23 @@ public final class AttenuatorManager extends TouchValueLogic {
         private static AttenuatorManager instance = new AttenuatorManager();
     }
 
-
     public static AttenuatorManager getInstance() {
         return InstanceHolder.instance;
     }
 
+
+    public void init() {
+        boolean backRowOn = BackRowManager.getInstance().isBackRowOn();
+        for (int i = 0; i < Constants.SPEAKER_TYPES.length - 1; i++) {
+            int balance = getBalance(Constants.SPEAKER_TYPES[i]);
+            boolean backRow = Constants.SPEAKER_TYPES[i] == Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_BACK_LEFT ||
+                    Constants.SPEAKER_TYPES[i] == Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_BACK_RIGHT;
+            if (backRow && !backRowOn) {
+                balance = BALANCE_MIN;
+            }
+            EffectManager.getInstance().setBalance(Constants.SPEAKER_TYPES[i], balance);
+        }
+    }
 
     /**
      * x轴(左右)表示:平衡 y轴(上下):衰减 对应方向的平衡与衰减叠加即为该方向的喇叭值
@@ -50,94 +64,116 @@ public final class AttenuatorManager extends TouchValueLogic {
      * @param y 0-10
      */
     public void setBalanceXYByWeight(@IntRange(from = 0, to = 10) int x, @IntRange(from = 0, to = 10) int y) {
-        Logger.d("坐标为:(%d, %d)", x, y);
+        Logger.i("setXYBalanceByWeight: 坐标范围为0-10, x = " + x + " y = " + y + "衰减平衡最小值为-144");
         int fl, fr, bl, br;
         fl = fr = bl = br = 0;
-        int n = 0, m = 0;
-        if (x < CENTER_LIMIT && y < CENTER_LIMIT) {
+        float n = 0F, m = 0F;
+        if (x <= CENTER_LIMIT && y <= CENTER_LIMIT) {
             // 前左
             fl = 0;
             n = CENTER_LIMIT - x;
             m = CENTER_LIMIT - y;
-            fr = BALANCE_MIN * n / CENTER_LIMIT;
-            bl = BALANCE_MIN * m / CENTER_LIMIT;
-            br = BALANCE_MIN * Math.max(n, m) / CENTER_LIMIT;
-        } else if (x > CENTER_LIMIT && y < CENTER_LIMIT) {
+            fr = Math.round(BALANCE_MIN * n / CENTER_LIMIT);
+            bl = Math.round(BALANCE_MIN * m / CENTER_LIMIT);
+            br = Math.round(BALANCE_MIN * Math.max(n, m) / CENTER_LIMIT);
+        }
+        if (x >= CENTER_LIMIT && y <= CENTER_LIMIT) {
             // 前右
             n = x - CENTER_LIMIT;
             m = CENTER_LIMIT - y;
             fr = 0;
-            fl = BALANCE_MIN * n / CENTER_LIMIT;
-            br = BALANCE_MIN * m / CENTER_LIMIT;
-            bl = BALANCE_MIN * Math.max(n, m) / CENTER_LIMIT;
-        } else if (x < CENTER_LIMIT && y > CENTER_LIMIT) {
+            fl = Math.round(BALANCE_MIN * n / CENTER_LIMIT);
+            br = Math.round(BALANCE_MIN * m / CENTER_LIMIT);
+            bl = Math.round(BALANCE_MIN * Math.max(n, m) / CENTER_LIMIT);
+        }
+        if (x <= CENTER_LIMIT && y >= CENTER_LIMIT) {
             // 后左
             n = CENTER_LIMIT - x;
             m = y - CENTER_LIMIT;
             bl = 0;
-            fl = BALANCE_MIN * m / CENTER_LIMIT;
-            br = BALANCE_MIN * n / CENTER_LIMIT;
-            fr = BALANCE_MIN * Math.max(n, m) / CENTER_LIMIT;
-        } else if (x > CENTER_LIMIT && y > CENTER_LIMIT) {
+            fl = Math.round(BALANCE_MIN * m / CENTER_LIMIT);
+            br = Math.round(BALANCE_MIN * n / CENTER_LIMIT);
+            fr = Math.round(BALANCE_MIN * Math.max(n, m) / CENTER_LIMIT);
+        }
+        if (x >= CENTER_LIMIT && y >= CENTER_LIMIT) {
             // 后右
             n = x - CENTER_LIMIT;
             m = y - CENTER_LIMIT;
             br = 0;
-            fr = BALANCE_MIN * m / CENTER_LIMIT;
-            bl = BALANCE_MIN * n / CENTER_LIMIT;
-            fl = BALANCE_MIN * Math.max(n, m) / CENTER_LIMIT;
+            fr = Math.round(BALANCE_MIN * m / CENTER_LIMIT);
+            bl = Math.round(BALANCE_MIN * n / CENTER_LIMIT);
+            fl = Math.round(BALANCE_MIN * Math.max(n, m) / CENTER_LIMIT);
         }
 
-        if (y == CENTER_LIMIT && x < CENTER_LIMIT) {
+        if (y == CENTER_LIMIT && x <= CENTER_LIMIT) {
             // x轴左部分
             n = CENTER_LIMIT - x;
             m = 0;
             fl = bl = 0;
-            fr = br = BALANCE_MIN * n / CENTER_LIMIT;
-        } else if (y == CENTER_LIMIT && x > CENTER_LIMIT) {
-            //  x轴右部分
+            fr = br = Math.round(BALANCE_MIN * n / CENTER_LIMIT);
+        }
+        if (y == CENTER_LIMIT && x >= CENTER_LIMIT) {
+            // x轴右部分
             n = x - CENTER_LIMIT;
             m = 0;
             fr = br = 0;
-            fl = bl = BALANCE_MIN * n / CENTER_LIMIT;
-        } else if (x == CENTER_LIMIT && y < CENTER_LIMIT) {
+            fl = bl = Math.round(BALANCE_MIN * n / CENTER_LIMIT);
+        }
+        if (x == CENTER_LIMIT && y <= CENTER_LIMIT) {
             // y轴上部分
             n = 0;
             m = CENTER_LIMIT - y;
             fl = fr = 0;
-            bl = br = BALANCE_MIN * m / CENTER_LIMIT;
-        } else if (x == CENTER_LIMIT && y > CENTER_LIMIT) {
+            bl = br = Math.round(BALANCE_MIN * m / CENTER_LIMIT);
+        }
+        if (x == CENTER_LIMIT && y >= CENTER_LIMIT) {
             // y轴下部分
             n = 0;
             m = y - CENTER_LIMIT;
             bl = br = 0;
-            fl = fr = BALANCE_MIN * m / CENTER_LIMIT;
-        } else if (x == CENTER_LIMIT && y == CENTER_LIMIT) {
-            // 原点
-            fl = fr = bl = fr = 0;
+            fl = fr = Math.round(BALANCE_MIN * m / CENTER_LIMIT);
         }
-        int[] values = {fl, fr, bl, br};
-        setBalances(values);
-        saveBalances(values);
+
+        fl = fl > 0 ? 0 : fl < BALANCE_MIN ? BALANCE_MIN : fl;
+        fr = fr > 0 ? 0 : fr < BALANCE_MIN ? BALANCE_MIN : fr;
+        bl = bl > 0 ? 0 : bl < BALANCE_MIN ? BALANCE_MIN : bl;
+        br = br > 0 ? 0 : br < BALANCE_MIN ? BALANCE_MIN : br;
+
+        int[] values = new int[]{fl, fr, bl, br};
+        Logger.d("setBalances: 前左/前右/后左/后右喇叭的衰减平衡音量值 = " + Arrays.toString(values));
+        for (int i = 0; i < values.length; i++) {
+            EffectManager.getInstance().setBalance(Constants.SPEAKER_TYPES[i], values[i]);
+            saveBalance(Constants.SPEAKER_TYPES[i], values[i]);
+        }
 
     }
 
     public void setXBalanceByWeight(@IntRange(from = 0, to = 10) int x) {
-        Logger.d("坐标为:" + x);
+        Logger.i("setXBalanceByWeight: 坐标范围为0-10, x = " + x + "衰减平衡最小值为-144");
         int fl, fr, bl, br;
         fl = fr = 0;
         bl = br = BALANCE_MIN;
         if (x < CENTER_LIMIT) {
             // 前左
-            fr = BALANCE_MIN * (CENTER_LIMIT - x) / CENTER_LIMIT;
+            fr = Math.round(BALANCE_MIN * (CENTER_LIMIT - x) * 1.0F / CENTER_LIMIT);
         } else {
             // 前右
-            fl = BALANCE_MIN * (x - CENTER_LIMIT) / CENTER_LIMIT;
+            fl = Math.round(BALANCE_MIN * (x - CENTER_LIMIT) * 1.0F / CENTER_LIMIT);
         }
-        setBalances(new int[]{fl, fr, bl, br});
-        // 这里只保存前排的衰减平衡值到SP
-        saveBalances(new int[]{fl, fr});
 
+        fl = fl > 0 ? 0 : fl < BALANCE_MIN ? BALANCE_MIN : fl;
+        fr = fr > 0 ? 0 : fr < BALANCE_MIN ? BALANCE_MIN : fr;
+        int[] values = new int[]{fl, fr, bl, br};
+        Logger.d("setBalances: 前左/前右/后左/后右喇叭的衰减平衡音量值 = " + Arrays.toString(values));
+        for (int i = 0; i < values.length; i++) {
+            EffectManager.getInstance().setBalance(Constants.SPEAKER_TYPES[i], values[i]);
+            // 不保存后排数据
+            boolean saveFrontRow = Constants.SPEAKER_TYPES[i] == Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_FRONT_LEFT ||
+                    Constants.SPEAKER_TYPES[i] == Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_FRONT_RIGHT;
+            if (saveFrontRow) {
+                saveBalance(Constants.SPEAKER_TYPES[i], values[i]);
+            }
+        }
     }
 
     /**
@@ -155,32 +191,8 @@ public final class AttenuatorManager extends TouchValueLogic {
         } else {
             bl = br = BALANCE_MIN;
         }
-        setBalance(Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_BACK_LEFT, bl);
-        setBalance(Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_BACK_RIGHT, br);
-    }
-
-    private void setBalance(int speaker, int value) {
-        EffectManager.getInstance().setBalance(speaker, value);
-        VolumeManager.getInstance().saveVolume(speaker, value);
-    }
-
-    private void setBalances(int[] values) {
-        Logger.d("setBalances: 前左/前右/后左/后右喇叭的衰减平衡音量值 = " + Arrays.toString(values));
-        // 依次设置前左 前右 后左 后右喇叭的衰减平衡音量值
-        for (int i = 0; i < values.length; i++) {
-            setBalance(Constants.SPEAKER_TYPES[i], values[i]);
-        }
-    }
-
-    private void saveBalances(int[] values) {
-        for (int i = 0; i < values.length; i++) {
-            saveBalance(Constants.SPEAKER_TYPES[i], values[i]);
-        }
-    }
-
-    private void saveBalance(@Constants.ListenPositionSpeakerType int speaker, int value) {
-        String spKey = String.format(Locale.getDefault(), KEY_BALANCE, speaker);
-        SPCacheHelper.getInstance().putInt(spKey, value);
+        EffectManager.getInstance().setBalance(Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_BACK_LEFT, bl);
+        EffectManager.getInstance().setBalance(Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_BACK_RIGHT, br);
     }
 
     /**
@@ -192,5 +204,22 @@ public final class AttenuatorManager extends TouchValueLogic {
     public int getBalance(@Constants.ListenPositionSpeakerType int speaker) {
         String spKey = String.format(Locale.getDefault(), KEY_BALANCE, speaker);
         return SPCacheHelper.getInstance().getInt(spKey, 0);
+    }
+
+    private void saveBalance(@Constants.ListenPositionSpeakerType int speaker, int value) {
+        String spKey = String.format(Locale.getDefault(), KEY_BALANCE, speaker);
+        SPCacheHelper.getInstance().putInt(spKey, value);
+    }
+
+    public void setBalance(int speaker, int volume) {
+        if (speaker == Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_SUBWOOFER) {
+            Integer[] swChannels = Constants.SPEAKER_TYPE_MAP_SUBWOOFER.get(speaker);
+            for (int sw : swChannels) {
+                DspHelper.getDspHelper().setBalance(sw, volume);
+            }
+        } else {
+            int channel = Constants.SPEAKER_TYPE_MAP.get(speaker);
+            DspHelper.getDspHelper().setBalance(channel, volume);
+        }
     }
 }

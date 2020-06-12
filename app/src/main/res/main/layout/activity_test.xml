@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color_white"
                 android:textSize="@dimen/font_16"
+                android:visibility="gone"
                 tools:text="喇叭音量数据(扬声器设置与衰减平衡叠加)" />
 
             <TextView

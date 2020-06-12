@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.widget.TextView;
 
 import com.flyaudio.lib.base.BaseActivity;
+import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.dialog.ResetDialog;
@@ -28,8 +29,8 @@ import java.util.List;
  */
 public class SpeakerVolumeActivity extends BaseActivity {
 
-    public static final int VOLUME_MIN = -20;
-    public static final int VOLUME_MAX = 20;
+    private static final int VOLUME_MIN = SpeakerVolumeManager.VOLUME_MIN;
+    private static final int VOLUME_MAX = SpeakerVolumeManager.VOLUME_MAX;
 
     private CommTitleBar titleBar;
     private SoundEffectView soundEffectView;
@@ -135,7 +136,7 @@ public class SpeakerVolumeActivity extends BaseActivity {
 
     private void setVolume(@Constants.ListenPositionType int position, @Constants.ListenPositionSpeakerType int speaker, int volume) {
         speakerVolumeManager.saveSpeakerVolume(position, speaker, volume);
-        EffectManager.getInstance().setBalance(speaker, volume);
+        EffectManager.getInstance().setSpeakerVolume(speaker, volume);
     }
 
 }

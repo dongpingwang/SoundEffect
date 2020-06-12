@@ -1,11 +1,12 @@
 package com.flyaudio.soundeffect.speaker.logic;
 
 import android.util.SparseArray;
-
 import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
+import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
+import com.flyaudio.soundeffect.trumpet.logic.SubwooferManager;
 
 import java.util.Locale;
 
@@ -16,11 +17,15 @@ import java.util.Locale;
  */
 public final class SpeakerVolumeManager {
 
+    public static final int VOLUME_MIN = -20;
+    public static final int VOLUME_MAX = 12;
+
     private static SparseArray<SparseArray<SpeakerVolumeDataLogic.ChannelVolumeSpeakerBean>> speakerVolumeMap;
 
     private SpeakerVolumeManager() {
 
     }
+
 
     private static class InstanceHolder {
         private static SpeakerVolumeManager instance = new SpeakerVolumeManager();
@@ -37,8 +42,12 @@ public final class SpeakerVolumeManager {
 
     public void init() {
         int listenPosition = ListenPositionManager.getInstance().getListenPosition();
+        boolean subwooferOn = SubwooferManager.getInstance().isSubwooferOn();
         for (int speaker : Constants.SPEAKER_TYPES) {
             int volume = getSpeakerVolume(listenPosition, speaker);
+            if (speaker == Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_SUBWOOFER && !subwooferOn) {
+                volume = VOLUME_MIN;
+            }
             setSpeakerVolume(speaker, volume);
         }
     }
@@ -49,6 +58,20 @@ public final class SpeakerVolumeManager {
         }
         return speakerVolumeMap;
     }
+
+    public void setSpeakerVolumeIfSubwooferOff(boolean enable) {
+        int position = ListenPositionManager.getInstance().getListenPosition();
+        int speaker = Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_SUBWOOFER;
+        int volume;
+        if (enable) {
+            volume = getSpeakerVolume(position, speaker);
+        } else {
+            volume = VOLUME_MIN;
+        }
+        EffectManager.getInstance().setSpeakerVolume(speaker, volume);
+
+    }
+
 
     /**
      * 获取喇叭音量
@@ -79,7 +102,6 @@ public final class SpeakerVolumeManager {
                                   @Constants.ListenPositionSpeakerType int speaker, int volume) {
         String spKey = String.format(Locale.getDefault(), KEY_SPEAKER_VOLUME, position, speaker);
         SPCacheHelper.getInstance().put(spKey, volume);
-        VolumeManager.getInstance().saveVolume(speaker, volume);
     }
 
     /**
@@ -98,11 +120,11 @@ public final class SpeakerVolumeManager {
         if (speaker == Constants.ListenPositionSpeakerType.LISTEN_POSITION_SPEAKER_SUBWOOFER) {
             Integer[] swChannels = Constants.SPEAKER_TYPE_MAP_SUBWOOFER.get(speaker);
             for (int sw : swChannels) {
-                DspHelper.getDspHelper().setBalance(sw, volume);
+                DspHelper.getDspHelper().setChannelVolume(sw, volume);
             }
         } else {
             int channel = Constants.SPEAKER_TYPE_MAP.get(speaker);
-            DspHelper.getDspHelper().setBalance(channel, volume);
+            DspHelper.getDspHelper().setChannelVolume(channel, volume);
         }
     }
 }

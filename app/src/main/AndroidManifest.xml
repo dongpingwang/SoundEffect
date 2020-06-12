@@ -6,6 +6,11 @@
     android:versionCode="1"
     android:versionName="1.0.0">
 
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name=".main.activity.SoundEffectApplication"
         android:allowBackup="true"

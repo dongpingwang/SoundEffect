@@ -1,8 +1,10 @@
 package com.flyaudio.soundeffect.trumpet.logic;
 
+import com.flyaudio.lib.log.Logger;
 import com.flyaudio.lib.sp.SPCacheHelper;
 import com.flyaudio.soundeffect.dsp.dsp.DspConstants;
 import com.flyaudio.soundeffect.dsp.dsp.DspHelper;
+import com.flyaudio.soundeffect.speaker.logic.SpeakerVolumeManager;
 
 /**
  * @author Dongping Wang
@@ -38,7 +40,7 @@ public final class SubwooferManager {
     }
 
     public void init() {
-        setSubwooferEnable(isSubwooferOn());
+        setSubwooferEnable(isSubwooferOn(), false);
         setSubooferReverse(isSubwooferReverse());
     }
 
@@ -64,7 +66,15 @@ public final class SubwooferManager {
      * @param enable 是否打开重低音输出
      */
     public void setSubwooferEnable(boolean enable) {
+        Logger.d("setSubwooferEnable:" + enable);
+        setSubwooferEnable(enable, true);
+    }
+
+    private void setSubwooferEnable(boolean enable, boolean setSpeaker) {
         DspHelper.getDspHelper().setChannel(DspConstants.AudioSpeakerLayout.SPEAKER_LAYOUT_SUBWOOF.getValue(), enable);
+        if (setSpeaker) {
+            SpeakerVolumeManager.getInstance().setSpeakerVolumeIfSubwooferOff(enable);
+        }
     }
 
     /**

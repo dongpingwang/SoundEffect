@@ -61,7 +61,7 @@ public final class BackRowManager {
     private void setBackRowEnable(boolean enable, boolean setBalance) {
         DspHelper.getDspHelper().setChannel(DspConstants.AudioSpeakerLayout.SPEAKER_LAYOUT_REAR.getValue(), enable);
         if (setBalance) {
-            AttenuatorManager.getInstance().setBalanceIfBackRowOff(BackRowManager.getInstance().isBackRowOn());
+            AttenuatorManager.getInstance().setBalanceIfBackRowOff(enable);
         }
     }
 

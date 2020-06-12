@@ -89,6 +89,13 @@ public final class EffectManager implements IDspCheck.DspServiceConnection, Even
         AppUtils.getContext().startService(intent);
     }
 
+    public void setSpeakerVolume(int speaker, int volumeValue) {
+        Intent intent = getIntent(Actions.EXTRA_SET_SPEAKER_VOLUME)
+                .putExtra(Actions.EXTRA_SPEAKER, speaker)
+                .putExtra(Actions.EXTRA_SPEAKER_VOLUME_VALUE, volumeValue);
+        AppUtils.getContext().startService(intent);
+    }
+
     public void setSubwooferEnable() {
         startService(Actions.EXTRA_SET_TRUMPET_SUBWOOFER);
     }
