@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.flyaudio.lib.base.BaseFragment;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.base.AbstractFragment;
@@ -14,11 +13,8 @@ import com.flyaudio.soundeffect.comm.view.SpeakersLayout;
 import com.flyaudio.soundeffect.delay.activity.TimeCalibrationActivity;
 import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.main.event.Event;
-import com.flyaudio.soundeffect.position.logic.Constants;
 import com.flyaudio.soundeffect.position.logic.ListenPositionManager;
 import com.flyaudio.soundeffect.speaker.activity.SpeakerVolumeActivity;
-import com.flyaudio.soundeffect.speaker.logic.SpeakerVolumeManager;
-import com.flyaudio.soundeffect.speaker.logic.VolumeManager;
 import com.flyaudio.soundeffect.trumpet.logic.BackRowManager;
 
 /**
@@ -36,7 +32,6 @@ public class ListenPositionFragment extends AbstractFragment implements View.OnC
     private ListenPositionButtons buttons;
     private SpeakersLayout speakers;
     private static ListenPositionManager listenPositionManager;
-
 
     @Override
     protected int getLayoutId() {
@@ -80,25 +75,22 @@ public class ListenPositionFragment extends AbstractFragment implements View.OnC
         int listenPosition = listenPositionManager.index2ListenPosition(index);
         listenPositionManager.saveListenPosition(listenPosition);
         EffectManager.getInstance().setListenPosition();
-        // 保存扬声器音量数据到喇叭音量
-//        for (int speaker : Constants.SPEAKER_TYPES) {
-//            int volume = SpeakerVolumeManager.getInstance().getSpeakerVolume(listenPosition, speaker);
-//            VolumeManager.getInstance().saveVolume(speaker, volume);
-//        }
         speakers.setSpeakersEnable(listenPositionManager.listenPosition2SpeakerStatus(listenPosition));
         // 关闭时不能调节喇叭音量和通道延时
-        tvSpeakerAdjust.setEnabled(listenPosition != Constants.ListenPositionType.LISTEN_POSITION_CLOSE);
-        tvDelayAdjust.setEnabled(listenPosition != Constants.ListenPositionType.LISTEN_POSITION_CLOSE);
+        boolean closePosition = listenPositionManager.isClosePosition(listenPosition);
+        tvSpeakerAdjust.setEnabled(!closePosition);
+        tvDelayAdjust.setEnabled(!closePosition);
     }
 
     @Override
     public void onClick(View view) {
-        Intent intent;
+        Class<?> clazz;
         if (view.getId() == R.id.tv_speaker) {
-            intent = new Intent(context(), SpeakerVolumeActivity.class);
+            clazz = SpeakerVolumeActivity.class;
         } else {
-            intent = new Intent(context(), TimeCalibrationActivity.class);
+            clazz = TimeCalibrationActivity.class;
         }
+        Intent intent = new Intent(context(), clazz);
         intent.putExtra(INTENT_POSITION_NAME, buttons.getPositionName());
         startActivity(intent);
     }

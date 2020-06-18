@@ -1,10 +1,8 @@
 package com.flyaudio.soundeffect.equalizer.activity;
 
-import android.os.SystemClock;
 import android.view.View;
 
 import com.flyaudio.lib.base.BaseActivity;
-import com.flyaudio.lib.constant.TimeUnit;
 import com.flyaudio.lib.utils.ResUtils;
 import com.flyaudio.soundeffect.R;
 import com.flyaudio.soundeffect.comm.dialog.ResetDialog;
@@ -13,13 +11,13 @@ import com.flyaudio.soundeffect.comm.view.CommAdjustButton;
 import com.flyaudio.soundeffect.comm.view.CommTitleBar;
 import com.flyaudio.soundeffect.comm.view.CommVerticalAdjustButton;
 import com.flyaudio.soundeffect.comm.view.eq.EqSquareBars;
-import com.flyaudio.soundeffect.config.AppPreferences;
 import com.flyaudio.soundeffect.dsp.service.EffectManager;
 import com.flyaudio.soundeffect.equalizer.bean.EqDataBean;
 import com.flyaudio.soundeffect.equalizer.bean.EqMode;
 import com.flyaudio.soundeffect.equalizer.dialog.EqDataDetailDialog;
 import com.flyaudio.soundeffect.equalizer.logic.EqManager;
 import com.flyaudio.soundeffect.equalizer.logic.EqRegionDataLogic;
+import com.flyaudio.soundeffect.equalizer.util.TestUtils;
 
 /**
  * @author Dongping Wang
@@ -38,12 +36,10 @@ public class EqAdjustActivity extends BaseActivity {
     private CommAdjustButton btnFreq, btnEqValue;
     private ResetDialog resetDialog;
     private EqDataDetailDialog eqDataDetailDialog;
-
     private EqMode eqMode;
     private EqManager eqManager;
     private EqDataBean eqDataBean;
 
-    private long[] mHints = new long[5];
 
     @Override
     protected int getLayoutId() {
@@ -172,24 +168,10 @@ public class EqAdjustActivity extends BaseActivity {
     }
 
     private void test() {
-        if (!AppPreferences.USER_DEBUG) {
-            return;
+        if (eqDataDetailDialog == null) {
+            eqDataDetailDialog = new EqDataDetailDialog(context());
         }
-        // 点击5次打开eq数据详情
-        titleBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.arraycopy(mHints, 1, mHints, 0, mHints.length - 1);
-                mHints[mHints.length - 1] = SystemClock.uptimeMillis();
-                if (SystemClock.uptimeMillis() - mHints[0] <= TimeUnit.SEC) {
-                    if (eqDataDetailDialog == null) {
-                        eqDataDetailDialog = new EqDataDetailDialog(context());
-                    }
-                    eqDataDetailDialog.show();
-                    eqDataDetailDialog.updateMsg(eqDataBean);
-                }
-            }
-        });
+        TestUtils.test(titleBar, eqDataDetailDialog, eqDataBean);
     }
 
 }

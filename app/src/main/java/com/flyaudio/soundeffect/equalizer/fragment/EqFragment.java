@@ -120,6 +120,7 @@ public class EqFragment extends AbstractFragment {
                 } else {
                     data.setName(name);
                     adapter.updateItem(position, data);
+                    eqManager.saveEqList(adapter.getDatas());
                     onCancel();
                 }
             }

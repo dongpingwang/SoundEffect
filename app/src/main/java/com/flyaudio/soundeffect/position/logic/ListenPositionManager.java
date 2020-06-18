@@ -95,4 +95,8 @@ public final class ListenPositionManager {
         }
         return new boolean[]{frontLeft, frontRight, backRow};
     }
+
+    public boolean isClosePosition(int listenPosition) {
+        return listenPosition == Constants.ListenPositionType.LISTEN_POSITION_CLOSE;
+    }
 }

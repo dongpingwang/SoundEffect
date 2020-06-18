@@ -1,6 +1,6 @@
 ext {
     // app version
-    versionName = '1.0.0'
+    versionName = '1.0.1'
     versionCode = 1
 
     // tool version
