@@ -52,6 +52,12 @@ android {
         }
     }
 
+    repositories {
+        flatDir {
+            dirs 'sys-libs', 'flyaudio-libs', 'libs'
+        }
+    }
+
     android.applicationVariants.all {
         variant ->
             variant.outputs.all {
@@ -81,13 +87,14 @@ dependencies {
     // recycler-view
     implementation "com.android.support:recyclerview-v7:$recyclerview_version"
 
-    // framework(@Deprecated)
-    // flyaudio.jar
-    //compileOnly fileTree(include: ['*.jar'], dir: 'syslibs')
-    implementation files('sys-libs/flyaudio.jar')
-
     // flyaudio-libs
-    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'flyaudio-libs')
+    implementation(name: 'flyaudio-base', ext: 'aar')
+    implementation(name: 'flyaudio-res', ext: 'aar')
+    implementation(name: 'flyaudio-ui', ext: 'aar')
+    implementation(name: 'flyaudio-service-dsp-client', ext: 'aar')
+    implementation(name: 'flyaudio-service-comm-base', ext: 'aar')
+    implementation(name: 'flyaudio-service-comm-utils', ext: 'aar')
+    implementation(name: 'flyaudio-service-dsp-aidl', ext: 'aar')
 
     // gson
     implementation "com.google.code.gson:gson:$gson_version"
